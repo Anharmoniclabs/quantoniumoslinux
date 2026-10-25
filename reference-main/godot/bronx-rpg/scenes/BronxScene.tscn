@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bronxscene_main"]
+
+[ext_resource type="Script" path="res://scripts/BronxScene.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/WorldLoader.gd" id="2_world"]
+[ext_resource type="Script" path="res://scripts/AgentBridge.gd" id="3_bridge"]
+[ext_resource type="PackedScene" path="res://scenes/Hud.tscn" id="4_hud"]
+
+[node name="BronxScene" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="World" type="Node2D" parent="."]
+script = ExtResource("2_world")
+
+[node name="Agents" type="Node2D" parent="."]
+
+[node name="AgentBridge" type="Node" parent="."]
+script = ExtResource("3_bridge")
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]

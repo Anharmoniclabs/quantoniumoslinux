@@ -1,0 +1,126 @@
+# SPDX-License-Identifier: LicenseRef-SPX-Proprietary
+# Copyright (C) 2025-2026 Luis M. Minier / quantoniumos
+#
+# CMakeLists.wasm.txt — Emscripten/WASM Build for Streaming Inference
+# ====================================================================
+#
+# Usage (from src/rftmw_native/):
+#   mkdir build_wasm && cd build_wasm
+#   emcmake cmake -f ../CMakeLists.wasm.txt ..
+#   emmake make -j$(nproc)
+#
+# Produces:
+#   rftmw_streaming.js    — JS glue (ES module)
+#   rftmw_streaming.wasm  — WASM binary (~200 KB)
+#
+# The JS host (inference_worker.js) loads these in a Web Worker.
+
+cmake_minimum_required(VERSION 3.18)
+project(rftmw_wasm LANGUAGES CXX C)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+# ── Sources ──────────────────────────────────────────────────────
+
+set(WASM_C_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/rftmw_spectral_kernels.c
+)
+
+# Thin main that just exports the C API from the streaming engine header
+set(WASM_CXX_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/rftmw_wasm_main.cpp
+)
+
+# ── Compile options ──────────────────────────────────────────────
+
+add_executable(rftmw_streaming
+    ${WASM_CXX_SOURCES}
+    ${WASM_C_SOURCES}
+)
+
+target_include_directories(rftmw_streaming PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_compile_definitions(rftmw_streaming PRIVATE
+    RFTMW_WASM_BUILD=1
+    RFTMW_ENABLE_ASM=0
+    RFTMW_ENABLE_NATIVE_GEMV_ASM=0
+    RFTMW_ENABLE_SPECTRAL_DOT_ASM=0
+    NDEBUG
+)
+
+target_compile_options(rftmw_streaming PRIVATE
+    -O3
+    -fno-exceptions
+    -fno-rtti
+    -msimd128           # WASM SIMD128 for vectorized loops
+)
+
+# ── Emscripten link flags ────────────────────────────────────────
+# EXPORTED_FUNCTIONS: the C API from rftmw_streaming_engine.hpp
+# MODULARIZE: produce an ES module factory function
+# ALLOW_MEMORY_GROWTH: needed for dynamic layer loading
+# TOTAL_MEMORY: initial heap (128 MB, grows up to 1 GB)
+# MAXIMUM_MEMORY: hard cap at 1 GB
+
+set(EXPORTED_FUNCTIONS
+    "_streaming_model_create"
+    "_streaming_model_load_embeddings"
+    "_streaming_model_forward"
+    "_streaming_model_vocab_size"
+    "_streaming_model_destroy"
+    "_streaming_model_set_layer_data"
+    "_malloc"
+    "_free"
+)
+
+# Join list for -sEXPORTED_FUNCTIONS=[...]
+string(JOIN "," EXPORTED_FUNCTIONS_STR ${EXPORTED_FUNCTIONS})
+
+target_link_options(rftmw_streaming PRIVATE
+    "SHELL:-s MODULARIZE=1"
+    "SHELL:-s EXPORT_ES6=1"
+    "SHELL:-s EXPORTED_FUNCTIONS=[${EXPORTED_FUNCTIONS_STR}]"
+    "SHELL:-s EXPORTED_RUNTIME_METHODS=[ccall,cwrap,getValue,setValue,HEAPU8,HEAPF32]"
+    "SHELL:-s ALLOW_MEMORY_GROWTH=1"
+    "SHELL:-s INITIAL_MEMORY=134217728"
+    "SHELL:-s MAXIMUM_MEMORY=1073741824"
+    "SHELL:-s WASM=1"
+    "SHELL:-s ENVIRONMENT=worker"
+    "SHELL:-s FILESYSTEM=0"
+    "SHELL:-s NO_EXIT_RUNTIME=1"
+    "SHELL:-s SINGLE_FILE=0"
+    -O3
+    --no-entry
+)
+
+# ── Copy WebGPU assets alongside the WASM output ─────────────────
+# The WGSL shader and JS runtime are served alongside the WASM binary.
+# They're fetched at runtime by the WebGPU accelerator.
+
+add_custom_command(TARGET rftmw_streaming POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/webgpu/rftmw_spectral_gemv.wgsl
+        $<TARGET_FILE_DIR:rftmw_streaming>/rftmw_spectral_gemv.wgsl
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/webgpu/rftmw_webgpu_runtime.js
+        $<TARGET_FILE_DIR:rftmw_streaming>/rftmw_webgpu_runtime.js
+    COMMENT "Copying WebGPU shader + runtime alongside WASM output"
+)
+
+set_target_properties(rftmw_streaming PROPERTIES
+    SUFFIX ".js"
+    OUTPUT_NAME "rftmw_streaming"
+)
+
+message(STATUS "")
+message(STATUS "RFTMW WASM Build Configuration:")
+message(STATUS "  Target: rftmw_streaming.js + rftmw_streaming.wasm")
+message(STATUS "  SIMD128: ON")
+message(STATUS "  Initial heap: 128 MB")
+message(STATUS "  Max heap: 1 GB")
+message(STATUS "")

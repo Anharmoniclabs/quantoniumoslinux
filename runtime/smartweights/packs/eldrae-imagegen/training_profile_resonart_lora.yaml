@@ -1,0 +1,39 @@
+name: resonart-lora-512-cpu
+version: 0.1.1
+strategy: lora-adaptation
+engine_target: resonart
+device_target: cpu
+resolution:
+  width: 512
+  height: 512
+quality_mode: cpu
+base_model: runwayml/stable-diffusion-v1-5
+dataset:
+  prepare_script: scripts/ai/prepare_resonart_lora_dataset.py
+  expected_metadata: data/resonart_lora_train_quick/metadata.jsonl
+training:
+  launcher_script: scripts/ai/train_resonart_lora.py
+  diffusers_script: scripts/ai/train_text_to_image_lora.py
+  default_args:
+    mixed_precision: "no"
+    train_batch_size: 1
+    gradient_accumulation_steps: 4
+    gradient_checkpointing: true
+    num_workers: 0
+    max_train_steps: 100
+    checkpointing_steps: 25
+    learning_rate: 0.0001
+    rank: 16
+    snr_gamma: 5.0
+    lr_scheduler: cosine
+    lr_warmup_steps: 0
+validation:
+  infer_script: scripts/ai/infer_resonart_lora.py
+  prompts:
+    - "a realistic golden retriever portrait, soft daylight"
+    - "a cinematic city skyline after rain"
+notes:
+  - CPU profile: use fp32, 512px crops, and short checkpoints to avoid multi-hour blind runs.
+  - Use num_workers=0 on Windows/Python 3.13 to avoid dataloader pickling failures.
+  - Keep base weights frozen and store adapters only.
+  - Use local output dirs under models/resonart_lora_*.

@@ -1,0 +1,525 @@
+"""Controller: inspect -> plan -> approve -> edit snapshot -> verify -> patch + evidence.
+
+The model proposes; the controller decides what is permitted and what counts as done.
+Final statuses (exactly one per run):
+    verified        changes made and a real check (tests) passed
+    unverified      changes made; no failing check, but nothing beyond syntax could confirm them
+    improved        checks still fail, but with fewer failures than before the change
+    failed_checks   checks fail after all fix attempts
+    no_change       finished without changing anything
+    stalled         no progress (repeated non-edit actions or no tool calls)
+    budget_exhausted  step or time budget used up
+    rejected / no_plan  the plan was not approved / never proposed
+    error           the model server or harness failed
+"""
+from __future__ import annotations
+
+import json
+import time
+from dataclasses import asdict, dataclass, field
+from pathlib import Path
+from typing import Callable
+
+from .checks import CheckResult, CheckRunner, detect_checks
+from .context import ProjectInstructions
+from .dev import DevProcessManager
+from .llm import ContextOverflow, ModelError, Reply, ToolCall
+from .policy import ActionPolicy, apply_policy
+from .skills import SkillRegistry
+from .tools import build_tools
+from .workspace import ToolError, Workspace
+
+SYSTEM_PROMPT = """You are an autonomous software engineer working through tools on a private copy \
+of a project. Nothing you do touches the user's original files; your changes become a patch they review.
+
+How to work:
+1. Locate: use search, outline and list_dir to find the relevant code. Read only the region you need.
+2. Understand: read_file the exact lines before changing them.
+3. Change: make the smallest correct edit with replace_in_file or edit_lines, in the surrounding style.
+4. Verify: run_check (tests, syntax) or run_command for a focused test.
+5. Finish: call finish saying what you changed and how you verified it. The controller re-runs the \
+checks; if they fail you will be asked to fix them.
+
+Rules:
+- Act through a tool call every turn. Nobody will answer questions.
+- A tool error is a message for you: read it and adjust instead of repeating the same call.
+- Do not weaken or delete tests to make them pass unless the task says so.
+- If you are stuck, call finish and say exactly what blocked you. An honest partial result beats a fake success."""
+
+TEXT_MODE_SUFFIX = """
+
+Call a tool by replying with exactly one JSON object and nothing else:
+{"name": "<tool name>", "arguments": {...}}
+Available tools:
+"""
+
+ELIDED = "[older tool output removed to save context; call the tool again if you need it]"
+
+
+@dataclass
+class AgentConfig:
+    max_steps: int = 40            # execute-phase model turns
+    plan_steps: int = 10           # read-only turns allowed before propose_plan
+    plan_first: bool = True
+    require_approval: bool = True  # False: plans are auto-approved (batch / Kaggle)
+    replan_limit: int = 2
+    explore_budget: int = 12       # non-edit calls in a row before a nudge; 2x stops the run
+    tool_retries: int = 2          # repair turns after consecutive malformed tool responses
+    finish_retries: int = 2        # times a failed verification sends the agent back to work
+    verify: tuple = ("syntax", "tests")
+    baseline_checks: bool = True   # run tests once before any change, for comparison
+    time_budget: float = 1800
+    command_timeout: int = 300
+    tool_output_chars: int = 6000
+    compact_at_tokens: int = 22000
+    tool_mode: str = "native"      # "native" tool calls, or "text" JSON for servers without tools
+    allow_shell: bool = True
+    allow_extract: bool = True
+    continuous_verify: tuple = ("syntax",)  # cheap checks after every successful edit
+    full_verify_every_edits: int = 3        # run tests every N edits when available; 0 disables
+    checkpoint_every_edit: bool = True
+    review_every_edits: int = 2             # only used when a reviewer model is configured
+
+
+@dataclass
+class RunResult:
+    status: str
+    summary: str
+    patch: str
+    steps: int
+    changed_files: list
+    plan: dict | None
+    checks: dict = field(default_factory=dict)
+    evidence_dir: str = ""
+    seconds: float = 0.0
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+class EventLog:
+    """Ordered, append-only evidence of everything the run did."""
+
+    def __init__(self, path: Path):
+        self.path = Path(path)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        self.path.write_text("")
+        self.seq = 0
+
+    def __call__(self, event: str, /, **data):
+        self.seq += 1
+        with self.path.open("a") as f:
+            f.write(json.dumps({"seq": self.seq, "t": round(time.time(), 3), "event": event, **data},
+                               default=str) + "\n")
+
+
+def clip(text: str, limit: int) -> str:
+    if len(text) <= limit:
+        return text
+    head = limit * 2 // 3
+    return f"{text[:head]}\n... [{len(text) - limit} chars omitted] ...\n{text[-(limit - head):]}"
+
+
+def auto_approve(plan: dict) -> tuple[bool, str]:
+    return True, ""
+
+
+class Agent:
+    def __init__(self, client, ws: Workspace, *, config: AgentConfig | None = None,
+                 checks: CheckRunner | None = None,
+                 approver: Callable[[dict], tuple[bool, str]] | None = None,
+                 lessons: list[str] = (), policy: ActionPolicy | None = None,
+                 evidence_dir: Path | None = None, reviewer=None,
+                 skills: SkillRegistry | None = None,
+                 project_instructions: ProjectInstructions | None = None):
+        self.client = client
+        self.ws = ws
+        self.config = config or AgentConfig()
+        self.checks = checks or CheckRunner(detect_checks(ws.repo), timeout=self.config.command_timeout * 2)
+        self.approver = approver or (auto_approve if not self.config.require_approval else None)
+        if self.approver is None:
+            raise ValueError("require_approval=True needs an approver callback.")
+        self.lessons = list(lessons)
+        self.policy = policy
+        self.reviewer = reviewer
+        self.evidence_dir = Path(evidence_dir or ws.work_dir / "evidence")
+        self.project_instructions = project_instructions or ProjectInstructions(ws.repo)
+        self.skills = skills or SkillRegistry(ws.repo)
+        self.dev = DevProcessManager(ws, self.evidence_dir)
+        self.log = EventLog(self.evidence_dir / "events.jsonl")
+        self.tools = build_tools(self.config.allow_shell, self.config.allow_extract)
+        self.active_skills: list[str] = []
+        self.edit_count = 0
+        self.task = ""
+        self.messages: list[dict] = []
+        self._result_idx: list[int] = []
+        self._call_idx: list[int] = []
+        self._seen_calls: dict[str, int] = {}
+        self.generation = 0        # bumps on every edit or command: invalidates duplicate detection
+        self.steps = 0
+        self.no_progress = 0
+        self.finish_attempts = 0
+        self.protocol_failures = 0
+        self.baseline: dict[str, CheckResult] = {}
+        self.final: dict[str, CheckResult] = {}
+        self.last_tool = ""
+        self.started = time.monotonic()
+
+    # ------------------------------------------------------------ tool context
+
+    def run_check(self, name: str, extra: str = "") -> str:
+        r = self.checks.run(name, self.ws, extra)
+        self.log("check", phase="agent", **{**r.to_dict(), "output": clip(r.output, 2000)})
+        return r.brief() + "\n" + r.output
+
+    def activate_skill(self, name: str) -> str:
+        try:
+            skill = self.skills.get(name)
+        except KeyError as exc:
+            return f"ERROR: {exc}"
+        if name not in self.active_skills:
+            self.active_skills.append(name)
+        missing = [t for t in skill.tools if t not in self.tools]
+        self.log("skill", name=name, source=skill.source, missing_tools=missing)
+        note = f"\n\nUnavailable harness tools: {', '.join(missing)}" if missing else ""
+        return skill.render() + note
+
+    def _after_edit(self) -> str:
+        """Checkpoint and verify continuously after a successful repository mutation."""
+        self.edit_count += 1
+        reports: list[str] = []
+        patch = self.ws.patch()
+        if self.config.checkpoint_every_edit:
+            checkpoint_dir = self.evidence_dir / "checkpoints"
+            checkpoint_dir.mkdir(parents=True, exist_ok=True)
+            path = checkpoint_dir / f"edit-{self.edit_count:04d}-step-{self.steps:04d}.diff"
+            path.write_text(patch)
+            self.log("checkpoint", edit=self.edit_count, step=self.steps, path=str(path),
+                     changed=self.ws.changed_files())
+
+        names = [n for n in self.config.continuous_verify if n in self.checks.checks]
+        if (self.config.full_verify_every_edits and
+                self.edit_count % self.config.full_verify_every_edits == 0 and
+                "tests" in self.checks.checks and "tests" not in names):
+            names.append("tests")
+        check_briefs = []
+        for name in names:
+            result = self.checks.run(name, self.ws)
+            self.log("check", phase="continuous", edit=self.edit_count,
+                     **{**result.to_dict(), "output": clip(result.output, 2000)})
+            check_briefs.append(result.brief())
+            reports.append(result.brief() + ("\n" + clip(result.output, 2500) if result.output else ""))
+
+        cadence = max(1, int(self.config.review_every_edits or 1))
+        if self.reviewer is not None and self.edit_count % cadence == 0:
+            review = self.reviewer.review(self.task, patch, "\n".join(check_briefs))
+            self.log("review", phase="continuous", edit=self.edit_count, notes=clip(review, 4000))
+            reports.append("[reviewer]\n" + review)
+        return "\n\n".join(reports)
+
+    # ------------------------------------------------------------ model I/O
+
+    def _system(self) -> str:
+        if self.config.tool_mode != "text":
+            return SYSTEM_PROMPT
+        lines = [f"- {t.name}({', '.join(t.params)}): {t.description}" for t in self.tools.values()]
+        return SYSTEM_PROMPT + TEXT_MODE_SUFFIX + "\n".join(lines)
+
+    def _ask(self, offered: list[str]) -> Reply:
+        schemas = None if self.config.tool_mode == "text" else [self.tools[n].schema() for n in offered]
+        try:
+            reply = self.client.chat(self.messages, schemas, set(offered))
+        except ContextOverflow:
+            self._compact(keep_last=2)
+            reply = self.client.chat(self.messages, schemas, set(offered))
+        if reply.prompt_tokens is not None and reply.prompt_tokens > self.config.compact_at_tokens:
+            self._compact()
+        if reply.native:
+            self.messages.append({"role": "assistant", "content": reply.content or "",
+                                  "tool_calls": reply.raw_tool_calls})
+            self._call_idx.append(len(self.messages) - 1)
+        else:
+            self.messages.append({"role": "assistant", "content": reply.content or ""})
+        self.log("model", content=clip(reply.content or "", 2000), reasoning=clip(reply.reasoning or "", 2000),
+                 calls=[{"name": c.name, "args": c.arguments} for c in reply.tool_calls],
+                 native=reply.native, prompt_tokens=reply.prompt_tokens,
+                 completion_tokens=reply.completion_tokens)
+        return reply
+
+    def _deliver(self, reply: Reply, results: list[tuple[ToolCall, str]]):
+        limit = self.config.tool_output_chars
+        if reply.native:
+            for call, text in results:
+                self.messages.append({"role": "tool", "tool_call_id": call.id, "name": call.name,
+                                      "content": clip(text, limit)})
+                self._result_idx.append(len(self.messages) - 1)
+        elif results:
+            body = "\n\n".join(f"### {c.name} result\n{clip(t, limit)}" for c, t in results)
+            self.messages.append({"role": "user", "content": "[tool results]\n" + body})
+            self._result_idx.append(len(self.messages) - 1)
+
+    def _say(self, text: str):
+        self.messages.append({"role": "user", "content": text})
+        self.log("controller", message=text)
+
+    def _compact(self, keep_last: int = 6):
+        for i in self._result_idx[:-keep_last]:
+            self.messages[i]["content"] = ELIDED if self.messages[i]["role"] == "tool" \
+                else "[tool results]\n" + ELIDED
+        for i in self._call_idx[:-keep_last]:
+            for c in self.messages[i].get("tool_calls") or []:
+                fn = c.get("function") or {}
+                if len(str(fn.get("arguments", ""))) > 1500:
+                    fn["arguments"] = json.dumps({"elided": "large arguments removed"})
+
+    # ------------------------------------------------------------ tool dispatch
+
+    def _validate_reply(self, reply: Reply, offered: list[str]) -> bool:
+        """Preflight the entire turn before any effects, including control tools."""
+        errors = []
+        control_count = sum(c.name in ("finish", "propose_plan") for c in reply.tool_calls)
+        for call in reply.tool_calls:
+            try:
+                if control_count > 1 and call.name in ("finish", "propose_plan"):
+                    raise ToolError("Send at most one control call (finish or propose_plan) per turn.")
+                if call.error:
+                    raise ToolError(call.error)
+                if call.name not in offered or call.name not in self.tools:
+                    raise ToolError(f"Tool {call.name!r} is not available now. Available: {', '.join(offered)}")
+                if call.arguments is None:
+                    raise ToolError("The arguments were not valid JSON. Send a JSON object matching the tool's parameters.")
+                call.arguments = self.tools[call.name].validate(call.arguments)
+                errors.append("")
+            except ToolError as exc:
+                errors.append(f"ERROR: {exc}")
+        if not any(errors):
+            if reply.tool_calls:
+                self.protocol_failures = 0
+            return True
+        self.protocol_failures += 1
+        self.log("protocol_error", attempt=self.protocol_failures, errors=errors)
+        self._deliver(reply, [(call, error or "Not executed: another call in this turn was invalid. "
+                               "Resend the corrected turn.")
+                              for call, error in zip(reply.tool_calls, errors)])
+        if self.protocol_failures > max(0, self.config.tool_retries):
+            raise ModelError(f"Tool protocol repair budget exhausted after {self.protocol_failures} invalid turns.")
+        self._say("Correct the tool-call errors and retry. "
+                  f"Repair attempts remaining: {self.config.tool_retries - self.protocol_failures + 1}.")
+        return False
+
+    def _execute(self, call: ToolCall, offered: list[str]) -> str:
+        tool = self.tools.get(call.name)
+        if tool is None or call.name not in offered:
+            return f"ERROR: tool {call.name!r} is not available now. Available: {', '.join(offered)}"
+        if call.arguments is None:
+            return "ERROR: the arguments were not valid JSON. Send a JSON object matching the tool's parameters."
+        try:
+            args = tool.validate(call.arguments)
+        except ToolError as exc:
+            return f"ERROR: {exc}"
+        key = json.dumps([call.name, args], sort_keys=True, default=str)
+        if tool.kind == "read" and self._seen_calls.get(key) == self.generation:
+            self.no_progress += 1
+            return ("(duplicate: you already made this exact call and nothing has changed since. "
+                    "Use that result, or do something different.)")
+        self._seen_calls[key] = self.generation
+        try:
+            out = tool.handler(self, args)
+        except ToolError as exc:
+            out = f"ERROR: {exc}"
+        except Exception as exc:  # a tool bug must not kill the run; the model sees it
+            out = f"ERROR: {type(exc).__name__}: {exc}"
+        self.last_tool = call.name
+        edited = tool.kind == "edit" and out.startswith("ok")
+        progressed = edited or tool.kind in ("check", "dev")
+        if progressed:
+            self.generation += 1
+        self.no_progress = 0 if progressed else self.no_progress + 1
+        self.log("tool", name=call.name, args={k: clip(str(v), 500) for k, v in args.items()},
+                 tool_kind=tool.kind, output=clip(out, 2000))
+        if edited:
+            followup = self._after_edit()
+            if followup:
+                out += "\n\n[continuous verification]\n" + followup
+        return out
+
+    # ------------------------------------------------------------ phases
+
+    def _intro(self, task: str) -> str:
+        parts = [f"Task:\n{task.strip()}", f"Project files:\n{self.ws.list_dir('.', 2)}",
+                 f"Registered checks for run_check: {', '.join(self.checks.names()) or 'none'}",
+                 "Available micro-harness skills:\n" + self.skills.summary()]
+        instructions = self.project_instructions.root_context()
+        if instructions:
+            parts.append("Persistent project instructions:\n" + instructions)
+        if self.baseline:
+            parts.append("Before any change: " + "; ".join(r.brief() for r in self.baseline.values()))
+        if self.lessons:
+            parts.append("Lessons from earlier work on this project:\n" + "\n".join(f"- {l}" for l in self.lessons))
+        return "\n\n".join(parts)
+
+    def _plan_round(self) -> dict | None:
+        readers = [n for n, t in self.tools.items() if t.kind == "read"]
+        idle = 0
+        for turn in range(self.config.plan_steps + 1):
+            offered = readers + ["propose_plan"] if turn < self.config.plan_steps else ["propose_plan"]
+            if turn == self.config.plan_steps:
+                self._say("Time to decide: call propose_plan now.")
+            reply = self._ask(offered)
+            if not self._validate_reply(reply, offered):
+                continue
+            plan, results = None, []
+            for call in reply.tool_calls:
+                if call.name == "propose_plan":
+                    try:
+                        plan = self.tools["propose_plan"].validate(dict(call.arguments or {}))
+                        results.append((call, "Plan submitted for approval."))
+                    except ToolError as exc:
+                        results.append((call, f"ERROR: {exc}"))
+                else:
+                    results.append((call, self._execute(call, offered)))
+            self._deliver(reply, results)
+            if plan:
+                self.log("plan", plan=plan)
+                return plan
+            if not reply.tool_calls:
+                idle += 1
+                if idle >= 3:
+                    return None
+                self._say("Use the read-only tools to inspect the code, then call propose_plan.")
+        return None
+
+    def _approve(self) -> tuple[str | None, dict | None]:
+        self._say("First inspect the relevant code with the read-only tools, then call propose_plan "
+                  "with concrete steps, the files you will change, and the checks you will run. "
+                  "Do not edit anything yet.")
+        for attempt in range(self.config.replan_limit + 1):
+            plan = self._plan_round()
+            if plan is None:
+                return "no_plan", None
+            ok, feedback = self.approver(plan)
+            self.log("approval", approved=ok, feedback=feedback)
+            if ok:
+                note = f" Reviewer note: {feedback}" if feedback else ""
+                self._say("Plan approved. Carry it out now: make the edits, run the checks, "
+                          "then call finish." + note)
+                return None, plan
+            if not feedback or attempt == self.config.replan_limit:
+                return "rejected", plan
+            self._say(f"The plan was rejected: {feedback}\nRevise it and call propose_plan again.")
+        return "rejected", None
+
+    def _finish_gate(self) -> tuple[str | None, str]:
+        """Decide whether a `finish` request is accepted. Returns (final status or None, message)."""
+        if not self.ws.changed_files():
+            return "no_change", "Finished with no changes."
+        self.final = {n: self.checks.run(n, self.ws) for n in self.config.verify if n in self.checks.checks}
+        for r in self.final.values():
+            self.log("check", phase="verify", **{**r.to_dict(), "output": clip(r.output, 2000)})
+        failing = [r for r in self.final.values() if r.status in ("failed", "timeout")]
+        if not failing:
+            real = any(r.status == "passed" and r.name != "syntax" for r in self.final.values())
+            return ("verified" if real else "unverified"), "Accepted."
+        report = "\n\n".join(f"{r.brief()}\n{clip(r.output, 3000)}" for r in failing)
+        base = "; ".join(f"{r.brief()}" for r in self.baseline.values())
+        if self.finish_attempts < self.config.finish_retries:
+            self.finish_attempts += 1
+            return None, (f"Not accepted: verification failed.\n{report}\n"
+                          + (f"\nBefore your change: {base}\n" if base else "")
+                          + "\nFix the cause (or undo_file a change that broke it), then call finish again.")
+        return ("improved" if self._improved() else "failed_checks"), "Stopped: verification still failing."
+
+    def _improved(self) -> bool:
+        before, after = self.baseline.get("tests"), self.final.get("tests")
+        if not before or not after:
+            return False
+        fb = before.counts.get("failed", 0) + before.counts.get("errors", 0)
+        fa = after.counts.get("failed", 0) + after.counts.get("errors", 0)
+        return before.status == "failed" and fa < fb
+
+    def _execute_phase(self) -> tuple[str, str]:
+        permitted = [n for n in self.tools if n != "propose_plan"]
+        idle, nudged = 0, False
+        while True:
+            if self.steps >= self.config.max_steps:
+                return "budget_exhausted", f"Stopped after {self.steps} steps."
+            if time.monotonic() - self.started > self.config.time_budget:
+                return "budget_exhausted", "Time budget used up."
+            state = {"phase": "execute", "step": self.steps, "no_progress": self.no_progress,
+                     "edits": len(self.ws.journal), "last_tool": self.last_tool}
+            offered, ranking = apply_policy(self.policy, state, permitted)
+            if ranking:
+                self.log("policy", mode=self.policy.mode, ranking=ranking, offered=offered)
+            reply = self._ask(offered)
+            self.steps += 1
+            if not self._validate_reply(reply, offered):
+                continue
+            if not reply.tool_calls:
+                idle += 1
+                if idle >= 3:
+                    return "stalled", reply.content or "The model stopped calling tools."
+                self._say("Continue by calling a tool. Call finish when the work is done or you are blocked.")
+                continue
+            idle = 0
+            results, finish_call = [], None
+            for call in reply.tool_calls:
+                if call.name == "finish" and "finish" in offered:
+                    finish_call = call
+                else:
+                    results.append((call, self._execute(call, offered)))
+            if finish_call:
+                status, message = self._finish_gate()
+                results.append((finish_call, message))
+                self._deliver(reply, results)
+                if status:
+                    summary = (finish_call.arguments or {}).get("summary", "")
+                    return status, summary
+                self.no_progress = 0
+                continue
+            self._deliver(reply, results)
+            if self.no_progress >= 2 * self.config.explore_budget:
+                return "stalled", f"{self.no_progress} actions in a row without a change."
+            if self.no_progress >= self.config.explore_budget and not nudged:
+                nudged = True
+                self._say(f"You have made {self.no_progress} calls without changing anything. Make the "
+                          "edit now, or call finish and explain what is blocking you.")
+            elif self.no_progress == 0:
+                nudged = False
+
+    def run(self, task: str) -> RunResult:
+        self.task = task
+        self.log("start", telemetry_schema=1, task=task, config=asdict(self.config), checks=self.checks.names(),
+                 model=getattr(self.client, "model", None))
+        plan, status, summary = None, "error", ""
+        try:
+            if self.config.baseline_checks and "tests" in self.checks.checks:
+                self.baseline["tests"] = self.checks.run("tests", self.ws)
+                self.log("check", phase="baseline",
+                         **{**self.baseline["tests"].to_dict(), "output": clip(self.baseline["tests"].output, 2000)})
+            self.messages = [{"role": "system", "content": self._system()},
+                             {"role": "user", "content": self._intro(task)}]
+            stop = None
+            if self.config.plan_first:
+                stop, plan = self._approve()
+            else:
+                self._say("Start now: inspect, edit, verify, then call finish.")
+            if stop:
+                status, summary = stop, "No approved plan; nothing was changed."
+            else:
+                status, summary = self._execute_phase()
+        except (ModelError, ContextOverflow) as exc:
+            status, summary = "error", f"Model server error: {exc}"
+        except Exception as exc:
+            status, summary = "error", f"Harness error: {type(exc).__name__}: {exc}"
+        self.dev.stop_all()
+        patch = self.ws.patch()
+        result = RunResult(status, summary, patch, self.steps, self.ws.changed_files(), plan,
+                           {"baseline": {k: v.brief() for k, v in self.baseline.items()},
+                            "final": {k: v.brief() for k, v in self.final.items()}},
+                           str(self.evidence_dir), round(time.monotonic() - self.started, 1))
+        (self.evidence_dir / "patch.diff").write_text(patch, encoding="utf-8", newline="")
+        (self.evidence_dir / "result.json").write_text(json.dumps(result.to_dict(), indent=2))
+        (self.evidence_dir / "messages.json").write_text(json.dumps(self.messages, indent=1, default=str))
+        (self.evidence_dir / "journal.json").write_text(json.dumps(self.ws.journal, indent=1))
+        self.log("end", status=status, steps=self.steps, changed=result.changed_files)
+        return result

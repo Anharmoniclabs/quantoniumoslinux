@@ -1,0 +1,99 @@
+.app-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 40px var(--glass-shadow), 0 0 1px rgba(255,255,255,0.05);
+  overflow: hidden;
+  min-width: 360px;
+  min-height: 240px;
+}
+.app-window.maximized {
+  border-radius: 0;
+}
+
+/* ── Title bar ── */
+.window-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding: 0 10px 0 14px;
+  background: var(--header-bg, #0f0f0f);
+  border-bottom: 1px solid var(--header-border, #252525);
+  cursor: grab;
+  flex-shrink: 0;
+  user-select: none;
+}
+.window-titlebar:active {
+  cursor: grabbing;
+}
+
+.window-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg-secondary);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.win-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: all 120ms;
+}
+.win-btn:hover {
+  background: var(--surface-hover);
+  color: var(--fg);
+}
+.win-btn.close:hover {
+  background: var(--danger);
+  color: white;
+}
+
+/* ── Body ── */
+.window-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Resize handle ── */
+.window-resize {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  cursor: nwse-resize;
+}
+.window-resize::after {
+  content: '';
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--fg-dim);
+  border-bottom: 2px solid var(--fg-dim);
+  opacity: 0.5;
+}

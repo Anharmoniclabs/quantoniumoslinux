@@ -1,0 +1,9 @@
+* { font-family: "JetBrainsMono Nerd Font", monospace; font-size: 13px; }
+window#waybar { background: rgba(11, 15, 26, 0.88); color: #c0caf5; }
+#workspaces button { color: #565f89; padding: 0 8px; }
+#workspaces button.active { color: #7aa2f7; }
+#custom-rftmw, #cpu, #memory, #network, #pulseaudio, #battery, #clock { padding: 0 10px; }
+#custom-rftmw { color: #bb9af7; }
+#custom-rftmw.warm { color: #e0af68; }
+#custom-rftmw.pressure { color: #f7768e; }
+#custom-rftmw.offline { color: #565f89; }

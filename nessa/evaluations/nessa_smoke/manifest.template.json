@@ -1,0 +1,20 @@
+{
+  "suite_sha256": "79f8ac5e8aa5e3357de7eb67c22c62ec8fa1a9bb68879551bcb7f0a4dc14df57",
+  "model_weights_sha256": null,
+  "tokenizer_sha256": null,
+  "quantization": null,
+  "inference_engine": null,
+  "inference_version": null,
+  "hardware": null,
+  "temperature": 0,
+  "seed": null,
+  "max_steps": 40,
+  "max_output_tokens_per_call": 2048,
+  "max_total_tokens": "unbounded",
+  "wall_seconds": "unbounded",
+  "workers": 1,
+  "attempts_per_task": 1,
+  "harness_revision": null,
+  "cli": null,
+  "harness_config": null
+}

@@ -1,0 +1,947 @@
+[
+ {
+  "timestamp": "2026-04-11T03:13:21.227881+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 13 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T03:13:25.505995+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 1 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T03:13:31.625621+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 0 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T03:16:41.320620+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 1 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T03:24:58.429670+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 3 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T04:04:07.059661+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 13 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T13:59:11.137023+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 3 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T14:12:41.844631+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 13 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T15:04:31.289449+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 1 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T16:27:32.857414+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 6 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T17:56:37.641454+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 8 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T17:57:08.424076+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T17:58:56.634975+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T17:59:37.942862+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T17:59:37.947425+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:04:43.233131+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:04:43.237053+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:09:45.222088+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:09:45.224793+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:14:47.377271+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:14:47.379744+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:19:49.358775+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:19:49.362247+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:24:51.328749+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:24:51.332462+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:29:53.365387+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:29:53.368937+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:34:55.418574+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:34:55.422613+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:39:58.167753+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:39:58.171242+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:41:56.132291+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 8 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:46:04.521051+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Review agent reports for smart follow-ups first to address any immediate issues. Consider generating a guild status dashboard for an overview after handling the reports. If all critical tasks are stab",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:48:13.567321+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] First, review agent reports to address any immediate issues efficiently. After that, consider dispatching new patrols if the current load is manageable and resources allow. Generating a guild status d",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:52:10.983887+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Review agent reports for smart follow-ups first to address any immediate issues. After that, consider generating a guild status dashboard to monitor progress and efficiency. Dispatching new patrols ca",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:57:12.887814+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Review agent reports for smart follow-ups first to address any immediate issues efficiently. Afterward, consider generating a guild status dashboard to monitor progress and inform future decisions.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:57:12.899089+00:00",
+  "event_type": "error",
+  "summary": "Tick error: TypeError: '>' not supported between instances of 'str' and 'int'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:57:12.902552+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:05:03.647965+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Read agent reports for smart follow-ups first to address any immediate issues efficiently. If all in-progress quests are stable, consider dispatching new patrols. Generating a guild status dashboard c",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:09:27.371499+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given that you have 11 in-progress quests, it would be prudent to first read agent reports for smart follow-ups to address any immediate issues and ensure smooth progress on existing tasks before cons",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:13:55.800992+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your current workload of 11 in-progress quests, it would be prudent to first read agent reports for smart follow-ups to address any immediate issues. Once those are handled, you can consider dis",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:18:26.600381+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your current workload of 11 in-progress quests, it would be prudent to first read agent reports for smart follow-ups. This will help address any immediate issues and optimize resource allocation",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:18:26.602351+00:00",
+  "event_type": "error",
+  "summary": "Tick error: TypeError: '>' not supported between instances of 'str' and 'int'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:18:26.604795+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:26:27.758578+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your current workload of 11 in-progress quests, it would be prudent to first read agent reports for smart follow-ups. This will help you understand the progress and any issues that need immediat",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:31:15.663379+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your current workload of 11 in-progress quests, it would be prudent to prioritize reading agent reports for smart follow-ups and addressing any immediate issues before considering new patrols or",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:33:29.261943+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 1 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:34:00.944938+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 1 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:35:16.553460+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 1 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:37:10.639954+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload, it's best to focus on reading agent reports for smart follow-ups. This will help ensure that current tasks are progressing effectively before taking on more.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:37:10.641796+00:00",
+  "event_type": "error",
+  "summary": "Tick error: TypeError: '>' not supported between instances of 'str' and 'int'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:37:10.645226+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:39:51.596960+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 5 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:44:04.398843+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload, it's best to focus on reading agent reports for smart follow-ups. This will help you understand the progress and any issues with current quests before deciding whether to dispatch",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:46:49.125385+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload, it's best to focus on reading agent reports for smart follow-ups. This will help you understand the progress and issues of current quests before deciding whether to dispatch new p",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:51:24.881474+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload, it's best to focus on reading agent reports for smart follow-up actions. This will help you address any issues promptly and ensure efficient task management across the guild.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:51:24.883324+00:00",
+  "event_type": "error",
+  "summary": "Tick error: TypeError: '>' not supported between instances of 'str' and 'int'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:51:24.886764+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:58:44.669211+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload with 15 in-progress quests, it's best to focus on reading agent reports for smart follow-ups to ensure all tasks are progressing smoothly. Dispatching new patrols or generating a g",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:03:40.414128+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload with 15 in-progress quests, it's best to focus on reading agent reports for smart follow-ups. This will help you efficiently manage ongoing tasks and identify any issues that need ",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:03:40.416154+00:00",
+  "event_type": "error",
+  "summary": "Tick error: TypeError: '>' not supported between instances of 'str' and 'int'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:03:40.419446+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:12:36.670033+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload with 15 in-progress quests, it's best to focus on reading agent reports for smart follow-ups. This will help you manage the current tasks effectively before considering new actions",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:12:36.671953+00:00",
+  "event_type": "error",
+  "summary": "Tick error: TypeError: '>' not supported between instances of 'str' and 'int'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:12:36.674688+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:21:37.944565+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload with 15 in-progress quests, it would be best to focus on reading agent reports to identify smart follow-ups and address any critical issues promptly. This approach helps maintain e",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:21:37.946875+00:00",
+  "event_type": "error",
+  "summary": "Tick error: TypeError: '>' not supported between instances of 'str' and 'int'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:21:37.949450+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:30:16.734496+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload with 15 in-progress quests, it would be best to focus on reading agent reports for smart follow-ups. This will help you manage the current tasks more effectively and identify any p",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:30:16.736768+00:00",
+  "event_type": "error",
+  "summary": "Tick error: TypeError: '>' not supported between instances of 'str' and 'int'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:30:16.739253+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:48:25.990704+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload with 15 in-progress quests, it would be best to focus on reading agent reports for smart follow-ups. This will help you manage the current tasks more effectively before considering",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:05:52.237617+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given your workload with 15 in-progress quests, it would be best to focus on reading agent reports for smart follow-ups to ensure all tasks are progressing smoothly and efficiently. Dispatching new pa",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:32:30.535992+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 26 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:35:22.304863+00:00",
+  "event_type": "error",
+  "summary": "Tick error: ValueError: invalid literal for int() with base 10: '\u26a0\ufe0f 30 code smell(s) in 408 Python files:\\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\\n  bench",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:35:22.309134+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T22:53:47.772078+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 21 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T22:56:58.712768+00:00",
+  "event_type": "dispatch",
+  "summary": "Posted 4 patrol quests",
+  "details": "",
+  "importance": 6,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:01:04.988358+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given the high number of in-progress quests (18), it would be prudent to first review agent reports for any critical issues that require immediate attention. Once stability is ensured, you can conside",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:04:16.642865+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given the high number of in-progress quests, it would be prudent to first read agent reports for smart follow-ups. This will help identify any bottlenecks or areas where additional support is needed b",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:07:42.382030+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given the high number of in-progress quests (18), it would be prudent to first read agent reports to understand their progress and needs before deciding on further actions like dispatching new patrols",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:14:17.928698+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given the high number of in-progress quests (18), it would be prudent to first read agent reports to understand their progress and identify any bottlenecks before deciding whether to dispatch new patr",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:21:50.054552+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given the high number of in-progress quests (18), it would be prudent to first read agent reports for smart follow-ups and address any critical issues before dispatching new patrols. Generating a guil",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:29:34.658328+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given the high number of in-progress quests (19), start by reading agent reports to identify completed tasks and any issues that need addressing before dispatching new patrols or generating a guild st",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:37:31.143992+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given the high number of in-progress quests (19), start by reading agent reports for smart follow-ups. This will help you assess progress and identify any potential issues that need addressing before ",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:46:08.706754+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Read agent reports first to gather insights on current progress and challenges. This will help you prioritize and dispatch new patrols or identify areas needing further attention.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:55:01.159981+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given the high number of in-progress quests (19), start by reading agent reports to gather insights on current progress and challenges. This will help you prioritize tasks and identify any critical is",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:55:01.162951+00:00",
+  "event_type": "error",
+  "summary": "Tick error: ValueError: invalid literal for int() with base 10: '\u26a0\ufe0f 30 code smell(s) in 408 Python files:\\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\\n  bench",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:55:01.166917+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:22:54.348473+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Start by reading agent reports to gather insights on current progress and challenges. This will help you identify areas that need attention before deciding whether to dispatch new patrols or generate ",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:30:56.701386+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:14b] Given the high number of in-progress quests (19), start by reading agent reports to gather insights on current progress and challenges. This will help you identify bottlenecks or areas needing immedia",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:45:38.157928+00:00",
+  "event_type": "llm_thought",
+  "summary": "[rftmw] Read agent reports for smart follow-ups.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:45:38.159533+00:00",
+  "event_type": "error",
+  "summary": "Tick error: ValueError: invalid literal for int() with base 10: '\u26a0\ufe0f 30 code smell(s) in 408 Python files:\\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\\n  bench",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:45:38.161621+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:55:11.337032+00:00",
+  "event_type": "llm_thought",
+  "summary": "[rftmw] Generate a guild status dashboard to quickly assess current progress and challenges.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T15:01:07.098444+00:00",
+  "event_type": "llm_thought",
+  "summary": "[rftmw] Read agent reports for smart follow-ups.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T15:01:07.114014+00:00",
+  "event_type": "smart_dispatch",
+  "summary": "Posted 4 targeted quests: WARD: 30 smells; VIAL: 5 failures; LORE: 280 broken links",
+  "details": "",
+  "importance": 7,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T16:14:29.360229+00:00",
+  "event_type": "llm_thought",
+  "summary": "[rftmw] Generate a guild status dashboard.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T17:23:38.510626+00:00",
+  "event_type": "llm_thought",
+  "summary": "[rftmw] Generate a guild status dashboard.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T17:46:17.687417+00:00",
+  "event_type": "llm_thought",
+  "summary": "[rftmw] Generate a guild status dashboard.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:05:48.664767+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] ",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:14:24.380109+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] **Dispatch new patrols.** With 20 quests in-progress and no pending backlog, you have capacity to expand. The dashboard has been requested multiple times already, and new patrols will keep the guild's",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:42:53.637480+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] Dispatch new patrols. With 20 quests in-progress and no pending backlog, there's available capacity to pull fresh work. The dashboard has already been attempted multiple times recently, so it's second",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T19:33:13.494214+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] ",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T19:57:27.893352+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] ",
+  "details": "",
+  "importance": 4,
+  "source_agent": "ORACLE",
+  "quest_id": ""
+ }
+]

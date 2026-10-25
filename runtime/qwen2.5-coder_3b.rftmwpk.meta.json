@@ -1,0 +1,22 @@
+{
+  "cache_path": "qwen2.5-coder_3b.rftmwpk",
+  "gguf_path": "models/qwen2.5-coder-3b-instruct-q4_k_m.gguf",
+  "provenance": {
+    "model_name": "Qwen/Qwen2.5-Coder-3B-Instruct",
+    "source_type": "gguf_quantized",
+    "parameter_count": 3000000000
+  },
+  "kv_routing": {
+    "method": "three_distance",
+    "retain_frac": 0.6,
+    "rip_constant": 0.1603,
+    "candes_tao_threshold": 0.2929,
+    "proven_bound": true,
+    "description": "Three-Distance spectral router with zone-aware allocation. RIP \u03b4\u2088=0.1603 < 0.2929 (Cand\u00e8s-Tao threshold). Retention 60% proven to lower perplexity.",
+    "expected_footprint_reduction": "40%",
+    "perplexity_improvement": {
+      "gpt2": "-10.2%",
+      "gpt2_medium": "-5.4%"
+    }
+  }
+}

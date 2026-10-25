@@ -1,0 +1,1802 @@
+[
+ {
+  "timestamp": "2026-04-11T17:56:38.759903+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Code smell scan",
+  "details": "\u26a0\ufe0f 30 code smell(s) in 418 Python files:\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_perplexity_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_seq_axis_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\probe_rope_varia",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-e4f7f12b"
+ },
+ {
+  "timestamp": "2026-04-11T17:57:18.626416+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Security report",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-eb7a5441"
+ },
+ {
+  "timestamp": "2026-04-11T17:58:26.808075+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T17:58:26.816384+00:00",
+  "event_type": "safety_check",
+  "summary": "5/6 checks passed",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T17:58:27.490057+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T17:58:27.493801+00:00",
+  "event_type": "file_write",
+  "summary": "Wrote data/agent_reports/ward_security_report.json (1193 bytes)",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T17:58:27.496696+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Security report",
+  "details": "Security report: RED \u2014 4 issue area(s)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-eb7a5441"
+ },
+ {
+  "timestamp": "2026-04-11T17:59:07.153911+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Dependency audit",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-f815a180"
+ },
+ {
+  "timestamp": "2026-04-11T17:59:07.162998+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Dependency audit",
+  "details": "Total dependencies: 8 | Pinned (==): 0 | Range (>=): 8 | Unpinned: 0",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-f815a180"
+ },
+ {
+  "timestamp": "2026-04-11T17:59:48.117462+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Secret scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-b7d4b6bf"
+ },
+ {
+  "timestamp": "2026-04-11T18:01:01.445095+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:01:01.447431+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Secret scan",
+  "details": "\u26a0\ufe0f 2 potential secret(s) found (1596 files scanned):\n  [HIGH] scripts\\infra\\launchers\\launch_q_vault.py: Possible hardcoded secret (6x)\n  [HIGH] quantonium_os_src\\apps\\q_vault\\main.py: Possible hardcoded secret (1x)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-b7d4b6bf"
+ },
+ {
+  "timestamp": "2026-04-11T18:01:11.706074+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:01:21.933125+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:01:32.001123+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:01:32.004292+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:06:34.018349+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:06:34.020907+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:11:36.082780+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:11:36.085724+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:16:38.159090+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:16:38.161824+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:21:40.145968+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:21:40.148940+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:26:42.150114+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:26:42.152606+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:31:44.155133+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:31:44.158220+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:36:46.316423+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:36:46.319361+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:41:48.987127+00:00",
+  "event_type": "error",
+  "summary": "Tick error: AttributeError: 'MemoryRecord' object has no attribute 'get'",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:41:48.989887+00:00",
+  "event_type": "cooldown",
+  "summary": "Entering cooldown: circuit_breaker",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:47:13.080118+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Dependency audit",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-40ef586b"
+ },
+ {
+  "timestamp": "2026-04-11T18:47:13.090171+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Dependency audit",
+  "details": "Total dependencies: 8 | Pinned (==): 0 | Range (>=): 8 | Unpinned: 0",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-40ef586b"
+ },
+ {
+  "timestamp": "2026-04-11T18:50:38.059474+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Code smell scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-ac2acdcc"
+ },
+ {
+  "timestamp": "2026-04-11T18:50:38.710871+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:50:38.713728+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Code smell scan",
+  "details": "\u26a0\ufe0f 30 code smell(s) in 408 Python files:\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_perplexity_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_seq_axis_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\probe_rope_varia",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-ac2acdcc"
+ },
+ {
+  "timestamp": "2026-04-11T18:54:32.990983+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Security report",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-f263dd1a"
+ },
+ {
+  "timestamp": "2026-04-11T18:55:40.964389+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:55:40.972965+00:00",
+  "event_type": "safety_check",
+  "summary": "5/6 checks passed",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:55:41.625940+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:55:41.629026+00:00",
+  "event_type": "file_write",
+  "summary": "Wrote data/agent_reports/ward_security_report.json (1193 bytes)",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T18:55:41.632420+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Security report",
+  "details": "Security report: RED \u2014 4 issue area(s)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-f263dd1a"
+ },
+ {
+  "timestamp": "2026-04-11T18:59:13.108287+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Secret scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-5727b044"
+ },
+ {
+  "timestamp": "2026-04-11T19:00:20.173276+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:00:20.176478+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Secret scan",
+  "details": "\u26a0\ufe0f 2 potential secret(s) found (1615 files scanned):\n  [HIGH] scripts\\infra\\launchers\\launch_q_vault.py: Possible hardcoded secret (6x)\n  [HIGH] quantonium_os_src\\apps\\q_vault\\main.py: Possible hardcoded secret (1x)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-5727b044"
+ },
+ {
+  "timestamp": "2026-04-11T19:02:37.815548+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first, then audit dependencies, and finally check for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:03:43.533007+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:06:59.989472+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first. Once that's complete, move to auditing dependencies, and finally check for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:08:06.101825+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:11:23.146474+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first, then audit dependencies, and finally check for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:12:29.851671+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:15:56.345052+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first. Once that's complete, move to auditing dependencies, and finally check for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:17:02.082452+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:20:39.082029+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] First, focus on scanning for secrets to ensure there are no unauthorized access points. Once that's complete, move to auditing dependencies to verify their integrity and potential vulnerabilities. Fin",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:21:45.357858+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:23:50.146693+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first to ensure there are no unauthorized access points. Once that's complete, move to auditing dependencies and checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:24:56.736887+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:28:39.917304+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets to ensure there are no unauthorized access points.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:29:46.577746+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:33:52.885413+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first to ensure there are no unauthorized access points.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:37:21.059949+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Secret scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-6a332bc9"
+ },
+ {
+  "timestamp": "2026-04-11T19:39:51.912360+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Dependency audit",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-612305ed"
+ },
+ {
+  "timestamp": "2026-04-11T19:39:51.921886+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Dependency audit",
+  "details": "Total dependencies: 8 | Pinned (==): 0 | Range (>=): 8 | Unpinned: 0",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-612305ed"
+ },
+ {
+  "timestamp": "2026-04-11T19:40:02.828882+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Code smell scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-29141ff2"
+ },
+ {
+  "timestamp": "2026-04-11T19:40:03.529033+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:40:03.532071+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Code smell scan",
+  "details": "\u26a0\ufe0f 30 code smell(s) in 408 Python files:\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_perplexity_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_seq_axis_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\probe_rope_varia",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-29141ff2"
+ },
+ {
+  "timestamp": "2026-04-11T19:41:29.476557+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Security report",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-75c5ecac"
+ },
+ {
+  "timestamp": "2026-04-11T19:42:38.896967+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:42:38.905980+00:00",
+  "event_type": "safety_check",
+  "summary": "5/6 checks passed",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:42:39.579809+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:42:39.583799+00:00",
+  "event_type": "file_write",
+  "summary": "Wrote data/agent_reports/ward_security_report.json (1193 bytes)",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:42:39.587127+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Security report",
+  "details": "Security report: RED \u2014 4 issue area(s)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-75c5ecac"
+ },
+ {
+  "timestamp": "2026-04-11T19:44:55.950075+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Secret scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-a075860f"
+ },
+ {
+  "timestamp": "2026-04-11T19:46:01.911351+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:46:01.915500+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Secret scan",
+  "details": "\u26a0\ufe0f 2 potential secret(s) found (1616 files scanned):\n  [HIGH] scripts\\infra\\launchers\\launch_q_vault.py: Possible hardcoded secret (6x)\n  [HIGH] quantonium_os_src\\apps\\q_vault\\main.py: Possible hardcoded secret (1x)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-a075860f"
+ },
+ {
+  "timestamp": "2026-04-11T19:48:53.675616+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first, followed by auditing dependencies and checking for code smells to ensure a comprehensive security assessment.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:50:01.752221+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:52:35.196422+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] First, focus on scanning for secrets. Once that's complete, move on to auditing dependencies and checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:53:40.893731+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:56:13.293168+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first. Once that's complete, move on to auditing dependencies and checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T19:57:19.184531+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:00:49.933102+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first. Once that's complete, move on to auditing dependencies.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:02:06.872815+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:06:00.098049+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first. Once that's complete, move on to auditing dependencies.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:07:13.302701+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:09:48.861414+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first. Once that's complete, move on to auditing dependencies.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:11:06.386533+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:15:02.546748+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Scan for secrets first. Once that's complete, move on to auditing dependencies.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:16:12.004753+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:18:55.207684+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Scan for secrets first. Once that's complete, move on to auditing dependencies.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:20:03.989005+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:24:07.097646+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Scan for secrets first. Once that's complete, move on to auditing dependencies.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:25:14.246592+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:27:38.249461+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Scan for secrets first. Once that's complete, move on to auditing dependencies.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:28:47.391083+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:31:38.845656+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Code smell scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-42f22711"
+ },
+ {
+  "timestamp": "2026-04-11T20:31:39.505187+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:31:39.510303+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Code smell scan",
+  "details": "\u26a0\ufe0f 30 code smell(s) in 408 Python files:\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_perplexity_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_seq_axis_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\probe_rope_varia",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-42f22711"
+ },
+ {
+  "timestamp": "2026-04-11T20:31:50.320448+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Security report",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-e19f8113"
+ },
+ {
+  "timestamp": "2026-04-11T20:33:10.078206+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:33:10.091259+00:00",
+  "event_type": "safety_check",
+  "summary": "5/6 checks passed",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:33:10.846548+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:33:10.850439+00:00",
+  "event_type": "file_write",
+  "summary": "Wrote data/agent_reports/ward_security_report.json (1193 bytes)",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:33:10.857547+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Security report",
+  "details": "Security report: RED \u2014 4 issue area(s)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-e19f8113"
+ },
+ {
+  "timestamp": "2026-04-11T20:35:34.778319+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Secret scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-e3690ca6"
+ },
+ {
+  "timestamp": "2026-04-11T20:36:55.773746+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:36:55.779522+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Secret scan",
+  "details": "\u26a0\ufe0f 2 potential secret(s) found (1617 files scanned):\n  [HIGH] scripts\\infra\\launchers\\launch_q_vault.py: Possible hardcoded secret (6x)\n  [HIGH] quantonium_os_src\\apps\\q_vault\\main.py: Possible hardcoded secret (1x)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-e3690ca6"
+ },
+ {
+  "timestamp": "2026-04-11T20:39:27.975461+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Dependency audit",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-cfbd2b10"
+ },
+ {
+  "timestamp": "2026-04-11T20:39:27.993218+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Dependency audit",
+  "details": "Total dependencies: 8 | Pinned (==): 0 | Range (>=): 8 | Unpinned: 0",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-cfbd2b10"
+ },
+ {
+  "timestamp": "2026-04-11T20:42:37.550391+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets and auditing dependencies to ensure your software project is secure and compliant.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:43:58.011676+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:47:19.069891+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets and auditing dependencies to ensure your software is secure and compliant with best practices.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:48:52.465048+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:53:40.923427+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets and auditing dependencies to ensure your software is secure and compliant.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T20:55:26.851043+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:02:11.212501+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets and auditing dependencies.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:05:12.850735+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:11:25.130856+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets and auditing dependencies to ensure your software is secure.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:32:50.829066+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Secret scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-7325a841"
+ },
+ {
+  "timestamp": "2026-04-11T21:34:09.450749+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:34:09.456129+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Secret scan",
+  "details": "\u26a0\ufe0f 2 potential secret(s) found (1618 files scanned):\n  [HIGH] scripts\\infra\\launchers\\launch_q_vault.py: Possible hardcoded secret (6x)\n  [HIGH] quantonium_os_src\\apps\\q_vault\\main.py: Possible hardcoded secret (1x)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-7325a841"
+ },
+ {
+  "timestamp": "2026-04-11T21:36:35.152784+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Dependency audit",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-e8680e97"
+ },
+ {
+  "timestamp": "2026-04-11T21:36:35.165513+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Dependency audit",
+  "details": "Total dependencies: 8 | Pinned (==): 0 | Range (>=): 8 | Unpinned: 0",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-e8680e97"
+ },
+ {
+  "timestamp": "2026-04-11T21:38:26.739487+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Code smell scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-edd7aef1"
+ },
+ {
+  "timestamp": "2026-04-11T21:38:27.410995+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T21:38:27.415122+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Code smell scan",
+  "details": "\u26a0\ufe0f 30 code smell(s) in 408 Python files:\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_perplexity_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_seq_axis_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\probe_rope_varia",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-edd7aef1"
+ },
+ {
+  "timestamp": "2026-04-11T22:54:08.099082+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Security report",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-b2700b9d"
+ },
+ {
+  "timestamp": "2026-04-11T22:55:27.992998+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T22:55:28.006008+00:00",
+  "event_type": "safety_check",
+  "summary": "5/6 checks passed",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T22:55:28.702550+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T22:55:28.707700+00:00",
+  "event_type": "file_write",
+  "summary": "Wrote data/agent_reports/ward_security_report.json (1193 bytes)",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T22:55:28.716192+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Security report",
+  "details": "Security report: RED \u2014 4 issue area(s)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-b2700b9d"
+ },
+ {
+  "timestamp": "2026-04-11T22:57:19.207433+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Secret scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-b68ee7f8"
+ },
+ {
+  "timestamp": "2026-04-11T22:58:36.321910+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T22:58:36.327063+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Secret scan",
+  "details": "\u26a0\ufe0f 2 potential secret(s) found (1618 files scanned):\n  [HIGH] scripts\\infra\\launchers\\launch_q_vault.py: Possible hardcoded secret (6x)\n  [HIGH] quantonium_os_src\\apps\\q_vault\\main.py: Possible hardcoded secret (1x)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-b68ee7f8"
+ },
+ {
+  "timestamp": "2026-04-11T23:02:16.063967+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Dependency audit",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-04a5c71e"
+ },
+ {
+  "timestamp": "2026-04-11T23:02:16.074814+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Dependency audit",
+  "details": "Total dependencies: 8 | Pinned (==): 0 | Range (>=): 8 | Unpinned: 0",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-04a5c71e"
+ },
+ {
+  "timestamp": "2026-04-11T23:05:27.437756+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Code smell scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-5eaa9c71"
+ },
+ {
+  "timestamp": "2026-04-11T23:05:28.233000+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:05:28.237830+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Code smell scan",
+  "details": "\u26a0\ufe0f 30 code smell(s) in 408 Python files:\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_perplexity_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_seq_axis_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\probe_rope_varia",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-5eaa9c71"
+ },
+ {
+  "timestamp": "2026-04-11T23:09:44.214792+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Security report",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-995334fd"
+ },
+ {
+  "timestamp": "2026-04-11T23:11:23.773533+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:11:23.784853+00:00",
+  "event_type": "safety_check",
+  "summary": "5/6 checks passed",
+  "details": "",
+  "importance": 8,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:11:24.573828+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:11:24.578373+00:00",
+  "event_type": "file_write",
+  "summary": "Wrote data/agent_reports/ward_security_report.json (1193 bytes)",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:11:24.585211+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Security report",
+  "details": "Security report: RED \u2014 4 issue area(s)",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-995334fd"
+ },
+ {
+  "timestamp": "2026-04-11T23:18:00.097936+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Given your current tasks and the recent alerts, it seems prudent to start with scanning for secrets and auditing dependencies first. After confirming these are secure, then address the 30 code smells ",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:19:21.942538+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:25:14.360734+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Given the recent alerts and to ensure comprehensive security, you should start by scanning for secrets. Following that, auditing dependencies can provide insights into potential vulnerabilities and fu",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:26:31.549096+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:33:02.962115+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Given the recent alerts and to ensure comprehensive security, you should start by scanning for secrets in your software project.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:34:21.331539+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:42:04.350827+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus first on scanning for secrets to ensure they are properly secured. Once you've addressed any secret leaks, proceed with auditing dependencies and checking for code smells to further enhance the ",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:43:17.451953+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:50:49.696252+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first to ensure they are properly secured. Once you have addressed the secrets, proceed to audit dependencies and then check for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:52:03.304817+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:58:32.604858+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first to ensure they are properly secured. Once that's complete, proceed with auditing dependencies and checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-11T23:59:50.228095+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:06:43.473742+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first to ensure they are properly secured. Once that's complete, move on to auditing dependencies and checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:16:16.512768+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] \"Hello! I'm WARD, here to help with security scans and audits. How can I assist you today?\"",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:18:58.392200+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first. Once those are secure, move on to auditing dependencies and checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:20:13.890603+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:26:17.520065+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Focus on scanning for secrets first. Once those are secure, move on to auditing dependencies and checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:27:43.466571+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:53:59.060348+00:00",
+  "event_type": "llm_thought",
+  "summary": "[qwen2.5-coder:7b] Scan for secrets first. Once those are secure, move on to auditing dependencies and checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T00:55:14.984817+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"scripts\\\\infra\\\\launchers\\\\launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}, {\"file\": \"quantonium_os_src\\\\apps\\\\q_vault\\\\main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:21:49.789186+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:25:47.391397+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:29:28.194963+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:33:09.099668+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:36:49.876992+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:40:30.634119+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:44:11.475575+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:47:52.213339+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:51:33.183975+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:55:13.950248+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T14:57:36.895339+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T16:10:44.220724+00:00",
+  "event_type": "quest_start",
+  "summary": "Starting: Code smell deep scan",
+  "details": "",
+  "importance": 6,
+  "source_agent": "WARD",
+  "quest_id": "q-a152d88c"
+ },
+ {
+  "timestamp": "2026-04-12T16:10:44.595019+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T16:10:44.600422+00:00",
+  "event_type": "quest_done",
+  "summary": "Completed: Code smell deep scan",
+  "details": "\u26a0\ufe0f 30 code smell(s) in 612 Python files:\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\n  tests/test_phi_labeled_canonical_rft.py: Dynamic import \u2014 potential injection (1x)\n  experiments/h3_ai_compression_experiment.py: eval() call \u2014 potential code injection (1x)\n  benchmarks/kv_cache_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks/kv_cache_seq_axis_real_model_be",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": "q-a152d88c"
+ },
+ {
+  "timestamp": "2026-04-12T16:11:45.427573+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T16:17:16.166011+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T16:19:27.305944+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T17:20:04.913573+00:00",
+  "event_type": "llm_thought",
+  "summary": "[rftmw] Focus on checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T17:20:08.094940+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T17:42:57.490449+00:00",
+  "event_type": "llm_thought",
+  "summary": "[rftmw] Focus on checking for code smells.",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T17:42:57.855062+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:01:26.314521+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] ",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:01:26.996005+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:10:14.062148+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] Given your role as Guardian focused on **security**, I recommend prioritizing **secrets scanning** and **dependency auditing** first\u2014these directly address credential exposure and known vulnerabilitie",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:10:15.545692+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"quantonium_os_src/apps/q_vault/main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}, {\"file\": \"scripts/infra/launchers/launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:38:19.468074+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:47:37.983052+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] Based on your recent memory showing an **active secret scan alert** with 2 potential secrets found, alongside 3",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T18:47:39.366595+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"quantonium_os_src/apps/q_vault/main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}, {\"file\": \"scripts/infra/launchers/launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T19:15:24.903949+00:00",
+  "event_type": "code_smell",
+  "summary": "30 code smells found",
+  "details": "",
+  "importance": 7,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T19:29:06.368812+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] **Focus on secrets first** \u2014 the active ALERT status (2 potential secrets found) indicates they're a current security priority. The 30 code smells are worth addressing next for",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T19:29:08.181483+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"quantonium_os_src/apps/q_vault/main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}, {\"file\": \"scripts/infra/launchers/launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T19:53:20.381785+00:00",
+  "event_type": "llm_thought",
+  "summary": "[gag0/qwen35-opus-distil] **Focus on secrets first.**\n\nThe recent memory shows an active ALERT with 2 potential secrets found, while the llm_thought explicitly recommends prioritizing secrets due to their ALERT status. Code sm",
+  "details": "",
+  "importance": 4,
+  "source_agent": "WARD",
+  "quest_id": ""
+ },
+ {
+  "timestamp": "2026-04-12T19:53:22.229938+00:00",
+  "event_type": "secret_scan",
+  "summary": "ALERT: 2 potential secrets found",
+  "details": "[{\"file\": \"quantonium_os_src/apps/q_vault/main.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 1}, {\"file\": \"scripts/infra/launchers/launch_q_vault.py\", \"issue\": \"Possible hardcoded secret\", \"severity\": \"HIGH\", \"count\": 6}]",
+  "importance": 9,
+  "source_agent": "WARD",
+  "quest_id": ""
+ }
+]

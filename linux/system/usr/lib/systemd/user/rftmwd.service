@@ -1,0 +1,25 @@
+# QuantoniumOS RFTMW middleware daemon (per-session).
+# Starts with the user manager, before the compositor, so every app the session
+# launches through qos-run lands in an rftmwd-governed scope in rftmw.slice.
+[Unit]
+Description=QuantoniumOS RFTMW middleware (memory broker, workload cgroups, transforms)
+Documentation=file:///opt/quantoniumos/linux/README.md
+
+[Service]
+Type=notify
+NotifyAccess=main
+EnvironmentFile=-/etc/quantoniumos/rftmwd.env
+EnvironmentFile=-%h/.config/quantoniumos/rftmwd.env
+ExecStart=/usr/lib/quantoniumos/rftmwd $RFTMWD_ARGS
+# PACK.PIN uses mlock(); the user@.service drop-in raises the ceiling.
+LimitMEMLOCK=infinity
+# Under memory pressure the broker must stay responsive; apps are reclaimed first.
+OOMScoreAdjust=-500
+MemoryLow=64M
+# Workloads live in their own scopes under rftmw.slice, so a broker restart never
+# takes apps down; running scopes are re-adopted on startup.
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=default.target

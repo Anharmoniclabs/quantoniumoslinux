@@ -1,0 +1,48 @@
+# Rust build artifacts
+target/
+**/target/
+
+# Node
+node_modules/
+dist/
+.vite/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Tauri build
+**/src-tauri/gen/
+desktop-shell/dist/
+
+# Local state / generated
+generated/
+logs/
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Ollama local state
+ollama_data/
+
+# Training outputs (regenerated)
+ai/training/models/**/adapter_model.*
+ai/training/models/**/training_args.bin
+ai/training/reports/*.log
+
+# Sensitive
+.env
+.env.*
+*.pem
+*.key

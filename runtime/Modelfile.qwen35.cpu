@@ -1,0 +1,19 @@
+# CPU-optimized profile for qwen35-opus-distil
+# Built from existing local model blob
+FROM /home/codespace/.ollama/models/blobs/sha256-ea269fa39ffe4b9f320205bbd24ea9847dad25805b7bd7c21167c7effdf4bece
+
+# CRITICAL: Must match original model's chat format handling
+TEMPLATE {{ .Prompt }}
+RENDERER qwen3.5
+PARSER qwen3.5
+
+# Keep outputs compact and deterministic for CPU runs
+PARAMETER num_ctx 4096
+PARAMETER temperature 0.2
+PARAMETER top_k 40
+PARAMETER top_p 0.9
+PARAMETER repeat_penalty 1.1
+PARAMETER num_predict 512
+
+# Force final-answer behavior and suppress visible reasoning
+SYSTEM "You are a concise assistant. Never reveal chain-of-thought, planning text, or internal reasoning. Never print prefatory text like 'Thinking...'. Return only the final answer in the exact format requested by the user."

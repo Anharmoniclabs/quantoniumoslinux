@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+title: "Resonant Fourier Transform (RFT) Research Library"
+# NOTE: The canonical project name is 'quantoniumos' (one word).
+# The final two letters 'os' are part of the name and not an acronym.
+# This repository is a classical signal-processing research codebase.
+message: >
+  If you use this software, please cite it as below.
+authors:
+  - family-names: Minier
+    given-names: "Luis M. (Maicol)"
+version: 2.0.0
+date-released: 2026-01-31
+repository-code: https://github.com/LMMinier/quantoniumos
+doi: 10.5281/zenodo.17712905
+url: https://zenodo.org/records/17712906
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.17712905"
+    description: "RFT Framework"
+  - type: doi
+    value: "10.5281/zenodo.17726611"
+    description: "Coherence Paper"
+  - type: doi
+    value: "10.5281/zenodo.17822056"
+    description: "RFTPU Chip Papers"
+  - type: doi
+    value: "10.5281/zenodo.17885350"
+    description: "RFT-Wavelet Medical Data Results (MIT-BIH, Sleep-EDF)"
+  - type: doi
+    value: "10.36227/techrxiv.175384307.75693850/v1"
+    description: "TechRxiv Preprint"
+preferred-citation:
+  type: software
+  title: "Resonant Fourier Transform (RFT): Classical Signal-Processing Library with Provable Spectral Concentration for Golden-Ratio Quasi-Periodic Signals"
+  authors:
+    - family-names: Minier
+      given-names: "Luis M. (Maicol)"
+  doi: 10.5281/zenodo.17712905
+  url: https://zenodo.org/records/17712906
+  version: 2.0.0
+  date-released: 2026-01-31
+keywords:
+  - signal-processing
+  - fourier-transform
+  - golden-ratio
+  - resonant-fourier-transform
+  - unitary-transform
+  - compressed-sensing
+  - spectral-analysis
+  - kv-cache-compression
+license: AGPL-3.0-or-later

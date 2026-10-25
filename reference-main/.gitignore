@@ -1,0 +1,264 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+output.log
+
+# Ignore Personal AI directory
+personalAi/
+
+# Papers and figures (archived on Zenodo, not needed in repo)
+papers/
+figures/
+
+# quantoniumos hygiene: ignore large model assets and generated outputs
+results/
+logs/
+.pytest_cache/
+.hypothesis/
+**/__pycache__/
+ai/
+encoded_models/
+decoded_models/
+hf_models/
+hf_cache/
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Local demo artifacts
+rft_tier_comparison.png
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+.venv-*
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# quantoniumos Specific
+hardware/sim_build/
+hardware/*.vcd
+hardware/*.log
+hardware/work/
+hardware/transcript
+hardware/vsim.wlf
+hardware/*.json
+hardware/tb/results/obj_crossval/
+
+# Large Data Files (Downloadable via scripts)
+data/physionet/
+data/mitbih/
+data/sleepedf/
+
+# Large trained models - preserved locally
+ai/training/models/
+logs/
+decoded_models/
+
+.backups/
+docs_backup_*.tar.gz
+*.vcd
+
+# LaTeX intermediate files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Mobile app dependencies (large, should install locally)
+quantonium-mobile/node_modules/
+quantonium-mobile/.expo/
+
+# Compiled native libraries (platform-specific)
+*.dll
+*.dylib
+algorithms/rft/kernels/compiled/
+
+hardware/tb/obj_phi_rft/
+hardware/rftpu-3d-viewer/node_modules/
+results/
+*.pyc
+__pycache__/
+papers_backup/*.pdf
+
+# Compiled test binaries and build artifacts
+test_feistel_debug
+*.out
+*.elf
+
+# Hardware test vector hex files (regenerate from scripts)
+hardware_test_vectors/**/*.hex
+
+# Auto-generated SBOM (regenerate with cyclonedx-py)
+sbom.json
+
+# Experiment result artifacts (regenerate by running experiments)
+experiments/**/*_results.json
+experiments/**/*_results.txt
+
+# Compiled / generated PDFs (regenerate from .tex sources)
+papers/*.pdf
+docs/textbook/*.pdf
+
+# GIFs (too large for git — host externally if needed)
+figures/gifs/*.gif
+
+# Build artifacts
+*.egg-info/
+src/rftmw_native/build/
+
+# Third-party build artifacts (platform-specific, rebuild locally)
+third_party/
+
+# Local AI assistant config (machine-specific)
+.claude/
+
+# Compiled native extension (platform-specific)
+*.pyd
+*.so
+
+# MinGW runtime DLLs (copied during build)
+libstdc++-6.dll
+libgcc_s_seh-1.dll
+libwinpthread-1.dll
+
+# Test result logs
+full_system_test_results.txt
+*_test_results.txt
+.venv/
+ai/hf_cache/
+ai/cache/
+recovered_weights/
+ai/training/models/
+ai/models/huggingface/
+*.optimizer.pt
+
+hardware/tb/obj_phi_rft/*.gch
+hardware/tb/obj_phi_rft/*.fast.gch
+hardware/tb/obj_phi_rft/*.slow.gch
+
+# Native build artifacts
+src/rftmw_native/build_asm/
+src/rftmw_native/build_cpp/
+src/rftmw_native/build_cpp_nolto/
+
+# Misc temp files
+server_output.txt
+*.bak
+
+# Model weights (too large for git)
+*.rftmwpk
+*.rftmwpk2
+*.finetuned_weights.npz
+*.finetuned_weights.rftft
+*.gguf
+*.safetensors
+*.bin.index.json
+src/rftmw_native/build_linux/
+src/rftmw_native/build_asm/
+src/rftmw_native/build_fresh/
+src/rftmw_native/build_mmap/
+src/rftmw_native/build_qwen25/
+
+# Compiled test binaries
+src/rftmw_native/test_streaming
+src/rftmw_native/test_streaming_asan
+src/rftmw_native/test_streaming_dbg
+
+# Desktop shell build artifacts
+desktop-shell/node_modules/
+desktop-shell/src-tauri/target/
+
+# Spectral model files (multi-GB)
+models/*.spectral_*
+
+# Benchmarks corpus
+benchmarks/ppl_corpus.txt

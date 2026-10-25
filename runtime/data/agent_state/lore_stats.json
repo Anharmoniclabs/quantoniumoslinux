@@ -1,0 +1,15 @@
+{
+ "name": "LORE",
+ "rpg_class": "Bard",
+ "level": 4,
+ "xp": 170,
+ "hp": 100,
+ "mp": 65,
+ "strength": 16,
+ "wisdom": 13,
+ "quests_completed": 31,
+ "quests_failed": 0,
+ "consecutive_errors": 0,
+ "cooldown_until": "",
+ "total_tool_calls": 0
+}

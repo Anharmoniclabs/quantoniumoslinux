@@ -1,0 +1,20 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": ["custom/rftmw", "cpu", "memory", "network", "pulseaudio", "battery", "tray"],
+  "custom/rftmw": {
+    "exec": "qos-status",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "qos-run -- alacritty -e sh -c 'rftmwctl stats | jq; rftmwctl procs | jq; read -r _'"
+  },
+  "clock": { "format": "{:%a %d %b  %H:%M}" },
+  "cpu": { "format": "CPU {usage}%" },
+  "memory": { "format": "RAM {percentage}%" },
+  "network": { "format-wifi": "{essid}", "format-ethernet": "eth", "format-disconnected": "offline" },
+  "pulseaudio": { "format": "VOL {volume}%", "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" },
+  "battery": { "format": "BAT {capacity}%" }
+}

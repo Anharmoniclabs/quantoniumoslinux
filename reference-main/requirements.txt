@@ -1,0 +1,20 @@
+# ============================================================
+# quantoniumos — Quick-start requirements
+# For full install with extras:  pip install -e ".[benchmark]"
+# For dev install:               pip install -e ".[dev,benchmark]"
+# See pyproject.toml for all optional dependency groups.
+# ============================================================
+
+# --- Core (required for all RFT modules) ---
+numpy>=1.26.0,<2.0
+scipy>=1.12.0,<2.0
+matplotlib>=3.9.0
+pandas>=2.2.0,<3.0
+sympy>=1.12
+
+# --- Benchmark extras (required for cwru_benchmark.py) ---
+pyfftw>=0.13.0
+librosa>=0.10.0
+
+# --- Dev / test ---
+pytest>=8.0.0,<9.0

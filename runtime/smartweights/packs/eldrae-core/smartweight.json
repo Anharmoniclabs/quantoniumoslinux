@@ -1,0 +1,268 @@
+{
+  "schema_version": "smartweights/v1",
+  "name": "Eldrae Core SmartWeights",
+  "version": "0.1.0",
+  "kind": "lora_adapter",
+  "created_at": "2026-04-20T05:43:39+00:00",
+  "identity": {
+    "assistant": "Eldrae",
+    "role": "seed local OS intelligence for QuantoniumOS"
+  },
+  "base": {
+    "runtime_model": "qwen2.5-coder:3b",
+    "training_model": "Qwen/Qwen2.5-Coder-3B-Instruct",
+    "frozen": true
+  },
+  "rft_space": {
+    "family": "RFTMW",
+    "encoding": "adapter_delta_overlay",
+    "base_tensor_mutation": "none",
+    "future_compression": "RFT delta pack once adapter tensors are finalized"
+  },
+  "artifacts": [
+    {
+      "path": "ai/training/models/eldrae_qwen3b_lora",
+      "optional": true,
+      "present": false,
+      "kind": "missing"
+    }
+  ],
+  "training": {
+    "datasets": [
+      "smartweights/training/eldrae_seed.jsonl",
+      "smartweights/training/eldrae_runtime_growth.jsonl",
+      "logs/chat_*.jsonl"
+    ],
+    "reports": [
+      "ai/training/reports/eldrae_guardrails.json",
+      "ai/training/reports/eldrae_trainability.json"
+    ],
+    "guardrails": "required unless explicitly disabled by operator"
+  },
+  "capabilities": [
+    "chat",
+    "memory",
+    "retrieval",
+    "tool_planning",
+    "visual_programs"
+  ],
+  "knowledge_distillation": {
+    "method": "ollama_api_inference",
+    "model": "qwen2.5-coder:3b",
+    "entries": 25,
+    "domains": ["identity", "quantoniumos", "tools", "conversation", "coding"],
+    "avg_quality": 0.64,
+    "trained_at": "2026-04-20T06:03:38+00:00",
+    "artifacts": [
+      "knowledge_pack.json",
+      "system_prompt_enhancement.md",
+      "distilled_training.jsonl"
+    ]
+  },
+  "efficiency": {
+    "goal": "small_physical_overlay_high_effective_inference_capacity",
+    "budget": {
+      "model": "qwen2.5-coder:3b",
+      "base_parameters": 3000000000,
+      "active_dense_parameters": 3000000000,
+      "lora_rank": 8,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "layers": 36,
+      "trainable_overlay_parameters": 14966784,
+      "parameters_per_layer": 415744,
+      "parameters_per_module_per_layer": {
+        "q_proj": 32768,
+        "k_proj": 18432,
+        "v_proj": 18432,
+        "o_proj": 32768,
+        "gate_proj": 104448,
+        "up_proj": 104448,
+        "down_proj": 104448
+      },
+      "storage_estimate": {
+        "dtype_bytes": 2,
+        "fp_bytes": 29933568,
+        "fp_mb": 28.55,
+        "q8_mb": 14.27,
+        "q4_mb": 7.14
+      }
+    },
+    "phase_plan": {
+      "model": "qwen2.5-coder:3b",
+      "lora_rank": 8,
+      "strategy": "phase_train_disjoint_target_groups_then_combine_or_stack_for_inference",
+      "total_trainable_overlay_parameters": 14966784,
+      "total_storage_estimate": {
+        "dtype_bytes": 2,
+        "fp_bytes": 29933568,
+        "fp_mb": 28.55,
+        "q8_mb": 14.27,
+        "q4_mb": 7.14
+      },
+      "matches_full_rank8_budget": true,
+      "final_combined_artifact": "ai/training/models/eldrae_qwen3b_lora",
+      "combine_policy": "phase adapters target disjoint modules, so their adapter tensors can be stacked at runtime or merged into one adapter directory after validation",
+      "phases": [
+        {
+          "index": 1,
+          "id": "phase01_attention_route",
+          "name": "Attention Route",
+          "target_modules": [
+            "q_proj",
+            "v_proj"
+          ],
+          "capabilities": [
+            "chat",
+            "tool_planning",
+            "retrieval"
+          ],
+          "artifact_path": "ai/training/models/eldrae_qwen3b_lora_phase01_attention_route",
+          "manifest_path": "smartweights/packs/eldrae-core/phases/phase01_attention_route.json",
+          "trainable_overlay_parameters": 1843200,
+          "storage_estimate": {
+            "dtype_bytes": 2,
+            "fp_bytes": 3686400,
+            "fp_mb": 3.52,
+            "q8_mb": 1.76,
+            "q4_mb": 0.88
+          }
+        },
+        {
+          "index": 2,
+          "id": "phase02_key_output",
+          "name": "Key Output",
+          "target_modules": [
+            "k_proj",
+            "o_proj"
+          ],
+          "capabilities": [
+            "memory",
+            "retrieval",
+            "tool_planning"
+          ],
+          "artifact_path": "ai/training/models/eldrae_qwen3b_lora_phase02_key_output",
+          "manifest_path": "smartweights/packs/eldrae-core/phases/phase02_key_output.json",
+          "trainable_overlay_parameters": 1843200,
+          "storage_estimate": {
+            "dtype_bytes": 2,
+            "fp_bytes": 3686400,
+            "fp_mb": 3.52,
+            "q8_mb": 1.76,
+            "q4_mb": 0.88
+          }
+        },
+        {
+          "index": 3,
+          "id": "phase03_gate_habits",
+          "name": "Gate Habits",
+          "target_modules": [
+            "gate_proj"
+          ],
+          "capabilities": [
+            "chat",
+            "memory",
+            "tool_planning"
+          ],
+          "artifact_path": "ai/training/models/eldrae_qwen3b_lora_phase03_gate_habits",
+          "manifest_path": "smartweights/packs/eldrae-core/phases/phase03_gate_habits.json",
+          "trainable_overlay_parameters": 3760128,
+          "storage_estimate": {
+            "dtype_bytes": 2,
+            "fp_bytes": 7520256,
+            "fp_mb": 7.17,
+            "q8_mb": 3.59,
+            "q4_mb": 1.79
+          }
+        },
+        {
+          "index": 4,
+          "id": "phase04_up_visual_tools",
+          "name": "Up Visual Tools",
+          "target_modules": [
+            "up_proj"
+          ],
+          "capabilities": [
+            "tool_planning",
+            "visual_programs",
+            "visual_tokens"
+          ],
+          "artifact_path": "ai/training/models/eldrae_qwen3b_lora_phase04_up_visual_tools",
+          "manifest_path": "smartweights/packs/eldrae-core/phases/phase04_up_visual_tools.json",
+          "trainable_overlay_parameters": 3760128,
+          "storage_estimate": {
+            "dtype_bytes": 2,
+            "fp_bytes": 7520256,
+            "fp_mb": 7.17,
+            "q8_mb": 3.59,
+            "q4_mb": 1.79
+          }
+        },
+        {
+          "index": 5,
+          "id": "phase05_down_synthesis",
+          "name": "Down Synthesis",
+          "target_modules": [
+            "down_proj"
+          ],
+          "capabilities": [
+            "chat",
+            "memory",
+            "visual_programs"
+          ],
+          "artifact_path": "ai/training/models/eldrae_qwen3b_lora_phase05_down_synthesis",
+          "manifest_path": "smartweights/packs/eldrae-core/phases/phase05_down_synthesis.json",
+          "trainable_overlay_parameters": 3760128,
+          "storage_estimate": {
+            "dtype_bytes": 2,
+            "fp_bytes": 7520256,
+            "fp_mb": 7.17,
+            "q8_mb": 3.59,
+            "q4_mb": 1.79
+          }
+        }
+      ]
+    },
+    "middleware_strategy": [
+      {
+        "stage": "manifest_gate",
+        "role": "validate hashes, capabilities, write scopes, and overlay-only loading before inference"
+      },
+      {
+        "stage": "rftmw_delta",
+        "role": "compress stable adapter/head tensors into compact RFTMW delta packs"
+      },
+      {
+        "stage": "retrieval_memory",
+        "role": "add fresh knowledge and recall without baking volatile facts into adapter weights"
+      },
+      {
+        "stage": "tool_router",
+        "role": "activate local tools and visual pipelines only when the prompt needs them"
+      }
+    ],
+    "activation_policy": "load the frozen Qwen 3B base plus only the SmartWeights overlays relevant to the current task",
+    "scaling_rule": "increase effective capability through routed overlays, memory, tools, and RFTMW packs before increasing dense base size"
+  },
+  "safety": {
+    "base_weight_mutation": "forbidden",
+    "loads_as_overlay": true,
+    "requires_manifest_validation": true,
+    "destructive_actions": "requires_user_approval",
+    "network_access": "off_by_default",
+    "pii_redaction": "enabled_for_training_corpora",
+    "allowed_write_roots": [
+      "ai/training/models/",
+      "ai/training/reports/",
+      "smartweights/packs/"
+    ]
+  },
+  "notes": "Template manifest for Eldrae SmartWeights. The full rank-8 Qwen 3B overlay remains the target, but training is phased through smartweights/packs/eldrae-core/phases before final stack or merge."
+}

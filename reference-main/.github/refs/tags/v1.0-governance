@@ -1,0 +1,10 @@
+QuantoniumOS v1.0-governance
+USPTO Application No. 19/169,399
+Lead Architect: Luis M. Minier
+Effective Date: March 2026
+
+This tag marks the governance baseline commit for the QuantoniumOS project.
+Documents included in this release:
+- GOVERNANCE.md
+- ETHICS_POLICY.md
+- SECURITY.md

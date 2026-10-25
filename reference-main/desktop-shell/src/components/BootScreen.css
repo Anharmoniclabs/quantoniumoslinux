@@ -1,0 +1,111 @@
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+  transition: opacity 500ms ease-out;
+}
+.boot-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ── Q Logo ── */
+.boot-logo {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 2px solid rgba(144, 144, 144, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: boot-pulse 2s ease-in-out infinite;
+}
+.boot-q {
+  font-size: 42px;
+  font-weight: 700;
+  color: #e0e0e0;
+  font-family: "Inter", "SF Pro", -apple-system, sans-serif;
+  letter-spacing: -2px;
+}
+
+@keyframes boot-pulse {
+  0%, 100% { border-color: rgba(144, 144, 144, 0.2); box-shadow: 0 0 0 0 rgba(144, 144, 144, 0); }
+  50% { border-color: rgba(144, 144, 144, 0.5); box-shadow: 0 0 20px 4px rgba(144, 144, 144, 0.08); }
+}
+
+/* ── Title ── */
+.boot-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #e0e0e0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ── Status area ── */
+.boot-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-height: 72px;
+}
+
+.boot-stage {
+  font-size: 14px;
+  color: #909090;
+  font-weight: 500;
+  min-width: 200px;
+  text-align: center;
+}
+.boot-stage.boot-ready {
+  color: #e0e0e0;
+}
+
+.boot-substage {
+  font-size: 11px;
+  color: #505050;
+  letter-spacing: 0.5px;
+}
+
+/* ── Progress bar ── */
+.boot-progress-track {
+  width: 240px;
+  height: 2px;
+  background: #1e1e1e;
+  border-radius: 1px;
+  overflow: hidden;
+}
+.boot-progress-bar {
+  width: 40%;
+  height: 100%;
+  background: #909090;
+  border-radius: 1px;
+  animation: boot-slide 1.8s ease-in-out infinite;
+}
+@keyframes boot-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(600%); }
+}
+
+/* ── Footer ── */
+.boot-footer {
+  position: fixed;
+  bottom: 32px;
+  font-size: 11px;
+  color: #383838;
+  letter-spacing: 1px;
+}

@@ -1,0 +1,14 @@
+#!/bin/sh
+# qos-desktop - start the QuantoniumOS shell (Tauri) and its local model server as
+# RFTMW workloads. Ollama gets a soft memory ceiling so model weights are reclaimed
+# into zram/page cache under pressure instead of stalling the compositor.
+set -u
+ollama_up() { curl -fs --max-time 1 http://127.0.0.1:11434/api/tags >/dev/null 2>&1; }
+if command -v ollama >/dev/null && ! ollama_up; then
+    mem_kb=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
+    qos-run --name ollama --mem-high $(( mem_kb * 70 / 100 / 1024 )) --cpu-weight 80 -- ollama serve &
+    # The shell starts its own Ollama if it finds none; give ours time to bind :11434.
+    i=0; while [ $i -lt 20 ] && ! ollama_up; do sleep 0.5; i=$((i + 1)); done
+fi
+cd /opt/quantoniumos/runtime || exit 1
+exec qos-run --name shell --cpu-weight 200 -- /opt/quantoniumos/runtime/desktop-shell/src-tauri/target/release/quantoniumos-desktop

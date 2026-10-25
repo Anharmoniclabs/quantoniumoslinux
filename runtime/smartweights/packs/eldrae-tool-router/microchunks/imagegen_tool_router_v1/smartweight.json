@@ -1,0 +1,86 @@
+{
+  "artifacts": [
+    {
+      "bytes": 7498,
+      "file_count": 1,
+      "kind": "tool_head_weights",
+      "optional": false,
+      "path": "smartweights/packs/eldrae-tool-router/microchunks/imagegen_tool_router_v1/weights.json",
+      "present": true,
+      "sha256": "570eac8ad9dbab45d25f2e292e6dc9f37f92a958d4fc611689e23f649494bfe2"
+    },
+    {
+      "bytes": 348,
+      "file_count": 1,
+      "kind": "training_report",
+      "optional": false,
+      "path": "ai/training/reports/eldrae_imagegen_tool_router_v1_train.json",
+      "present": true,
+      "sha256": "cbfb918796415ea9609a4d427d9f943f76c139d108c9ac8aff150659d63e0883"
+    }
+  ],
+  "base": {
+    "frozen": true,
+    "runtime_model": "qwen2.5-coder:3b",
+    "training_model": "rust.smartweights.microchunk"
+  },
+  "capabilities": [
+    "chat",
+    "tool_planning",
+    "visual_programs"
+  ],
+  "created_at": "unix:1776826726",
+  "efficiency": {
+    "budget": {
+      "active_dense_parameters": 3000000000,
+      "actual_trainable_overlay_parameters": 513,
+      "base_parameters": 3000000000,
+      "model": "qwen2.5-coder:3b",
+      "parameters_per_layer": 0,
+      "storage_estimate": {
+        "dtype_bytes": 4,
+        "fp_bytes": 7498,
+        "fp_mb": 0.0071506500244140625,
+        "q4_mb": 0.0017876625061035156,
+        "q8_mb": 0.0035753250122070312
+      },
+      "trainable_overlay_parameters": 513
+    },
+    "goal": "tiny_rust_only_overlay_for_local_tool_routing"
+  },
+  "identity": {
+    "assistant": "Eldrae",
+    "role": "local image generation routing specialist"
+  },
+  "kind": "tool_head",
+  "name": "Eldrae Imagegen Tool Router Microchunk",
+  "notes": "Rust-trained binary tool router microchunk. This is a small SmartWeights head for deciding when Eldrae should emit a local [IMAGEGEN] call. It does not mutate base model tensors and does not use Python.",
+  "rft_space": {
+    "base_tensor_mutation": "none",
+    "encoding": "tool_head_hash_logreg",
+    "family": "RFTMW"
+  },
+  "safety": {
+    "allowed_write_roots": [
+      "smartweights/packs",
+      "ai/training/reports",
+      "smartweights/tmp"
+    ],
+    "base_weight_mutation": "forbidden",
+    "destructive_actions": "requires_user_approval",
+    "loads_as_overlay": true,
+    "network_access": "disabled",
+    "requires_manifest_validation": true
+  },
+  "schema_version": "smartweights/v1",
+  "training": {
+    "datasets": [
+      "smartweights/training/eldrae_runtime_growth.jsonl"
+    ],
+    "guardrails": "Rust-only microchunk trainer; overlay-only routing head; no base weight mutation",
+    "reports": [
+      "ai/training/reports/eldrae_imagegen_tool_router_v1_train.json"
+    ]
+  },
+  "version": "0.1.0"
+}

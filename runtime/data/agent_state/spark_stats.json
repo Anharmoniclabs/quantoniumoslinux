@@ -1,0 +1,15 @@
+{
+ "name": "SPARK",
+ "rpg_class": "Artificer",
+ "level": 4,
+ "xp": 165,
+ "hp": 100,
+ "mp": 65,
+ "strength": 16,
+ "wisdom": 13,
+ "quests_completed": 30,
+ "quests_failed": 0,
+ "consecutive_errors": 0,
+ "cooldown_until": "",
+ "total_tool_calls": 0
+}

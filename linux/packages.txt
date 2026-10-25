@@ -1,0 +1,70 @@
+# QuantoniumOS package set (Arch Linux official repositories only, no AUR).
+# Shared by install.sh and iso/build-iso.sh. One package per line; # starts a comment.
+
+# --- Base system & memory tuning ---------------------------------------------
+base-devel
+git
+zram-generator
+networkmanager
+bluez
+bluez-utils
+pipewire
+pipewire-pulse
+wireplumber
+sudo
+man-db
+
+# --- RFTMW native stack (C / C++ / NASM / pybind11) --------------------------
+cmake
+ninja
+nasm
+python
+python-pip
+python-numpy
+python-scipy
+python-matplotlib
+python-pandas
+python-sympy
+pybind11
+
+# --- QuantoniumOS shell (Tauri 2 on WebKitGTK) --------------------------------
+rust
+nodejs
+npm
+webkit2gtk-4.1
+libappindicator-gtk3
+librsvg
+openssl
+curl
+wget
+file
+
+# --- Local inference ----------------------------------------------------------
+ollama
+
+# --- Desktop session (Hyprland, Omarchy-style) -------------------------------
+hyprland
+hyprlock
+hypridle
+hyprpolkitagent
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+greetd
+greetd-tuigreet
+waybar
+mako
+libnotify
+fuzzel
+alacritty
+swaybg
+grim
+slurp
+wl-clipboard
+brightnessctl
+jq
+btop
+nautilus
+chromium
+ttf-jetbrains-mono-nerd
+noto-fonts
+noto-fonts-emoji

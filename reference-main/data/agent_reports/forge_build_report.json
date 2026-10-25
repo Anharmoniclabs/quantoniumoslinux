@@ -1,0 +1,18 @@
+{
+  "agent": "FORGE",
+  "timestamp": "2026-04-12T17:49:47Z",
+  "asm_kernel_count": 1,
+  "c_cpp_source_count": 8,
+  "artifact_count": 6,
+  "artifacts": [
+    "rftmw_native.cp313-win_amd64.pyd",
+    "rftmw_native.cpython-312-x86_64-linux-gnu.so",
+    "rftmw_native.cpython-312-x86_64-linux-gnu.so",
+    "librftmw_kernels.a",
+    "libfoo.a",
+    "libfoo.a"
+  ],
+  "cmake_configured": false,
+  "build_dir": "build_asm",
+  "health": "GREEN"
+}

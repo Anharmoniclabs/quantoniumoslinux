@@ -1,0 +1,136 @@
+[gd_scene load_steps=2 format=3 uid="uid://bronxscene_hud"]
+
+[ext_resource type="Script" path="res://scripts/Hud.gd" id="1_hud"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="CardsPanel" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_right = 0.0
+grow_horizontal = 0
+
+[node name="Title" type="Label" parent="CardsPanel"]
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 410.0
+offset_bottom = 38.0
+text = "QUE GUILD — AGENTS"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="CardsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 42.0
+offset_right = -6.0
+offset_bottom = -6.0
+
+[node name="Cards" type="VBoxContainer" parent="CardsPanel/Scroll"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="MainPanel" type="Panel" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -330.0
+offset_right = -420.0
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+theme_override_constants/separation = 4
+
+[node name="TopRow" type="HBoxContainer" parent="MainPanel/VBox"]
+size_flags_vertical = 0
+theme_override_constants/separation = 6
+
+[node name="PatrolBtn" type="Button" parent="MainPanel/VBox/TopRow"]
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 34)
+text = "PATROL"
+
+[node name="AutoBtn" type="Button" parent="MainPanel/VBox/TopRow"]
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 34)
+text = "AUTO"
+
+[node name="ReportBtn" type="Button" parent="MainPanel/VBox/TopRow"]
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 34)
+text = "REPORT"
+
+[node name="SageScanBtn" type="Button" parent="MainPanel/VBox/TopRow"]
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 34)
+text = "SAGE SCAN (14b)"
+
+[node name="Tabs" type="TabContainer" parent="MainPanel/VBox"]
+size_flags_vertical = 3
+theme_override_constants/side_margin = 4
+
+[node name="COMMS" type="VBoxContainer" parent="MainPanel/VBox/Tabs"]
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="CommsRTL" type="RichTextLabel" parent="MainPanel/VBox/Tabs/COMMS"]
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_active = true
+scroll_following = true
+autowrap_mode = 3
+
+[node name="InputRow" type="HBoxContainer" parent="MainPanel/VBox/Tabs/COMMS"]
+size_flags_vertical = 0
+theme_override_constants/separation = 6
+
+[node name="ChatInput" type="LineEdit" parent="MainPanel/VBox/Tabs/COMMS/InputRow"]
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 36)
+placeholder_text = "Talk to your agents..."
+
+[node name="SendBtn" type="Button" parent="MainPanel/VBox/Tabs/COMMS/InputRow"]
+custom_minimum_size = Vector2(80, 36)
+text = "SEND"
+
+[node name="QUESTS" type="VBoxContainer" parent="MainPanel/VBox/Tabs"]
+size_flags_vertical = 3
+
+[node name="QuestRTL" type="RichTextLabel" parent="MainPanel/VBox/Tabs/QUESTS"]
+size_flags_vertical = 3
+size_flags_horizontal = 3
+bbcode_enabled = true
+scroll_active = true
+scroll_following = true
+autowrap_mode = 3
+
+[node name="REPORTS" type="VBoxContainer" parent="MainPanel/VBox/Tabs"]
+size_flags_vertical = 3
+
+[node name="ReportsRTL" type="RichTextLabel" parent="MainPanel/VBox/Tabs/REPORTS"]
+size_flags_vertical = 3
+size_flags_horizontal = 3
+bbcode_enabled = true
+scroll_active = true
+scroll_following = false
+autowrap_mode = 3
+
+[node name="LOG" type="VBoxContainer" parent="MainPanel/VBox/Tabs"]
+size_flags_vertical = 3
+
+[node name="LogRTL" type="RichTextLabel" parent="MainPanel/VBox/Tabs/LOG"]
+size_flags_vertical = 3
+size_flags_horizontal = 3
+bbcode_enabled = true
+scroll_active = true
+scroll_following = true
+autowrap_mode = 3

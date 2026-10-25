@@ -1,0 +1,18 @@
+// =============================================================================
+// SPDX-License-Identifier: LicenseRef-SPX-Proprietary
+// Copyright (c) 2024-2026 Luis M. Minier. All rights reserved.
+//
+// Patent Pending: USPTO Application 19/169,399
+// "Hybrid Computational Framework for Quantum and Resonance Simulation"
+//
+// RFTPU ARCHITECTURE — Resonance Fourier Transform Processing Unit
+// Full architecture RTL implementing the claimed RFTPU design.
+//
+// This RTL file implements hardware architecture claimed in USPTO 19/169,399.
+// PERMITTED: View for peer review. Run synthesis to verify published results.
+// NOT PERMITTED: Fabricate, copy, modify, integrate, or use commercially
+//                without a written patent license from Luis M. Minier.
+//
+// Commercial licensing: luisminier79@gmail.com
+// See LICENSE-SPX-PROPRIETARY.md for full terms.
+// =============================================================================

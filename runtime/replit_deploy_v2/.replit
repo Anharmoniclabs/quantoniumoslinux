@@ -1,0 +1,9 @@
+run = "bash start.sh"
+
+[nix]
+channel = "stable-24_05"
+packages = ["nodejs-18_x", "cmake", "gcc", "gnumake", "git", "curl"]
+
+[[ports]]
+localPort = 8080
+externalPort = 80

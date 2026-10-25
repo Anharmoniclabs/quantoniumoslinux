@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://agentcharacter_scene"]
+
+[ext_resource type="Script" path="res://scripts/AgentCharacter.gd" id="1_script"]
+[ext_resource type="Shader" path="res://shaders/sprite_outline.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_outline"]
+shader = ExtResource("2_shader")
+shader_parameter/outline_color = Color(0.05, 0.05, 0.08, 0.9)
+shader_parameter/outline_width = 1.0
+shader_parameter/saturation_boost = 0.15
+shader_parameter/value_boost = 0.1
+
+[node name="AgentCharacter" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="VisualRoot" type="Node2D" parent="."]
+
+[node name="Shadow" type="Sprite2D" parent="VisualRoot"]
+position = Vector2(12, 38)
+
+[node name="Body" type="Sprite2D" parent="VisualRoot"]
+material = SubResource("ShaderMaterial_outline")
+
+[node name="Icon" type="Sprite2D" parent="VisualRoot"]
+position = Vector2(18, -10)
+
+[node name="NameLabel" type="Label" parent="VisualRoot"]
+offset_left = -16.0
+offset_top = -28.0
+offset_right = 40.0
+offset_bottom = -18.0
+
+[node name="Bubble" type="Label" parent="VisualRoot"]
+visible = false
+offset_left = -10.0
+offset_top = -42.0
+offset_right = 54.0
+offset_bottom = -30.0

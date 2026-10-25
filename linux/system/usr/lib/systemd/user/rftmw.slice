@@ -1,0 +1,10 @@
+# Every QuantoniumOS app launched through rftmwd (qos-run) runs in this slice.
+# The collective ceiling throttles apps (reclaim + zram) before the whole machine
+# thrashes; rftmwd and the compositor live outside it and stay responsive.
+[Unit]
+Description=QuantoniumOS RFTMW workloads
+
+[Slice]
+MemoryHigh=85%
+CPUWeight=100
+IOWeight=100

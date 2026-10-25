@@ -1,0 +1,188 @@
+\m4_TLV_version 1d: tl-x.org
+
+\SV
+   // ============================================================
+   // RFTPU-Q Demo — QuantoniumOS RFTMW Routing Shell
+   // Luis Minier — March 2026
+   //
+   // Simulates the RFTMW 35-variant scheduler control plane.
+   // Routes input tokens to the correct RFT variant based on:
+   //   - Architecture mode (ABS_MHA / ROPE_GQA / SIGNAL / GENERIC)
+   //   - Retention per-mille threshold
+   //   - Exploratory / exact-unitary flags
+   //
+   // Variant routing table (demo windows):
+   //   Cycles  Arch       Retain  Variant
+   //   ------  ---------  ------  --------------------------
+   //    0- 9   ABS_MHA     40%    op_rft_golden         (4'd0)
+   //   10-19   ROPE_GQA    40%    pat_rft_rope_pure     (4'd4)
+   //   20-29   ROPE_GQA    20%    op_rft_geometric      (4'd6)
+   //   30-39   SIGNAL      20%    wave_fibonacci_pruned  (4'd9)
+   //   40+     GENERIC    100%    canonical              (4'd1)
+   //
+   // Patent path: USPTO 19/169,399 Claim 4
+   //   Variants 4'd3, 4'd4, 4'd5 — ROPE_GQA complementary placement
+   //
+   // Pass condition: $ok stays high all windows, no routing error seen.
+   // ============================================================
+
+   // Explicit raw SystemVerilog wrapper (no m4_makerchip_module)
+   module top(
+      input  clk,
+      input  reset,
+      input  [31:0] cyc_cnt,
+      output passed,
+      output failed
+   );
+
+\TLV
+   |rftpu_q_demo
+      @0
+         $rst = *reset;
+         $cycle[7:0] = $rst ? 8'd0 : >>1$cycle + 8'd1;
+         $sample_in[15:0] = 16'd100 + $cycle;
+         $cfg_valid = !$rst;
+
+         // Demo windows:
+         $cfg_arch_mode[1:0] =
+            ($cycle < 8'd10) ? 2'd0 :
+            (($cycle < 8'd30) ? 2'd1 :
+            (($cycle < 8'd40) ? 2'd3 : 2'd2));
+
+         $cfg_retain_pm[15:0] =
+            ($cycle < 8'd10) ? 16'd400 :
+            (($cycle < 8'd20) ? 16'd400 :
+            (($cycle < 8'd30) ? 16'd200 :
+            (($cycle < 8'd40) ? 16'd200 : 16'd1000)));
+
+         $cfg_exploratory_ok         = (($cycle >= 8'd30) && ($cycle < 8'd40));
+         $cfg_exact_unitary_required = ($cycle >= 8'd40);
+         $cfg_streaming_mode         = ($cycle < 8'd30);
+         $cfg_asm_available          = 1'b1;
+
+      @1
+         // Arch decode
+         $is_abs_mha  = ($cfg_arch_mode == 2'd0);
+         $is_rope_gqa = ($cfg_arch_mode == 2'd1);
+         $is_generic  = ($cfg_arch_mode == 2'd2);
+         $is_signal   = ($cfg_arch_mode == 2'd3);
+
+         // RFTMW variant routing
+         $variant_id[3:0] =
+            $cfg_exact_unitary_required ? 4'd1 :
+            (($cfg_exploratory_ok && $is_signal && ($cfg_retain_pm < 16'd250)) ? 4'd9 :
+            ($is_abs_mha ? 4'd0 :
+            (($is_rope_gqa && ($cfg_retain_pm < 16'd300)) ? 4'd6 :
+            (($is_rope_gqa && ($cfg_retain_pm >= 16'd400)) ? 4'd4 :
+            ($is_rope_gqa ? 4'd3 : 4'd1)))));
+
+         $family_id[1:0]  = ($variant_id == 4'd1) ? 2'd2 : 2'd1;
+         $backend_id[1:0] = ($family_id == 2'd2) ? 2'd3 : ($cfg_asm_available ? 2'd2 : 2'd1);
+
+         $approx_mode = ($variant_id == 4'd9);
+         $patent_path = (($variant_id == 4'd3) || ($variant_id == 4'd4) || ($variant_id == 4'd5));
+         $exact_unitary_path =
+            (($variant_id == 4'd0) || ($variant_id == 4'd1) || ($variant_id == 4'd3) ||
+             ($variant_id == 4'd4) || ($variant_id == 4'd5) || ($variant_id == 4'd6));
+
+         $expected_variant[3:0] =
+            ($cycle < 8'd10) ? 4'd0 :
+            (($cycle < 8'd20) ? 4'd4 :
+            (($cycle < 8'd30) ? 4'd6 :
+            (($cycle < 8'd40) ? 4'd9 : 4'd1)));
+
+         $ok = ($variant_id == $expected_variant);
+
+      @2
+         // Q datapath: q_head -> q_ring -> q_diag
+         $q_head[15:0] = $sample_in;
+
+         $variant_bias[15:0] =
+            ($variant_id == 4'd0) ? 16'h009E :
+            (($variant_id == 4'd1) ? 16'h0101 :
+            (($variant_id == 4'd3) ? 16'h03C1 :
+            (($variant_id == 4'd4) ? 16'h0618 :
+            (($variant_id == 4'd5) ? 16'h0655 :
+            (($variant_id == 4'd6) ? 16'h0B13 : 16'h0F1B)))));
+
+         $q_ring[15:0] = $q_head + $variant_bias;
+
+         $q_diag[15:0] =
+            ($backend_id == 2'd2) ? ($q_ring ^ 16'h09E3) :
+            (($backend_id == 2'd3) ? ($q_ring ^ 16'hA5A5) :
+                                     ($q_ring ^ 16'h0033));
+
+      @3
+         // Q tail transform and output
+         $q_tail[15:0] =
+            ($family_id == 2'd2) ? (($q_diag + 16'h0021) ^ 16'h1111) :
+            ($approx_mode ? (($q_diag >> 1) + 16'h0007) :
+                            (($q_diag << 1) ^ 16'h0021));
+
+         $q_out[15:0] = $q_tail ^ {12'd0, $variant_id};
+
+         // summary_bus: 4+4+2+2+1+1+1+1+16 = 32 bits
+         $summary_bus[31:0] =
+            { 4'd0,
+              $variant_id[3:0],
+              $family_id[1:0],
+              $backend_id[1:0],
+              $approx_mode,
+              $patent_path,
+              $exact_unitary_path,
+              $ok,
+              $q_out[15:0]
+            };
+
+         $valid_out = >>3$cfg_valid;
+
+      @4
+         $error_seen =
+            $rst ? 1'b0 :
+            (>>1$error_seen || ($valid_out && !$ok));
+
+         $state_abs_mha        = ($cfg_arch_mode == 2'd0);
+         $state_rope_gqa       = ($cfg_arch_mode == 2'd1);
+         $state_signal         = ($cfg_arch_mode == 2'd3);
+         $state_canonical_mode = ($family_id == 2'd2);
+
+         $done = ($cycle >= 8'd50);
+
+         $pass_local = ($done && !$error_seen);
+         $fail_local = ($done &&  $error_seen);
+
+         // Connect directly to the module output ports
+         *passed = $pass_local;
+         *failed = $fail_local;
+
+      @5
+         $debug_fold[15:0] =
+            { 9'd0,
+              $cfg_streaming_mode,
+              $is_generic,
+              $state_abs_mha,
+              $state_rope_gqa,
+              $state_signal,
+              $state_canonical_mode,
+              $done
+            };
+
+         $status_word[15:0] =
+            { 9'd0,
+              $pass_local,
+              $fail_local,
+              $approx_mode,
+              $patent_path,
+              $exact_unitary_path,
+              $ok,
+              $valid_out
+            };
+
+         $final_bus[31:0] = $summary_bus ^ { $debug_fold[15:0], $status_word[15:0] };
+         $wave_tag[15:0]  = $fail_local ? 16'hDEAD : ($pass_local ? 16'h600D : 16'h1234);
+
+         `BOGUS_USE($final_bus)
+         `BOGUS_USE($wave_tag)
+
+\SV
+   endmodule

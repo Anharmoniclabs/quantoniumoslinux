@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2026 Luis M. Minier / quantoniumos
+#
+# Qwen35-Opus-Distil Modelfile - CPU-optimized defaults
+# ======================================================
+#
+# Problem: Default num_ctx=183000 causes 34GB to run entirely on CPU
+# Solution: Reduce context window for CPU inference
+#
+# Usage:
+#   ollama create qwen35-cpu -f models/qwen35-opus-cpu.Modelfile
+#   ollama run qwen35-cpu "your prompt"
+#
+# For GPU (Windows with CUDA):
+#   Use the original: ollama run gag0/qwen35-opus-distil
+
+FROM gag0/qwen35-opus-distil
+
+# Sane CPU defaults
+PARAMETER num_ctx 4096
+PARAMETER num_batch 512
+PARAMETER num_thread 8
+
+# Keep reasoning quality
+PARAMETER temperature 0.7
+PARAMETER top_k 40
+PARAMETER top_p 0.9
+
+# Reduce thinking verbosity
+SYSTEM """You are a helpful assistant. Be concise and direct. Do not show your thinking process unless explicitly asked. Answer questions directly without preamble."""

@@ -1,0 +1,69 @@
+# ============================================================================
+# PUBLIC MIRROR ALLOWLIST — V1 (skinny)
+# ============================================================================
+#
+# ONLY the files listed below may be copied into the public mirror repo.
+# If a file is not listed here, it does not go in the mirror. No exceptions.
+#
+# V1 philosophy: public-facing research storefront, not a dossier.
+# Theorem proofs, patent docs, prior-art arguments, and claim maps
+# are held back. They can be promoted to V2 after the mirror is live
+# and the exposure surface has been evaluated.
+#
+# Generated: April 9, 2026
+# Updated:   April 9, 2026 — trimmed from 29 to 19 files
+# ============================================================================
+
+# --- Root: Repo metadata & licensing ---
+LICENSE
+LICENSE-CLAIMS-NC.md
+LICENSE-SPX-PROPRIETARY.md
+NOTICE
+CONTRIBUTING.md
+SECURITY.md
+ETHICS_POLICY.md
+GOVERNANCE.md
+# PROJECT_NAME_NOTE.md                    — CUT: contains implementation paths, test commands, overclaim ("255/255 formal proof tests")
+ORIGIN.md
+
+# --- Root: README (replaced with mirror-specific version at build time) ---
+README.md
+
+# --- Research positioning (written for public consumption) ---
+docs/research/CURRENT_RESEARCH_POSITION.md
+docs/research/PROVEN_EMPIRICAL_OPEN_MATRIX.md
+docs/research/OPEN_PROBLEMS.md
+
+# --- Honest scope & limitations ---
+# docs/NON_CLAIMS.md                      — CUT: 9+ internal paths, test commands, class names, links to files not in mirror
+# docs/LIMITATIONS_AND_REVIEWER_CONCERNS.md — CUT: 10+ internal paths, benchmark CLI commands, links to files not in mirror
+# Both topics are covered in CURRENT_RESEARCH_POSITION.md ("What This Project Does Not Claim" section)
+
+# --- Glossary ---
+# docs/GLOSSARY.md                        — CUT: full of implementation paths, line numbers, test commands
+# docs/GLOSSARY.md is a developer reference, not a public-facing document
+
+# --- Licensing guidance ---
+docs/licensing/LICENSING.md
+
+# --- Disclosure boundary (explains the mirror rationale) ---
+docs/project/DISCLOSURE_BOUNDARY.md
+
+# ============================================================================
+# TOTAL: 14 files (+ README swap = 14 in mirror)
+# ============================================================================
+#
+# HELD BACK FOR V2 (promote individually after review):
+#   CITATION.cff                          — contains personal email
+#   docs/THEOREMS_RFT_IRONCLAD.md         — exposes proof structure
+#   docs/proofs/*                          — full proof documents
+#   docs/MATHEMATICAL_CLAIMS_INVENTORY.md  — argumentative surface
+#   docs/PRIOR_ART_DIFFERENTIATION.md      — legal-adjacent positioning
+#   docs/project/PATENT_NOTICE.md          — patent detail
+#
+# CUT FROM V1 (tone/breadcrumb issues — fix before promoting):
+#   PROJECT_NAME_NOTE.md                   — impl paths, test commands, overclaim
+#   docs/GLOSSARY.md                       — impl paths, line numbers, test commands
+#   docs/NON_CLAIMS.md                     — 9+ impl paths, class names, test commands
+#   docs/LIMITATIONS_AND_REVIEWER_CONCERNS.md — 10+ impl paths, benchmark commands
+# ============================================================================

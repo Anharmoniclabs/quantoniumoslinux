@@ -1,0 +1,15 @@
+{
+ "name": "VIAL",
+ "rpg_class": "Alchemist",
+ "level": 3,
+ "xp": 170,
+ "hp": 100,
+ "mp": 60,
+ "strength": 14,
+ "wisdom": 12,
+ "quests_completed": 20,
+ "quests_failed": 8,
+ "consecutive_errors": 0,
+ "cooldown_until": "",
+ "total_tool_calls": 0
+}

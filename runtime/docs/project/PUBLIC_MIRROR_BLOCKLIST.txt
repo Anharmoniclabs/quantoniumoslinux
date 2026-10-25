@@ -1,0 +1,160 @@
+# ============================================================================
+# PUBLIC MIRROR BLOCKLIST — High-risk paths that must NEVER appear in mirror
+# ============================================================================
+#
+# This is a defense-in-depth list. If the allowlist is followed correctly,
+# none of these paths will be copied. This file exists to catch mistakes.
+#
+# Generated: April 9, 2026
+# ============================================================================
+
+# === CLAIM-PRACTICING IMPLEMENTATION CODE ===
+algorithms/
+src/
+quantonium_os_src/
+hardware/
+tools/
+atomic_io.py
+quantonium-cli
+quantoniumos-bootstrap.sh
+
+# === TESTS, BENCHMARKS, EXPERIMENTS ===
+tests/
+benchmarks/
+experiments/
+
+# === PRIVATE DOCS (PII, internal memos) ===
+docs/private/
+
+# === HELD BACK FROM V1 (promote to V2 individually) ===
+CITATION.cff
+docs/THEOREMS_RFT_IRONCLAD.md
+docs/MATHEMATICAL_CLAIMS_INVENTORY.md
+docs/PRIOR_ART_DIFFERENTIATION.md
+docs/proofs/
+docs/project/PATENT_NOTICE.md
+
+# === CUT FROM V1 (tone/breadcrumb issues) ===
+PROJECT_NAME_NOTE.md
+docs/GLOSSARY.md
+docs/NON_CLAIMS.md
+docs/LIMITATIONS_AND_REVIEWER_CONCERNS.md
+
+# === PATENT PROSECUTION DOCS ===
+docs/patent/
+
+# === PATENT ADMIN & CLAIMS REGISTRIES ===
+docs/project/CLAIMS_PRACTICING_FILES.txt
+docs/project/NOVELTY_AUDIT_REPORT.md
+docs/project/Author
+PATENT_CLAIMS_IMPLEMENTATION_ANALYSIS.md
+
+# === INTERNAL ARCHITECTURE & IMPLEMENTATION DETAIL ===
+docs/ARCHITECTURE.md
+docs/ARCHITECTURE_QUICKREF.md
+docs/AI_INFRASTRUCTURE_WALKTHROUGH.md
+docs/HYBRID_FFT_RFT_ALGORITHM.md
+docs/PATENT_CLAIM_CROSS_REFERENCE_MAP.md
+docs/RFTPU_TECHNICAL_SPECIFICATION_V2.md
+docs/RFT_TRANSFORM_INVENTORY.md
+docs/TECHNICAL_DETAILS.md
+docs/USPTO_GAP_RESOLUTION_PLAN.md
+docs/NOVEL_ALGORITHMS.md
+docs/PROOF_RESULTS.md
+CODEBASE_STRUCTURE.md
+COMPRESSION_ARCHITECTURE.md
+ENGINEER_MANUAL.md
+HEADER_TEMPLATES.md
+STUBS_AND_LEGACY_FILES.md
+REPO_FULL_ANALYSIS_AND_RFTMW_COMPRESSION.md
+
+# === IMPLEMENTATION-ADJACENT RESEARCH DOCS ===
+docs/research/STATUS_AFTER_BINDEL_REVIEW.md
+docs/research/FOUR_CLAIM_REPO_MAP.md
+docs/research/FINAL_AI_MODEL_INVENTORY.md
+docs/research/GOLDEN_NEURAL_NETWORK_STRATEGY.md
+docs/research/HYBRID_CODEC.md
+docs/research/RFT_PERFORMANCE_THEOREM.md
+docs/research/RFT_SCOPE_AND_LIMITATIONS.md
+docs/research/RFT_WAVE_COMPUTER_THEOREM.md
+docs/research/TECHNICAL_SUMMARY.md
+docs/research/THE_PHI_RFT_FRAMEWORK_PAPER.tex
+docs/research/WAVELET_RFT_HYBRID.md
+docs/research/RESEARCH_SOURCES_AND_ANALYSIS_GUIDE.md
+docs/research/theoretical_justifications.md
+docs/research/benchmarks/
+
+# === INTERNAL GUIDES (reference implementation details) ===
+docs/guides/
+docs/algorithms/
+
+# === REFERENCE DOCS (implementation-specific) ===
+docs/reference/
+docs/bridges/
+docs/reports/
+docs/scientific_domains/
+docs/technical/
+docs/textbook/
+docs/validation/
+
+# === INTERNAL PAPERS (unpublished drafts) ===
+docs/papers/
+
+# === INTERNAL PROJECT DOCS ===
+docs/project/COMPONENT_INVENTORY.md
+docs/project/PROJECT_STRUCTURE.md
+docs/project/REPO_ORGANIZATION.md
+docs/project/RFT_EVOLUTION_MAP.md
+docs/project/ROADMAP.md
+docs/project/CANONICAL.md
+docs/project/PUBLIC_MIRROR_ALLOWLIST.txt
+docs/project/PUBLIC_MIRROR_BLOCKLIST.txt
+docs/project/PUBLIC_MIRROR_BUILD_INSTRUCTIONS.md
+
+# === BUILD/CI/CONFIG ===
+.github/
+.claude/
+.devcontainer/
+Dockerfile
+Dockerfile.papers
+pyproject.toml
+pytest.ini
+requirements.txt
+.gitignore
+.gitattributes
+.dockerignore
+
+# === DATA & RESULTS ===
+data/
+codec_pipeline_results.json
+
+# === EXAMPLES (use claim-practicing code) ===
+examples/
+
+# === SCRIPTS (internal tooling) ===
+scripts/
+run_demo.sh
+run_formal_verification.py
+reproduce_results.sh
+verify_setup.sh
+theorem_e_proof_test.py
+qshellchatbox.ps1
+
+# === THIRD PARTY ===
+third_party/
+
+# === QVault ===
+QVault/
+
+# === UI ===
+ui/
+
+# === MOBILE APP ===
+mobile/
+
+# === MODEL WEIGHTS ===
+*.rftmwpk
+
+# ============================================================================
+# RULE: If it's not on the allowlist, it's blocked. This file is a safety net.
+# ============================================================================

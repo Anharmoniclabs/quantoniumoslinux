@@ -1,0 +1,10 @@
+{
+  "agent": "WARD",
+  "timestamp": "2026-04-11T23:11:24Z",
+  "health": "RED",
+  "issues_found": 4,
+  "secret_scan": "\u26a0\ufe0f 2 potential secret(s) found (4334 files scanned):\n  [HIGH] scripts\\infra\\launchers\\launch_q_vault.py: Possible hardcoded secret (6x)\n  [HIGH] quantonium_os_src\\apps\\q_vault\\main.py: Possible hardcoded secret (1x)",
+  "dep_audit": "Total dependencies: 8 | Pinned (==): 0 | Range (>=): 8 | Unpinned: 0",
+  "safety_check": "Safety provenance: 5/6 checks passed. sandbox_boundary:\u2705, path_traversal:\u274c, rate_limit:\u2705, injection_filter:\u2705, audit_log:\u2705, blocklist:\u2705",
+  "code_smells": "\u26a0\ufe0f 30 code smell(s) in 408 Python files:\n  test_independent_forward.py: eval() call \u2014 potential code injection (1x)\n  test_reference_compare.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_perplexity_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\kv_cache_seq_axis_real_model_benchmark.py: eval() call \u2014 potential code injection (1x)\n  benchmarks\\probe_rope_varia"
+}

@@ -1,0 +1,10 @@
+{
+  "agent": "LORE",
+  "timestamp": "2026-04-11T23:11:34Z",
+  "health": "RED",
+  "doc_count": 152,
+  "total_lines": 38757,
+  "total_internal_links": 444,
+  "broken_links": 280,
+  "stale_references": 128
+}

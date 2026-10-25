@@ -1,0 +1,40 @@
+# Local data: research DB (500+ MB) and a browser profile with cookies/tokens
+/data/
+/runs/
+/_backup_recovery_workbench_*/
+*.log
+
+# Build outputs
+node_modules/
+target/
+dist/
+build/
+build_asm/
+/linux/iso/out/
+*.iso
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.hypothesis/
+
+# Backups made while porting the kernels
+*.bak
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+export_credentials.cfg
+
+# Model packs (multi-GB, LFS pointers whose objects are not local)
+*.rftmwpk
+*.rftmwpk2
+*.gguf
+
+# Godot editor cache
+.godot/

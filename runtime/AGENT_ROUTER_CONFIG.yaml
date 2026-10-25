@@ -1,0 +1,388 @@
+# Agent Router Configuration
+# This file defines the smart routing rules for the QUE Guild agent system.
+# Used by ORACLE to dispatch quests and by external tools to know which agent handles what.
+
+agent_models:
+  ORACLE: "gag0/qwen35-opus-distil"
+  SAGE: "gag0/qwen35-opus-distil"
+  FORGE: "gag0/qwen35-opus-distil"
+  VIAL: "gag0/qwen35-opus-distil"
+  WARD: "gag0/qwen35-opus-distil"
+  LORE: "gag0/qwen35-opus-distil"
+  SPARK: "gag0/qwen35-opus-distil"
+  TIDE: "gag0/qwen35-opus-distil"
+
+# Domain → Agent mappings
+# First match wins. More specific patterns should come before general ones.
+routing_rules:
+
+  # === SAGE (Research / Optimization / RFT Core) ===
+  - patterns:
+      - "rft"
+      - "resonant fourier"
+      - "golden ratio"
+      - "phi"
+      - "compression"
+      - "optimize"
+      - "benchmark"
+      - "profile"
+      - "experiment"
+      - "hypothesis"
+      - "research"
+      - "analyze"
+      - "architecture"
+      - "bottleneck"
+      - "speedup"
+      - "qwen"
+      - "inference"
+      - "rftmwpk"
+      - "model pack"
+    agent: SAGE
+    priority_boost: 10
+    reason: "Research and optimization tasks need SAGE's 14b model"
+
+  # === FORGE (Build / Native / Hardware) ===
+  - patterns:
+      - "build"
+      - "cmake"
+      - "make"
+      - "compile"
+      - "native"
+      - "asm"
+      - "assembly"
+      - "simd"
+      - "avx"
+      - "kernel"
+      - "cpp"
+      - "c++"
+      - "pybind"
+      - "hardware"
+      - "fpga"
+      - "verilog"
+      - "systemverilog"
+    agent: FORGE
+    priority_boost: 5
+    reason: "Build and native code tasks go to the Kernel Smith"
+
+  # === VIAL (Testing / Coverage) ===
+  - patterns:
+      - "test"
+      - "pytest"
+      - "unittest"
+      - "coverage"
+      - "assert"
+      - "fixture"
+      - "mock"
+      - "regression"
+      - "validation"
+      - "verify"
+      - "correctness"
+    agent: VIAL
+    priority_boost: 5
+    reason: "Testing tasks go to the Alchemist"
+
+  # === WARD (Security / Audit) ===
+  - patterns:
+      - "security"
+      - "secret"
+      - "password"
+      - "api key"
+      - "credential"
+      - "vulnerability"
+      - "cve"
+      - "audit"
+      - "leak"
+      - "injection"
+      - "xss"
+      - "sql"
+    agent: WARD
+    priority_boost: 20  # Security is always high priority
+    reason: "Security tasks are critical — go to the Guardian"
+
+  # === LORE (Documentation) ===
+  - patterns:
+      - "doc"
+      - "readme"
+      - "markdown"
+      - "changelog"
+      - "comment"
+      - "docstring"
+      - "link"
+      - "reference"
+      - "guide"
+      - "tutorial"
+    agent: LORE
+    priority_boost: 0
+    reason: "Documentation tasks go to the Chronicler"
+
+  # === SPARK (Desktop UI / Apps) ===
+  - patterns:
+      - "ui"
+      - "desktop"
+      - "chatbox"
+      - "window"
+      - "sprite"
+      - "render"
+      - "tkinter"
+      - "pyqt"
+      - "gui"
+      - "phaser"
+      - "rpg"
+    agent: SPARK
+    priority_boost: 0
+    reason: "UI and desktop app tasks go to the Artificer"
+
+  # === TIDE (Mobile / Frontend) ===
+  - patterns:
+      - "mobile"
+      - "react native"
+      - "expo"
+      - "typescript"
+      - "tsx"
+      - "jsx"
+      - "frontend"
+      - "css"
+      - "tailwind"
+      - "web"
+    agent: TIDE
+    priority_boost: 0
+    reason: "Mobile and frontend tasks go to the Navigator"
+
+# File path → Agent mappings
+# If a task mentions a specific file path, route based on location
+path_routing:
+  "algorithms/rft/": SAGE
+  "experiments/": SAGE
+  "benchmarks/": SAGE
+  "quantonium_os_src/engine/": SAGE
+  
+  "src/rftmw_native/": FORGE
+  "hardware/": FORGE
+  "algorithms/rft/kernels/": FORGE
+  
+  "tests/": VIAL
+  
+  "docs/": LORE
+  "*.md": LORE
+  
+  "src/dashboard/": SPARK
+  "ui/": SPARK
+  "godot/": SPARK
+  
+  "mobile/": TIDE
+
+# Skill trees — what each agent can do
+skill_trees:
+  SAGE:
+    core_skills:
+      - analyze_architecture
+      - analyze_module
+      - cross_reference
+      - run_experiment
+      - research_report
+      - deep_optimization_scan
+    domain_knowledge:
+      - RFT mathematical foundations (Löwdin orthogonalization, Gram matrices)
+      - RFTMW compression pipeline (Q4_K/Q6_K dequantization)
+      - Fibonacci conditioning cliff (κ(G) scaling)
+      - Model pack format (.rftmwpk structure)
+      - Inference engine internals (KV caching, RoPE, attention)
+    allowed_paths:
+      - "algorithms/"
+      - "experiments/"
+      - "benchmarks/"
+      - "quantonium_os_src/"
+      - "docs/"
+      - "tests/"
+    can_run_experiments: true
+    max_tokens: 2000
+
+  FORGE:
+    core_skills:
+      - check_build
+      - scan_asm_kernels
+      - build_report
+      - benchmark_kernel
+      - verify_pack_integrity
+    domain_knowledge:
+      - CMake build system
+      - pybind11 bindings
+      - AVX2/AVX-512 intrinsics
+      - GGUF quantization formats
+      - SystemVerilog/TL-Verilog
+    allowed_paths:
+      - "src/rftmw_native/"
+      - "algorithms/rft/kernels/"
+      - "hardware/"
+    can_run_builds: true
+    max_tokens: 1000
+
+  VIAL:
+    core_skills:
+      - count_tests
+      - run_pytest
+      - coverage_report
+      - test_health_report
+    domain_knowledge:
+      - pytest fixtures and markers
+      - Coverage.py
+      - Property-based testing (hypothesis)
+      - Numerical tolerance assertions
+    allowed_paths:
+      - "tests/"
+      - "benchmarks/"
+    can_run_tests: true
+    max_tokens: 1000
+
+  WARD:
+    core_skills:
+      - secret_scan
+      - dependency_audit
+      - code_smell_scan
+      - security_report
+    domain_knowledge:
+      - Secret patterns (API keys, tokens, passwords)
+      - CVE databases
+      - OWASP top 10
+      - Python security anti-patterns
+    allowed_paths:
+      - "*"  # Security can scan everything
+    can_run_scans: true
+    max_tokens: 1000
+
+  LORE:
+    core_skills:
+      - doc_link_check
+      - doc_inventory
+      - doc_quality_scan
+      - doc_health_report
+    domain_knowledge:
+      - Markdown syntax
+      - README conventions
+      - API documentation patterns
+      - Changelog formats
+    allowed_paths:
+      - "docs/"
+      - "*.md"
+    max_tokens: 500
+
+  SPARK:
+    core_skills:
+      - asset_check
+      - syntax_check
+      - rpg_integrity
+      - ui_health_report
+    domain_knowledge:
+      - Phaser.js game framework
+      - Python GUI (tkinter, Qt)
+      - Sprite sheets and tilesets
+      - WebSocket protocols
+    allowed_paths:
+      - "src/dashboard/"
+      - "ui/"
+      - "godot/"
+    max_tokens: 500
+
+  TIDE:
+    core_skills:
+      - mobile_structure_check
+      - mobile_deps_check
+      - frontend_todo_scan
+      - frontend_health_report
+    domain_knowledge:
+      - React Native / Expo
+      - TypeScript
+      - npm/yarn ecosystem
+      - Mobile build systems
+    allowed_paths:
+      - "mobile/"
+    max_tokens: 500
+
+  ORACLE:
+    core_skills:
+      - dispatch_patrol
+      - smart_dispatch
+      - status_dashboard
+      - guild_report
+    domain_knowledge:
+      - All agent capabilities (for routing)
+      - Quest priority logic
+      - Cross-agent correlation
+      - Report synthesis
+    allowed_paths:
+      - "data/agent_reports/"
+      - "data/agent_state/"
+    is_coordinator: true
+    max_tokens: 2000
+
+# Quest templates for common scenarios
+quest_templates:
+  
+  rft_optimization:
+    steps:
+      - agent: SAGE
+        quest: "Profile RFT layers for bottlenecks"
+      - agent: SAGE
+        quest: "Propose optimization hypotheses"
+        depends_on: previous
+      - agent: FORGE
+        quest: "Implement kernel optimization"
+        depends_on: previous
+        condition: "if SAGE found actionable optimization"
+      - agent: VIAL
+        quest: "Run regression tests on optimized kernel"
+        depends_on: previous
+      - agent: ORACLE
+        quest: "Generate optimization summary for human review"
+        depends_on: all
+
+  security_audit:
+    steps:
+      - agent: WARD
+        quest: "Full secret scan"
+      - agent: WARD
+        quest: "Dependency CVE audit"
+      - agent: WARD
+        quest: "Code smell scan"
+      - agent: ORACLE
+        quest: "Generate security report"
+        depends_on: all
+
+  pre_release:
+    steps:
+      - agent: VIAL
+        quest: "Run full test suite"
+      - agent: WARD
+        quest: "Security audit"
+      - agent: LORE
+        quest: "Doc link check"
+      - agent: FORGE
+        quest: "Build verification"
+      - agent: ORACLE
+        quest: "Pre-release health report"
+        depends_on: all
+
+# Priority escalation rules
+priority_rules:
+  - condition: "secrets_found > 0"
+    action: "set_priority(CRITICAL)"
+    notify: human
+  
+  - condition: "test_failures > 10"
+    action: "set_priority(HIGH)"
+  
+  - condition: "build_errors > 0"
+    action: "set_priority(HIGH)"
+  
+  - condition: "agent_in_cooldown"
+    action: "route_to_backup_agent"
+
+# Backup agent assignments (if primary is in cooldown)
+backup_agents:
+  SAGE: ORACLE   # ORACLE can do basic analysis
+  FORGE: VIAL    # VIAL can verify builds exist
+  VIAL: SAGE     # SAGE can run test snippets
+  WARD: ORACLE   # ORACLE can do basic secret grep
+  LORE: SPARK    # SPARK can check doc assets
+  SPARK: TIDE    # TIDE can check UI code
+  TIDE: SPARK    # SPARK can check mobile structure

@@ -1,0 +1,15 @@
+{
+ "name": "TIDE",
+ "rpg_class": "Ranger",
+ "level": 4,
+ "xp": 20,
+ "hp": 100,
+ "mp": 65,
+ "strength": 16,
+ "wisdom": 13,
+ "quests_completed": 25,
+ "quests_failed": 0,
+ "consecutive_errors": 0,
+ "cooldown_until": "",
+ "total_tool_calls": 0
+}

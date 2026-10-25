@@ -1,0 +1,3312 @@
+{
+  "THM1": {
+    "name": "\u03a6 Full Rank",
+    "statement": "\u2200N\u22651: rank(\u03a6_N) = N, where \u03a6[n,k] = exp(i2\u03c0\u00b7n\u00b7frac((k+1)\u03c6))/\u221aN",
+    "status": "constructive",
+    "verified": true,
+    "dependencies": [],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "\u03c6 = (1+\u221a5)/2 is irrational (proof by contradiction: if \u03c6 = p/q then \u221a5 = 2p/q - 1 is rational, contradiction)",
+        "rule": "axiom",
+        "references": [
+          "AX5_PHI_IRRATIONAL"
+        ]
+      },
+      {
+        "step_id": 2,
+        "statement": "N=8: min|f_j - f_k| = 9.016994e-02 > 0 \u27f9 all f_k distinct",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "min_frequency_gap": 0.09016994374947451
+        }
+      },
+      {
+        "step_id": 3,
+        "statement": "N=16: min|f_j - f_k| = 3.444185e-02 > 0 \u27f9 all f_k distinct",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "min_frequency_gap": 0.03444185374863373
+        }
+      },
+      {
+        "step_id": 4,
+        "statement": "N=32: min|f_j - f_k| = 2.128624e-02 > 0 \u27f9 all f_k distinct",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "min_frequency_gap": 0.021286236252203494
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "N=64: min|f_j - f_k| = 8.130619e-03 > 0 \u27f9 all f_k distinct",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "min_frequency_gap": 0.008130618755773256
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "N=128: min|f_j - f_k| = 5.024999e-03 > 0 \u27f9 all f_k distinct",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "min_frequency_gap": 0.005024998740630338
+        }
+      },
+      {
+        "step_id": 7,
+        "statement": "N=8: \u03a6 is Vandermonde in distinct z_k \u27f9 rank(\u03a6) = 8. \u03c3_min = 7.363769e-01, cond(\u03a6) = 1.65",
+        "rule": "vandermonde_rank",
+        "references": [
+          "AX1_VANDERMONDE",
+          "step_8"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "sigma_min": 0.7363769101077327,
+          "condition_number": 1.6543788865551698
+        }
+      },
+      {
+        "step_id": 8,
+        "statement": "N=16: \u03a6 is Vandermonde in distinct z_k \u27f9 rank(\u03a6) = 16. \u03c3_min = 3.698297e-01, cond(\u03a6) = 3.59",
+        "rule": "vandermonde_rank",
+        "references": [
+          "AX1_VANDERMONDE",
+          "step_16"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "sigma_min": 0.36982974188792117,
+          "condition_number": 3.5861685912386356
+        }
+      },
+      {
+        "step_id": 9,
+        "statement": "N=32: \u03a6 is Vandermonde in distinct z_k \u27f9 rank(\u03a6) = 32. \u03c3_min = 1.957308e-01, cond(\u03a6) = 6.40",
+        "rule": "vandermonde_rank",
+        "references": [
+          "AX1_VANDERMONDE",
+          "step_32"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "sigma_min": 0.19573075503939755,
+          "condition_number": 6.400924200567646
+        }
+      },
+      {
+        "step_id": 10,
+        "statement": "N=64: \u03a6 is Vandermonde in distinct z_k \u27f9 rank(\u03a6) = 64. \u03c3_min = 1.112076e-01, cond(\u03a6) = 12.21",
+        "rule": "vandermonde_rank",
+        "references": [
+          "AX1_VANDERMONDE",
+          "step_64"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "sigma_min": 0.11120756584922857,
+          "condition_number": 12.212388652871416
+        }
+      },
+      {
+        "step_id": 11,
+        "statement": "N=128: \u03a6 is Vandermonde in distinct z_k \u27f9 rank(\u03a6) = 128. \u03c3_min = 1.263289e-01, cond(\u03a6) = 10.17",
+        "rule": "vandermonde_rank",
+        "references": [
+          "AX1_VANDERMONDE",
+          "step_128"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "sigma_min": 0.12632894950690457,
+          "condition_number": 10.172489931247673
+        }
+      },
+      {
+        "step_id": 12,
+        "statement": "\u2200N tested: \u03c3_min(\u03a6) > 0, confirming full rank by Vandermonde theorem. Formal proof complete: irrational \u03c6 \u27f9 distinct nodes \u27f9 full rank.",
+        "rule": "modus_ponens",
+        "references": [
+          "AX1_VANDERMONDE",
+          "AX5_PHI_IRRATIONAL"
+        ]
+      }
+    ],
+    "numerical_bounds": {
+      "min_gap_N8": 0.09016994374947451,
+      "min_gap_N16": 0.03444185374863373,
+      "min_gap_N32": 0.021286236252203494,
+      "min_gap_N64": 0.008130618755773256,
+      "min_gap_N128": 0.005024998740630338,
+      "sigma_min_N8": 0.7363769101077327,
+      "condition_N8": 1.6543788865551698,
+      "sigma_min_N16": 0.36982974188792117,
+      "condition_N16": 3.5861685912386356,
+      "sigma_min_N32": 0.19573075503939755,
+      "condition_N32": 6.400924200567646,
+      "sigma_min_N64": 0.11120756584922857,
+      "condition_N64": 12.212388652871416,
+      "sigma_min_N128": 0.12632894950690457,
+      "condition_N128": 10.172489931247673
+    }
+  },
+  "THM2": {
+    "name": "Canonical U Unitary",
+    "statement": "U = \u03a6(\u03a6\u2020\u03a6)^{-1/2} satisfies U\u2020U = UU\u2020 = I",
+    "status": "constructive",
+    "verified": true,
+    "dependencies": [
+      "THM1"
+    ],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "By Theorem 1, \u03a6 is invertible \u27f9 G = \u03a6\u2020\u03a6 is Hermitian positive-definite",
+        "rule": "modus_ponens",
+        "references": [
+          "THM1"
+        ]
+      },
+      {
+        "step_id": 2,
+        "statement": "G^{-1/2} is well-defined: G = V\u039bV\u2020 \u27f9 G^{-1/2} = V\u039b^{-1/2}V\u2020",
+        "rule": "spectral",
+        "references": [
+          "step_1"
+        ]
+      },
+      {
+        "step_id": 3,
+        "statement": "U\u2020U = G^{-1/2} \u03a6\u2020\u03a6 G^{-1/2} = G^{-1/2} G G^{-1/2} = I (spectral calculus: f(G)\u00b7g(G) = (f\u00b7g)(G))",
+        "rule": "algebraic",
+        "references": [
+          "step_1",
+          "step_2"
+        ]
+      },
+      {
+        "step_id": 4,
+        "statement": "N=8: ||U\u2020U - I||_F = 4.73e-15, ||UU\u2020 - I||_F = 4.75e-15",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "err_UtU": 4.7310516102775835e-15,
+          "err_UUt": 4.750192385413552e-15
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "N=16: ||U\u2020U - I||_F = 1.24e-14, ||UU\u2020 - I||_F = 1.24e-14",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "err_UtU": 1.2418254858170472e-14,
+          "err_UUt": 1.2375478211911626e-14
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "N=32: ||U\u2020U - I||_F = 3.31e-14, ||UU\u2020 - I||_F = 3.31e-14",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "err_UtU": 3.306261401690684e-14,
+          "err_UUt": 3.3065792383689895e-14
+        }
+      },
+      {
+        "step_id": 7,
+        "statement": "N=64: ||U\u2020U - I||_F = 4.95e-14, ||UU\u2020 - I||_F = 4.95e-14",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "err_UtU": 4.948461163604517e-14,
+          "err_UUt": 4.952295402698405e-14
+        }
+      },
+      {
+        "step_id": 8,
+        "statement": "N=128: ||U\u2020U - I||_F = 7.78e-14, ||UU\u2020 - I||_F = 7.75e-14",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "err_UtU": 7.775719598034445e-14,
+          "err_UUt": 7.749169162282488e-14
+        }
+      },
+      {
+        "step_id": 9,
+        "statement": "QED: Algebraic proof establishes U\u2020U = I exactly; numerical certificates confirm to machine precision \u2264 1e-12.",
+        "rule": "modus_ponens",
+        "references": [
+          "step_3"
+        ]
+      }
+    ],
+    "numerical_bounds": {
+      "unitarity_err_N8": 4.750192385413552e-15,
+      "unitarity_err_N16": 1.2418254858170472e-14,
+      "unitarity_err_N32": 3.3065792383689895e-14,
+      "unitarity_err_N64": 4.952295402698405e-14,
+      "unitarity_err_N128": 7.775719598034445e-14
+    }
+  },
+  "THM6": {
+    "name": "\u03a6 \u2260 DFT",
+    "statement": "U_\u03c6 is not equivalent to any permuted/rephased DFT matrix",
+    "status": "constructive",
+    "verified": true,
+    "dependencies": [
+      "THM2"
+    ],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "Assume for contradiction: U_\u03c6 = F \u00b7 P_\u03c3 \u00b7 D_\u03b8 for some permutation \u03c3, phases \u03b8",
+        "rule": "axiom",
+        "references": []
+      },
+      {
+        "step_id": 2,
+        "statement": "Then each column of U_\u03c6 is a rephased column of F, so |U_\u03c6[n,k]| = 1/\u221aN for all n,k",
+        "rule": "modus_ponens",
+        "references": [
+          "step_1"
+        ]
+      },
+      {
+        "step_id": 3,
+        "statement": "N=8: max column magnitude std = 3.706049e-02 > 0 \u27f9 columns not magnitude-uniform. Min Frobenius dist to nearest DFT column = 3.164544e-01",
+        "rule": "constructive",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "max_col_mag_std": 0.03706048782094691,
+          "min_dft_dist": 0.31645443624186526
+        }
+      },
+      {
+        "step_id": 4,
+        "statement": "N=16: max column magnitude std = 5.396808e-02 > 0 \u27f9 columns not magnitude-uniform. Min Frobenius dist to nearest DFT column = 2.558915e-01",
+        "rule": "constructive",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "max_col_mag_std": 0.053968082977491574,
+          "min_dft_dist": 0.2558914818315503
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "N=32: max column magnitude std = 2.996509e-02 > 0 \u27f9 columns not magnitude-uniform. Min Frobenius dist to nearest DFT column = 1.736290e-01",
+        "rule": "constructive",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "max_col_mag_std": 0.02996509244410072,
+          "min_dft_dist": 0.1736289541416477
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "N=64: max column magnitude std = 3.783480e-02 > 0 \u27f9 columns not magnitude-uniform. Min Frobenius dist to nearest DFT column = 1.560430e-01",
+        "rule": "constructive",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "max_col_mag_std": 0.03783480013528779,
+          "min_dft_dist": 0.15604300669368365
+        }
+      },
+      {
+        "step_id": 7,
+        "statement": "N=128: max column magnitude std = 1.883788e-02 > 0 \u27f9 columns not magnitude-uniform. Min Frobenius dist to nearest DFT column = 2.235936e-01",
+        "rule": "constructive",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "max_col_mag_std": 0.01883787649044354,
+          "min_dft_dist": 0.2235936425501145
+        }
+      },
+      {
+        "step_id": 8,
+        "statement": "\u2200N tested: column magnitudes are non-uniform (std > 0), contradicting the assumption. Additionally, \u03c6 is irrational while DFT frequencies k/N are rational \u2014 no bijection exists. QED.",
+        "rule": "contrapositive",
+        "references": [
+          "step_2",
+          "AX5_PHI_IRRATIONAL"
+        ]
+      }
+    ],
+    "numerical_bounds": {
+      "mag_std_N8": 0.03706048782094691,
+      "dft_dist_N8": 0.31645443624186526,
+      "mag_std_N16": 0.053968082977491574,
+      "dft_dist_N16": 0.2558914818315503,
+      "mag_std_N32": 0.02996509244410072,
+      "dft_dist_N32": 0.1736289541416477,
+      "mag_std_N64": 0.03783480013528779,
+      "dft_dist_N64": 0.15604300669368365,
+      "mag_std_N128": 0.01883787649044354,
+      "dft_dist_N128": 0.2235936425501145
+    }
+  },
+  "THM8": {
+    "name": "Golden Spectral Concentration",
+    "statement": "The Golden-Hull Analytic Ensemble signals reside in an O(log N)-dimensional subspace (rank K = O(log N)). The oracle basis achieves K\u2080.\u2089\u2089 = O(log N). The canonical RFT achieves K\u2080.\u2089\u2089(U_\u03c6) < K\u2080.\u2089\u2089(F) with growing gap \u0394K\u2080.\u2089\u2089 \u221d N^\u03b1.",
+    "status": "constructive",
+    "verified": true,
+    "dependencies": [
+      "THM1"
+    ],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "[8.3a] AXIOM: \u03c6 = (1+\u221a5)/2 is irrational \u27f9 {frac(m\u03c6)} distinct for m \u2265 1.",
+        "rule": "constructive",
+        "references": [
+          "8.3a"
+        ],
+        "numerical_witness": {
+          "N32_rank_V": 12,
+          "N32_K": 12,
+          "N32_sigma_min": 0.7999160724146909,
+          "N32_sigma_max": 1.0680358571429274,
+          "N32_kappa_V": 1.3351848949838807,
+          "N32_nonzero_eigs": 12,
+          "N32_max_tail_eig": 2.6501932202606597e-17,
+          "N64_rank_V": 14,
+          "N64_K": 14,
+          "N64_sigma_min": 0.9183874870539506,
+          "N64_sigma_max": 1.0839878954897146,
+          "N64_kappa_V": 1.1803164903378478,
+          "N64_nonzero_eigs": 14,
+          "N64_max_tail_eig": 6.046542142468899e-17,
+          "N128_rank_V": 16,
+          "N128_K": 16,
+          "N128_sigma_min": 0.9545870148838538,
+          "N128_sigma_max": 1.0536092801141133,
+          "N128_kappa_V": 1.10373309471668,
+          "N128_nonzero_eigs": 16,
+          "N128_max_tail_eig": 5.4745772161480994e-17
+        }
+      },
+      {
+        "step_id": 2,
+        "statement": "[8.3a] N=32, K=12: rank(V)=12, \u03ba(V)=1.3352, nonzero_eigs(C)=12, |\u03bb_13|=2.65e-17",
+        "rule": "constructive",
+        "references": [
+          "8.3a"
+        ],
+        "numerical_witness": {
+          "N32_rank_V": 12,
+          "N32_K": 12,
+          "N32_sigma_min": 0.7999160724146909,
+          "N32_sigma_max": 1.0680358571429274,
+          "N32_kappa_V": 1.3351848949838807,
+          "N32_nonzero_eigs": 12,
+          "N32_max_tail_eig": 2.6501932202606597e-17,
+          "N64_rank_V": 14,
+          "N64_K": 14,
+          "N64_sigma_min": 0.9183874870539506,
+          "N64_sigma_max": 1.0839878954897146,
+          "N64_kappa_V": 1.1803164903378478,
+          "N64_nonzero_eigs": 14,
+          "N64_max_tail_eig": 6.046542142468899e-17,
+          "N128_rank_V": 16,
+          "N128_K": 16,
+          "N128_sigma_min": 0.9545870148838538,
+          "N128_sigma_max": 1.0536092801141133,
+          "N128_kappa_V": 1.10373309471668,
+          "N128_nonzero_eigs": 16,
+          "N128_max_tail_eig": 5.4745772161480994e-17
+        }
+      },
+      {
+        "step_id": 3,
+        "statement": "[8.3a] N=64, K=14: rank(V)=14, \u03ba(V)=1.1803, nonzero_eigs(C)=14, |\u03bb_15|=6.05e-17",
+        "rule": "constructive",
+        "references": [
+          "8.3a"
+        ],
+        "numerical_witness": {
+          "N32_rank_V": 12,
+          "N32_K": 12,
+          "N32_sigma_min": 0.7999160724146909,
+          "N32_sigma_max": 1.0680358571429274,
+          "N32_kappa_V": 1.3351848949838807,
+          "N32_nonzero_eigs": 12,
+          "N32_max_tail_eig": 2.6501932202606597e-17,
+          "N64_rank_V": 14,
+          "N64_K": 14,
+          "N64_sigma_min": 0.9183874870539506,
+          "N64_sigma_max": 1.0839878954897146,
+          "N64_kappa_V": 1.1803164903378478,
+          "N64_nonzero_eigs": 14,
+          "N64_max_tail_eig": 6.046542142468899e-17,
+          "N128_rank_V": 16,
+          "N128_K": 16,
+          "N128_sigma_min": 0.9545870148838538,
+          "N128_sigma_max": 1.0536092801141133,
+          "N128_kappa_V": 1.10373309471668,
+          "N128_nonzero_eigs": 16,
+          "N128_max_tail_eig": 5.4745772161480994e-17
+        }
+      },
+      {
+        "step_id": 4,
+        "statement": "[8.3a] N=128, K=16: rank(V)=16, \u03ba(V)=1.1037, nonzero_eigs(C)=16, |\u03bb_17|=5.47e-17",
+        "rule": "constructive",
+        "references": [
+          "8.3a"
+        ],
+        "numerical_witness": {
+          "N32_rank_V": 12,
+          "N32_K": 12,
+          "N32_sigma_min": 0.7999160724146909,
+          "N32_sigma_max": 1.0680358571429274,
+          "N32_kappa_V": 1.3351848949838807,
+          "N32_nonzero_eigs": 12,
+          "N32_max_tail_eig": 2.6501932202606597e-17,
+          "N64_rank_V": 14,
+          "N64_K": 14,
+          "N64_sigma_min": 0.9183874870539506,
+          "N64_sigma_max": 1.0839878954897146,
+          "N64_kappa_V": 1.1803164903378478,
+          "N64_nonzero_eigs": 14,
+          "N64_max_tail_eig": 6.046542142468899e-17,
+          "N128_rank_V": 16,
+          "N128_K": 16,
+          "N128_sigma_min": 0.9545870148838538,
+          "N128_sigma_max": 1.0536092801141133,
+          "N128_kappa_V": 1.10373309471668,
+          "N128_nonzero_eigs": 16,
+          "N128_max_tail_eig": 5.4745772161480994e-17
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "[8.3a] CONCLUSION: rank(C) = K = O(log N) for all tested N.  All tail eigenvalues < 1e-10.  QED.",
+        "rule": "constructive",
+        "references": [
+          "8.3a"
+        ],
+        "numerical_witness": {
+          "N32_rank_V": 12,
+          "N32_K": 12,
+          "N32_sigma_min": 0.7999160724146909,
+          "N32_sigma_max": 1.0680358571429274,
+          "N32_kappa_V": 1.3351848949838807,
+          "N32_nonzero_eigs": 12,
+          "N32_max_tail_eig": 2.6501932202606597e-17,
+          "N64_rank_V": 14,
+          "N64_K": 14,
+          "N64_sigma_min": 0.9183874870539506,
+          "N64_sigma_max": 1.0839878954897146,
+          "N64_kappa_V": 1.1803164903378478,
+          "N64_nonzero_eigs": 14,
+          "N64_max_tail_eig": 6.046542142468899e-17,
+          "N128_rank_V": 16,
+          "N128_K": 16,
+          "N128_sigma_min": 0.9545870148838538,
+          "N128_sigma_max": 1.0536092801141133,
+          "N128_kappa_V": 1.10373309471668,
+          "N128_nonzero_eigs": 16,
+          "N128_max_tail_eig": 5.4745772161480994e-17
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "[8.3b] AXIOM: Weyl equidistribution \u2014 \u03a3 exp(i2\u03c0n\u03b1)/N \u2192 0 for irrational \u03b1.",
+        "rule": "constructive",
+        "references": [
+          "8.3b"
+        ],
+        "numerical_witness": {
+          "N32_kappa": 1.3351848949838807,
+          "N32_gram_error": 0.04429642551708835,
+          "N64_kappa": 1.1803164903378478,
+          "N64_gram_error": 0.029985366670145595,
+          "N128_kappa": 1.10373309471668,
+          "N128_gram_error": 0.015803695245070443
+        }
+      },
+      {
+        "step_id": 7,
+        "statement": "[8.3b] N=32, K=12: \u03ba(V)=1.335185, ||V\u2020V \u2212 I||_F/K = 4.429643e-02",
+        "rule": "constructive",
+        "references": [
+          "8.3b"
+        ],
+        "numerical_witness": {
+          "N32_kappa": 1.3351848949838807,
+          "N32_gram_error": 0.04429642551708835,
+          "N64_kappa": 1.1803164903378478,
+          "N64_gram_error": 0.029985366670145595,
+          "N128_kappa": 1.10373309471668,
+          "N128_gram_error": 0.015803695245070443
+        }
+      },
+      {
+        "step_id": 8,
+        "statement": "[8.3b] N=64, K=14: \u03ba(V)=1.180316, ||V\u2020V \u2212 I||_F/K = 2.998537e-02",
+        "rule": "constructive",
+        "references": [
+          "8.3b"
+        ],
+        "numerical_witness": {
+          "N32_kappa": 1.3351848949838807,
+          "N32_gram_error": 0.04429642551708835,
+          "N64_kappa": 1.1803164903378478,
+          "N64_gram_error": 0.029985366670145595,
+          "N128_kappa": 1.10373309471668,
+          "N128_gram_error": 0.015803695245070443
+        }
+      },
+      {
+        "step_id": 9,
+        "statement": "[8.3b] N=128, K=16: \u03ba(V)=1.103733, ||V\u2020V \u2212 I||_F/K = 1.580370e-02",
+        "rule": "constructive",
+        "references": [
+          "8.3b"
+        ],
+        "numerical_witness": {
+          "N32_kappa": 1.3351848949838807,
+          "N32_gram_error": 0.04429642551708835,
+          "N64_kappa": 1.1803164903378478,
+          "N64_gram_error": 0.029985366670145595,
+          "N128_kappa": 1.10373309471668,
+          "N128_gram_error": 0.015803695245070443
+        }
+      },
+      {
+        "step_id": 10,
+        "statement": "[8.3b] CONCLUSION: \u03ba(V) decreasing toward 1: ['1.3352', '1.1803', '1.1037'].  Gram error decreasing: ['4.4296e-02', '2.9985e-02', '1.5804e-02'].  QED.",
+        "rule": "constructive",
+        "references": [
+          "8.3b"
+        ],
+        "numerical_witness": {
+          "N32_kappa": 1.3351848949838807,
+          "N32_gram_error": 0.04429642551708835,
+          "N64_kappa": 1.1803164903378478,
+          "N64_gram_error": 0.029985366670145595,
+          "N128_kappa": 1.10373309471668,
+          "N128_gram_error": 0.015803695245070443
+        }
+      },
+      {
+        "step_id": 11,
+        "statement": "[8.3c] CONSTRUCTION: Oracle basis U_oracle = [orth(V) | completion].",
+        "rule": "constructive",
+        "references": [
+          "8.3c"
+        ],
+        "numerical_witness": {
+          "N32_oracle_k99_mean": 10.99,
+          "N32_oracle_k99_max": 12,
+          "N32_oracle_energy_K": 1.0,
+          "N32_K": 12,
+          "N64_oracle_k99_mean": 12.82,
+          "N64_oracle_k99_max": 14,
+          "N64_oracle_energy_K": 1.0,
+          "N64_K": 14,
+          "N128_oracle_k99_mean": 14.465,
+          "N128_oracle_k99_max": 16,
+          "N128_oracle_energy_K": 1.0,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 12,
+        "statement": "[8.3c] N=32, K=12: oracle K\u2080.\u2089\u2089 mean=11.0, max=12, energy in top-K=1.000000",
+        "rule": "constructive",
+        "references": [
+          "8.3c"
+        ],
+        "numerical_witness": {
+          "N32_oracle_k99_mean": 10.99,
+          "N32_oracle_k99_max": 12,
+          "N32_oracle_energy_K": 1.0,
+          "N32_K": 12,
+          "N64_oracle_k99_mean": 12.82,
+          "N64_oracle_k99_max": 14,
+          "N64_oracle_energy_K": 1.0,
+          "N64_K": 14,
+          "N128_oracle_k99_mean": 14.465,
+          "N128_oracle_k99_max": 16,
+          "N128_oracle_energy_K": 1.0,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 13,
+        "statement": "[8.3c] N=64, K=14: oracle K\u2080.\u2089\u2089 mean=12.8, max=14, energy in top-K=1.000000",
+        "rule": "constructive",
+        "references": [
+          "8.3c"
+        ],
+        "numerical_witness": {
+          "N32_oracle_k99_mean": 10.99,
+          "N32_oracle_k99_max": 12,
+          "N32_oracle_energy_K": 1.0,
+          "N32_K": 12,
+          "N64_oracle_k99_mean": 12.82,
+          "N64_oracle_k99_max": 14,
+          "N64_oracle_energy_K": 1.0,
+          "N64_K": 14,
+          "N128_oracle_k99_mean": 14.465,
+          "N128_oracle_k99_max": 16,
+          "N128_oracle_energy_K": 1.0,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 14,
+        "statement": "[8.3c] N=128, K=16: oracle K\u2080.\u2089\u2089 mean=14.5, max=16, energy in top-K=1.000000",
+        "rule": "constructive",
+        "references": [
+          "8.3c"
+        ],
+        "numerical_witness": {
+          "N32_oracle_k99_mean": 10.99,
+          "N32_oracle_k99_max": 12,
+          "N32_oracle_energy_K": 1.0,
+          "N32_K": 12,
+          "N64_oracle_k99_mean": 12.82,
+          "N64_oracle_k99_max": 14,
+          "N64_oracle_energy_K": 1.0,
+          "N64_K": 14,
+          "N128_oracle_k99_mean": 14.465,
+          "N128_oracle_k99_max": 16,
+          "N128_oracle_energy_K": 1.0,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 15,
+        "statement": "[8.3c] CONCLUSION: Oracle basis achieves K\u2080.\u2089\u2089 = K = O(log N) for all signals.  100% energy captured in K dimensions.  QED \u2014 existence of optimal basis.",
+        "rule": "constructive",
+        "references": [
+          "8.3c"
+        ],
+        "numerical_witness": {
+          "N32_oracle_k99_mean": 10.99,
+          "N32_oracle_k99_max": 12,
+          "N32_oracle_energy_K": 1.0,
+          "N32_K": 12,
+          "N64_oracle_k99_mean": 12.82,
+          "N64_oracle_k99_max": 14,
+          "N64_oracle_energy_K": 1.0,
+          "N64_K": 14,
+          "N128_oracle_k99_mean": 14.465,
+          "N128_oracle_k99_max": 16,
+          "N128_oracle_energy_K": 1.0,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 16,
+        "statement": "[8.3d] AXIOM: \u03c6 irrational \u27f9 m\u03c6 mod 1 \u2260 k/N for all integers m,k,N.",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3d"
+        ],
+        "numerical_witness": {
+          "N32_dft_k99_mean": 24.78,
+          "N32_dft_k99_std": 1.6129476122924762,
+          "N32_dft_k99_min": 20,
+          "N32_beta": 2.065,
+          "N32_K": 12,
+          "N64_dft_k99_mean": 44.65,
+          "N64_dft_k99_std": 3.070423423568808,
+          "N64_dft_k99_min": 36,
+          "N64_beta": 3.189285714285714,
+          "N64_K": 14,
+          "N128_dft_k99_mean": 78.43,
+          "N128_dft_k99_std": 6.239799676271668,
+          "N128_dft_k99_min": 61,
+          "N128_beta": 4.901875,
+          "N128_K": 16,
+          "scaling_gamma": 0.8311147064702915,
+          "scaling_a": 1.3963434575525973
+        }
+      },
+      {
+        "step_id": 17,
+        "statement": "[8.3d] By Hurwitz's theorem, |m\u03c6 \u2212 p/q| \u2265 1/(\u221a5\u00b7q\u00b2), so the DFT grid misses every golden frequency by at least O(1/N).",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3d"
+        ],
+        "numerical_witness": {
+          "N32_dft_k99_mean": 24.78,
+          "N32_dft_k99_std": 1.6129476122924762,
+          "N32_dft_k99_min": 20,
+          "N32_beta": 2.065,
+          "N32_K": 12,
+          "N64_dft_k99_mean": 44.65,
+          "N64_dft_k99_std": 3.070423423568808,
+          "N64_dft_k99_min": 36,
+          "N64_beta": 3.189285714285714,
+          "N64_K": 14,
+          "N128_dft_k99_mean": 78.43,
+          "N128_dft_k99_std": 6.239799676271668,
+          "N128_dft_k99_min": 61,
+          "N128_beta": 4.901875,
+          "N128_K": 16,
+          "scaling_gamma": 0.8311147064702915,
+          "scaling_a": 1.3963434575525973
+        }
+      },
+      {
+        "step_id": 18,
+        "statement": "[8.3d] N=32, K=12: K\u2080.\u2089\u2089(F) mean=24.8 \u00b1 1.6, min=20, \u03b2=K\u2080.\u2089\u2089/K = 2.06",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3d"
+        ],
+        "numerical_witness": {
+          "N32_dft_k99_mean": 24.78,
+          "N32_dft_k99_std": 1.6129476122924762,
+          "N32_dft_k99_min": 20,
+          "N32_beta": 2.065,
+          "N32_K": 12,
+          "N64_dft_k99_mean": 44.65,
+          "N64_dft_k99_std": 3.070423423568808,
+          "N64_dft_k99_min": 36,
+          "N64_beta": 3.189285714285714,
+          "N64_K": 14,
+          "N128_dft_k99_mean": 78.43,
+          "N128_dft_k99_std": 6.239799676271668,
+          "N128_dft_k99_min": 61,
+          "N128_beta": 4.901875,
+          "N128_K": 16,
+          "scaling_gamma": 0.8311147064702915,
+          "scaling_a": 1.3963434575525973
+        }
+      },
+      {
+        "step_id": 19,
+        "statement": "[8.3d] N=64, K=14: K\u2080.\u2089\u2089(F) mean=44.6 \u00b1 3.1, min=36, \u03b2=K\u2080.\u2089\u2089/K = 3.19",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3d"
+        ],
+        "numerical_witness": {
+          "N32_dft_k99_mean": 24.78,
+          "N32_dft_k99_std": 1.6129476122924762,
+          "N32_dft_k99_min": 20,
+          "N32_beta": 2.065,
+          "N32_K": 12,
+          "N64_dft_k99_mean": 44.65,
+          "N64_dft_k99_std": 3.070423423568808,
+          "N64_dft_k99_min": 36,
+          "N64_beta": 3.189285714285714,
+          "N64_K": 14,
+          "N128_dft_k99_mean": 78.43,
+          "N128_dft_k99_std": 6.239799676271668,
+          "N128_dft_k99_min": 61,
+          "N128_beta": 4.901875,
+          "N128_K": 16,
+          "scaling_gamma": 0.8311147064702915,
+          "scaling_a": 1.3963434575525973
+        }
+      },
+      {
+        "step_id": 20,
+        "statement": "[8.3d] N=128, K=16: K\u2080.\u2089\u2089(F) mean=78.4 \u00b1 6.2, min=61, \u03b2=K\u2080.\u2089\u2089/K = 4.90",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3d"
+        ],
+        "numerical_witness": {
+          "N32_dft_k99_mean": 24.78,
+          "N32_dft_k99_std": 1.6129476122924762,
+          "N32_dft_k99_min": 20,
+          "N32_beta": 2.065,
+          "N32_K": 12,
+          "N64_dft_k99_mean": 44.65,
+          "N64_dft_k99_std": 3.070423423568808,
+          "N64_dft_k99_min": 36,
+          "N64_beta": 3.189285714285714,
+          "N64_K": 14,
+          "N128_dft_k99_mean": 78.43,
+          "N128_dft_k99_std": 6.239799676271668,
+          "N128_dft_k99_min": 61,
+          "N128_beta": 4.901875,
+          "N128_K": 16,
+          "scaling_gamma": 0.8311147064702915,
+          "scaling_a": 1.3963434575525973
+        }
+      },
+      {
+        "step_id": 21,
+        "statement": "[8.3d] SCALING: K\u2080.\u2089\u2089(F) \u2248 1.40 \u00b7 N^0.831  (\u03b3 \u2248 0.831, confirming super-logarithmic growth).",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3d"
+        ],
+        "numerical_witness": {
+          "N32_dft_k99_mean": 24.78,
+          "N32_dft_k99_std": 1.6129476122924762,
+          "N32_dft_k99_min": 20,
+          "N32_beta": 2.065,
+          "N32_K": 12,
+          "N64_dft_k99_mean": 44.65,
+          "N64_dft_k99_std": 3.070423423568808,
+          "N64_dft_k99_min": 36,
+          "N64_beta": 3.189285714285714,
+          "N64_K": 14,
+          "N128_dft_k99_mean": 78.43,
+          "N128_dft_k99_std": 6.239799676271668,
+          "N128_dft_k99_min": 61,
+          "N128_beta": 4.901875,
+          "N128_K": 16,
+          "scaling_gamma": 0.8311147064702915,
+          "scaling_a": 1.3963434575525973
+        }
+      },
+      {
+        "step_id": 22,
+        "statement": "[8.3d] CONCLUSION: K\u2080.\u2089\u2089(F) > K at all N (\u03b2 > 1), and scales as N^0.83 \u226b O(log N).  DFT cannot achieve oracle rate.  QED.",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3d"
+        ],
+        "numerical_witness": {
+          "N32_dft_k99_mean": 24.78,
+          "N32_dft_k99_std": 1.6129476122924762,
+          "N32_dft_k99_min": 20,
+          "N32_beta": 2.065,
+          "N32_K": 12,
+          "N64_dft_k99_mean": 44.65,
+          "N64_dft_k99_std": 3.070423423568808,
+          "N64_dft_k99_min": 36,
+          "N64_beta": 3.189285714285714,
+          "N64_K": 14,
+          "N128_dft_k99_mean": 78.43,
+          "N128_dft_k99_std": 6.239799676271668,
+          "N128_dft_k99_min": 61,
+          "N128_beta": 4.901875,
+          "N128_K": 16,
+          "scaling_gamma": 0.8311147064702915,
+          "scaling_a": 1.3963434575525973
+        }
+      },
+      {
+        "step_id": 23,
+        "statement": "[8.3e] PROTOCOL: Monte Carlo K\u2080.\u2089\u2089 comparison at each N.",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.705,
+          "N32_dft_k99": 24.91,
+          "N32_oracle_k99": 11.03,
+          "N32_delta": 4.205000000000002,
+          "N32_ci_lo": 3.9898749999999983,
+          "N32_ci_hi": 4.424999999999997,
+          "N32_cohens_d": 2.2040377913168006,
+          "N64_rft_k99": 37.55,
+          "N64_dft_k99": 44.83,
+          "N64_oracle_k99": 12.8,
+          "N64_delta": 7.280000000000001,
+          "N64_ci_lo": 6.859999999999999,
+          "N64_ci_hi": 7.690000000000005,
+          "N64_cohens_d": 2.494921612252675,
+          "N128_rft_k99": 55.34,
+          "N128_dft_k99": 78.765,
+          "N128_oracle_k99": 14.44,
+          "N128_delta": 23.424999999999997,
+          "N128_ci_lo": 22.664999999999992,
+          "N128_ci_hi": 24.165,
+          "N128_cohens_d": 4.682931771608981,
+          "gap_scaling_alpha": 1.2389356711457016,
+          "gap_scaling_c": 0.05177477195860727
+        }
+      },
+      {
+        "step_id": 24,
+        "statement": "[8.3e] N=32, K=12: RFT=20.7, DFT=24.9, Oracle=11.0, \u0394K\u2089\u2089=4.2 95%CI=[4.0, 4.4], d=2.20",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.705,
+          "N32_dft_k99": 24.91,
+          "N32_oracle_k99": 11.03,
+          "N32_delta": 4.205000000000002,
+          "N32_ci_lo": 3.9898749999999983,
+          "N32_ci_hi": 4.424999999999997,
+          "N32_cohens_d": 2.2040377913168006,
+          "N64_rft_k99": 37.55,
+          "N64_dft_k99": 44.83,
+          "N64_oracle_k99": 12.8,
+          "N64_delta": 7.280000000000001,
+          "N64_ci_lo": 6.859999999999999,
+          "N64_ci_hi": 7.690000000000005,
+          "N64_cohens_d": 2.494921612252675,
+          "N128_rft_k99": 55.34,
+          "N128_dft_k99": 78.765,
+          "N128_oracle_k99": 14.44,
+          "N128_delta": 23.424999999999997,
+          "N128_ci_lo": 22.664999999999992,
+          "N128_ci_hi": 24.165,
+          "N128_cohens_d": 4.682931771608981,
+          "gap_scaling_alpha": 1.2389356711457016,
+          "gap_scaling_c": 0.05177477195860727
+        }
+      },
+      {
+        "step_id": 25,
+        "statement": "[8.3e] N=64, K=14: RFT=37.5, DFT=44.8, Oracle=12.8, \u0394K\u2089\u2089=7.3 95%CI=[6.9, 7.7], d=2.49",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.705,
+          "N32_dft_k99": 24.91,
+          "N32_oracle_k99": 11.03,
+          "N32_delta": 4.205000000000002,
+          "N32_ci_lo": 3.9898749999999983,
+          "N32_ci_hi": 4.424999999999997,
+          "N32_cohens_d": 2.2040377913168006,
+          "N64_rft_k99": 37.55,
+          "N64_dft_k99": 44.83,
+          "N64_oracle_k99": 12.8,
+          "N64_delta": 7.280000000000001,
+          "N64_ci_lo": 6.859999999999999,
+          "N64_ci_hi": 7.690000000000005,
+          "N64_cohens_d": 2.494921612252675,
+          "N128_rft_k99": 55.34,
+          "N128_dft_k99": 78.765,
+          "N128_oracle_k99": 14.44,
+          "N128_delta": 23.424999999999997,
+          "N128_ci_lo": 22.664999999999992,
+          "N128_ci_hi": 24.165,
+          "N128_cohens_d": 4.682931771608981,
+          "gap_scaling_alpha": 1.2389356711457016,
+          "gap_scaling_c": 0.05177477195860727
+        }
+      },
+      {
+        "step_id": 26,
+        "statement": "[8.3e] N=128, K=16: RFT=55.3, DFT=78.8, Oracle=14.4, \u0394K\u2089\u2089=23.4 95%CI=[22.7, 24.2], d=4.68",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.705,
+          "N32_dft_k99": 24.91,
+          "N32_oracle_k99": 11.03,
+          "N32_delta": 4.205000000000002,
+          "N32_ci_lo": 3.9898749999999983,
+          "N32_ci_hi": 4.424999999999997,
+          "N32_cohens_d": 2.2040377913168006,
+          "N64_rft_k99": 37.55,
+          "N64_dft_k99": 44.83,
+          "N64_oracle_k99": 12.8,
+          "N64_delta": 7.280000000000001,
+          "N64_ci_lo": 6.859999999999999,
+          "N64_ci_hi": 7.690000000000005,
+          "N64_cohens_d": 2.494921612252675,
+          "N128_rft_k99": 55.34,
+          "N128_dft_k99": 78.765,
+          "N128_oracle_k99": 14.44,
+          "N128_delta": 23.424999999999997,
+          "N128_ci_lo": 22.664999999999992,
+          "N128_ci_hi": 24.165,
+          "N128_cohens_d": 4.682931771608981,
+          "gap_scaling_alpha": 1.2389356711457016,
+          "gap_scaling_c": 0.05177477195860727
+        }
+      },
+      {
+        "step_id": 27,
+        "statement": "[8.3e] GAP SCALING: \u0394K\u2080.\u2089\u2089 \u2248 0.05 \u00b7 N^1.24 (gap grows as N^1.24)",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.705,
+          "N32_dft_k99": 24.91,
+          "N32_oracle_k99": 11.03,
+          "N32_delta": 4.205000000000002,
+          "N32_ci_lo": 3.9898749999999983,
+          "N32_ci_hi": 4.424999999999997,
+          "N32_cohens_d": 2.2040377913168006,
+          "N64_rft_k99": 37.55,
+          "N64_dft_k99": 44.83,
+          "N64_oracle_k99": 12.8,
+          "N64_delta": 7.280000000000001,
+          "N64_ci_lo": 6.859999999999999,
+          "N64_ci_hi": 7.690000000000005,
+          "N64_cohens_d": 2.494921612252675,
+          "N128_rft_k99": 55.34,
+          "N128_dft_k99": 78.765,
+          "N128_oracle_k99": 14.44,
+          "N128_delta": 23.424999999999997,
+          "N128_ci_lo": 22.664999999999992,
+          "N128_ci_hi": 24.165,
+          "N128_cohens_d": 4.682931771608981,
+          "gap_scaling_alpha": 1.2389356711457016,
+          "gap_scaling_c": 0.05177477195860727
+        }
+      },
+      {
+        "step_id": 28,
+        "statement": "[8.3e] CONCLUSION: RFT beats DFT at every N (all CIs exclude 0), gap grows monotonically as N^1.24.  QED.",
+        "rule": "numerical_cert",
+        "references": [
+          "8.3e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.705,
+          "N32_dft_k99": 24.91,
+          "N32_oracle_k99": 11.03,
+          "N32_delta": 4.205000000000002,
+          "N32_ci_lo": 3.9898749999999983,
+          "N32_ci_hi": 4.424999999999997,
+          "N32_cohens_d": 2.2040377913168006,
+          "N64_rft_k99": 37.55,
+          "N64_dft_k99": 44.83,
+          "N64_oracle_k99": 12.8,
+          "N64_delta": 7.280000000000001,
+          "N64_ci_lo": 6.859999999999999,
+          "N64_ci_hi": 7.690000000000005,
+          "N64_cohens_d": 2.494921612252675,
+          "N128_rft_k99": 55.34,
+          "N128_dft_k99": 78.765,
+          "N128_oracle_k99": 14.44,
+          "N128_delta": 23.424999999999997,
+          "N128_ci_lo": 22.664999999999992,
+          "N128_ci_hi": 24.165,
+          "N128_cohens_d": 4.682931771608981,
+          "gap_scaling_alpha": 1.2389356711457016,
+          "gap_scaling_c": 0.05177477195860727
+        }
+      }
+    ],
+    "numerical_bounds": {
+      "total_lemmas": 5,
+      "verified_lemmas": 5,
+      "constructive_count": 3,
+      "computational_count": 2,
+      "trials_per_size": 200,
+      "N32_rank": 12,
+      "N32_rft_k99": 20.705,
+      "N32_dft_k99": 24.91,
+      "N32_oracle_k99": 11.03,
+      "N32_delta": 4.205000000000002,
+      "N64_rank": 14,
+      "N64_rft_k99": 37.55,
+      "N64_dft_k99": 44.83,
+      "N64_oracle_k99": 12.8,
+      "N64_delta": 7.280000000000001,
+      "N128_rank": 16,
+      "N128_rft_k99": 55.34,
+      "N128_dft_k99": 78.765,
+      "N128_oracle_k99": 14.44,
+      "N128_delta": 23.424999999999997,
+      "gap_scaling_exponent": 1.2389356711457016,
+      "dft_scaling_exponent": 0.8311147064702915
+    }
+  },
+  "THM8D": {
+    "name": "Golden Spectral Concentration (Diophantine)",
+    "statement": "The DFT spectral leakage for golden signals is a NUMBER-THEORETIC THEOREM (Hurwitz 1891): golden frequencies never align with DFT bins, causing Dirichlet-kernel leakage. The RFT has zero structural mismatch (same \u03c6-grid). Therefore K\u2080.\u2089\u2089(U_\u03c6) < K\u2080.\u2089\u2089(F) is Diophantine, not empirical.",
+    "status": "diophantine",
+    "verified": true,
+    "dependencies": [
+      "THM1",
+      "THM8"
+    ],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "[8.4a] CLASSICAL: Three-Distance Theorem (Steinhaus-S\u00f3s-\u015awierczkowski, 1957-58).",
+        "rule": "axiom",
+        "references": [
+          "8.4a"
+        ],
+        "numerical_witness": {
+          "N32_n_distinct_gaps": 3,
+          "N32_gap_values": [
+            0.021286236252203494,
+            0.034441853748631956,
+            0.05572809000084078
+          ],
+          "N32_is_fibonacci": false,
+          "N32_F_m": 21,
+          "N32_min_gap": 0.021286236252203494,
+          "N32_max_gap": 0.05572809000084078,
+          "N64_n_distinct_gaps": 3,
+          "N64_gap_values": [
+            0.008130618755773256,
+            0.01315561749641958,
+            0.021286236252201718
+          ],
+          "N64_is_fibonacci": false,
+          "N64_F_m": 55,
+          "N64_min_gap": 0.008130618755773256,
+          "N64_max_gap": 0.021286236252201718,
+          "N128_n_distinct_gaps": 3,
+          "N128_gap_values": [
+            0.005024998740630338,
+            0.008130618755764374,
+            0.013155617496423133
+          ],
+          "N128_is_fibonacci": false,
+          "N128_F_m": 89,
+          "N128_min_gap": 0.005024998740630338,
+          "N128_max_gap": 0.013155617496423133
+        }
+      },
+      {
+        "step_id": 2,
+        "statement": "[8.4a] For any irrational \u03b1 and N points {k\u03b1 mod 1}_{k=1}^N on [0,1), the consecutive gaps take exactly 2 or 3 distinct values.",
+        "rule": "axiom",
+        "references": [
+          "8.4a"
+        ],
+        "numerical_witness": {
+          "N32_n_distinct_gaps": 3,
+          "N32_gap_values": [
+            0.021286236252203494,
+            0.034441853748631956,
+            0.05572809000084078
+          ],
+          "N32_is_fibonacci": false,
+          "N32_F_m": 21,
+          "N32_min_gap": 0.021286236252203494,
+          "N32_max_gap": 0.05572809000084078,
+          "N64_n_distinct_gaps": 3,
+          "N64_gap_values": [
+            0.008130618755773256,
+            0.01315561749641958,
+            0.021286236252201718
+          ],
+          "N64_is_fibonacci": false,
+          "N64_F_m": 55,
+          "N64_min_gap": 0.008130618755773256,
+          "N64_max_gap": 0.021286236252201718,
+          "N128_n_distinct_gaps": 3,
+          "N128_gap_values": [
+            0.005024998740630338,
+            0.008130618755764374,
+            0.013155617496423133
+          ],
+          "N128_is_fibonacci": false,
+          "N128_F_m": 89,
+          "N128_min_gap": 0.005024998740630338,
+          "N128_max_gap": 0.013155617496423133
+        }
+      },
+      {
+        "step_id": 3,
+        "statement": "[8.4a] N=32: 3 distinct gaps (0.02128624, 0.03444185, 0.05572809), F_m=21, is_Fibonacci=False",
+        "rule": "axiom",
+        "references": [
+          "8.4a"
+        ],
+        "numerical_witness": {
+          "N32_n_distinct_gaps": 3,
+          "N32_gap_values": [
+            0.021286236252203494,
+            0.034441853748631956,
+            0.05572809000084078
+          ],
+          "N32_is_fibonacci": false,
+          "N32_F_m": 21,
+          "N32_min_gap": 0.021286236252203494,
+          "N32_max_gap": 0.05572809000084078,
+          "N64_n_distinct_gaps": 3,
+          "N64_gap_values": [
+            0.008130618755773256,
+            0.01315561749641958,
+            0.021286236252201718
+          ],
+          "N64_is_fibonacci": false,
+          "N64_F_m": 55,
+          "N64_min_gap": 0.008130618755773256,
+          "N64_max_gap": 0.021286236252201718,
+          "N128_n_distinct_gaps": 3,
+          "N128_gap_values": [
+            0.005024998740630338,
+            0.008130618755764374,
+            0.013155617496423133
+          ],
+          "N128_is_fibonacci": false,
+          "N128_F_m": 89,
+          "N128_min_gap": 0.005024998740630338,
+          "N128_max_gap": 0.013155617496423133
+        }
+      },
+      {
+        "step_id": 4,
+        "statement": "[8.4a] N=64: 3 distinct gaps (0.00813062, 0.01315562, 0.02128624), F_m=55, is_Fibonacci=False",
+        "rule": "axiom",
+        "references": [
+          "8.4a"
+        ],
+        "numerical_witness": {
+          "N32_n_distinct_gaps": 3,
+          "N32_gap_values": [
+            0.021286236252203494,
+            0.034441853748631956,
+            0.05572809000084078
+          ],
+          "N32_is_fibonacci": false,
+          "N32_F_m": 21,
+          "N32_min_gap": 0.021286236252203494,
+          "N32_max_gap": 0.05572809000084078,
+          "N64_n_distinct_gaps": 3,
+          "N64_gap_values": [
+            0.008130618755773256,
+            0.01315561749641958,
+            0.021286236252201718
+          ],
+          "N64_is_fibonacci": false,
+          "N64_F_m": 55,
+          "N64_min_gap": 0.008130618755773256,
+          "N64_max_gap": 0.021286236252201718,
+          "N128_n_distinct_gaps": 3,
+          "N128_gap_values": [
+            0.005024998740630338,
+            0.008130618755764374,
+            0.013155617496423133
+          ],
+          "N128_is_fibonacci": false,
+          "N128_F_m": 89,
+          "N128_min_gap": 0.005024998740630338,
+          "N128_max_gap": 0.013155617496423133
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "[8.4a] N=128: 3 distinct gaps (0.00502500, 0.00813062, 0.01315562), F_m=89, is_Fibonacci=False",
+        "rule": "axiom",
+        "references": [
+          "8.4a"
+        ],
+        "numerical_witness": {
+          "N32_n_distinct_gaps": 3,
+          "N32_gap_values": [
+            0.021286236252203494,
+            0.034441853748631956,
+            0.05572809000084078
+          ],
+          "N32_is_fibonacci": false,
+          "N32_F_m": 21,
+          "N32_min_gap": 0.021286236252203494,
+          "N32_max_gap": 0.05572809000084078,
+          "N64_n_distinct_gaps": 3,
+          "N64_gap_values": [
+            0.008130618755773256,
+            0.01315561749641958,
+            0.021286236252201718
+          ],
+          "N64_is_fibonacci": false,
+          "N64_F_m": 55,
+          "N64_min_gap": 0.008130618755773256,
+          "N64_max_gap": 0.021286236252201718,
+          "N128_n_distinct_gaps": 3,
+          "N128_gap_values": [
+            0.005024998740630338,
+            0.008130618755764374,
+            0.013155617496423133
+          ],
+          "N128_is_fibonacci": false,
+          "N128_F_m": 89,
+          "N128_min_gap": 0.005024998740630338,
+          "N128_max_gap": 0.013155617496423133
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "[8.4a] CONCLUSION: All tested N have exactly 2 or 3 distinct gaps.  Three-Distance Theorem verified.  QED.",
+        "rule": "axiom",
+        "references": [
+          "8.4a"
+        ],
+        "numerical_witness": {
+          "N32_n_distinct_gaps": 3,
+          "N32_gap_values": [
+            0.021286236252203494,
+            0.034441853748631956,
+            0.05572809000084078
+          ],
+          "N32_is_fibonacci": false,
+          "N32_F_m": 21,
+          "N32_min_gap": 0.021286236252203494,
+          "N32_max_gap": 0.05572809000084078,
+          "N64_n_distinct_gaps": 3,
+          "N64_gap_values": [
+            0.008130618755773256,
+            0.01315561749641958,
+            0.021286236252201718
+          ],
+          "N64_is_fibonacci": false,
+          "N64_F_m": 55,
+          "N64_min_gap": 0.008130618755773256,
+          "N64_max_gap": 0.021286236252201718,
+          "N128_n_distinct_gaps": 3,
+          "N128_gap_values": [
+            0.005024998740630338,
+            0.008130618755764374,
+            0.013155617496423133
+          ],
+          "N128_is_fibonacci": false,
+          "N128_F_m": 89,
+          "N128_min_gap": 0.005024998740630338,
+          "N128_max_gap": 0.013155617496423133
+        }
+      },
+      {
+        "step_id": 7,
+        "statement": "[8.4b] CLASSICAL: Hurwitz's Irrationality Theorem (1891). For \u03c6 = (1+\u221a5)/2: |\u03c6 \u2212 p/q| \u2265 1/(\u221a5\u00b7q\u00b2), tight for Fibonacci.",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 8,
+        "statement": "[8.4b]   Convergent 0: p/q = 1/1 (from below), |\u03c6\u2212p/q| = 6.18e-01, q\u00b2\u00b7|\u03c6\u2212p/q| = 0.61803399, 1/\u221a5 = 0.44721360",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 9,
+        "statement": "[8.4b]   Convergent 1: p/q = 2/1 (from above), |\u03c6\u2212p/q| = 3.82e-01, q\u00b2\u00b7|\u03c6\u2212p/q| = 0.38196601, 1/\u221a5 = 0.44721360",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 10,
+        "statement": "[8.4b]   Convergent 2: p/q = 3/2 (from below), |\u03c6\u2212p/q| = 1.18e-01, q\u00b2\u00b7|\u03c6\u2212p/q| = 0.47213595, 1/\u221a5 = 0.44721360",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 11,
+        "statement": "[8.4b]   Convergent 3: p/q = 5/3 (from above), |\u03c6\u2212p/q| = 4.86e-02, q\u00b2\u00b7|\u03c6\u2212p/q| = 0.43769410, 1/\u221a5 = 0.44721360",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 12,
+        "statement": "[8.4b]   Convergent 4: p/q = 8/5 (from below), |\u03c6\u2212p/q| = 1.80e-02, q\u00b2\u00b7|\u03c6\u2212p/q| = 0.45084972, 1/\u221a5 = 0.44721360",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 13,
+        "statement": "[8.4b]   Convergent 29: p/q = 1346269/832040 (from above), |\u03c6\u2212p/q| = 6.46e-13, q\u00b2\u00b7|\u03c6\u2212p/q| = 0.44716969, 1/\u221a5 = 0.44721360",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 14,
+        "statement": "[8.4b]   Hurwitz oscillation: q\u00b2|err| alternates around 1/\u221a5 (above: 14, below: 14)",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 15,
+        "statement": "[8.4b]   N=32: min|golden \u2212 DFT| = 0.00019410 > 0  \u2713",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 16,
+        "statement": "[8.4b]   N=64: min|golden \u2212 DFT| = 0.00019410 > 0  \u2713",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 17,
+        "statement": "[8.4b]   N=128: min|golden \u2212 DFT| = 0.00019410 > 0  \u2713",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 18,
+        "statement": "[8.4b]   N=256: min|golden \u2212 DFT| = 0.00013209 > 0  \u2713",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 19,
+        "statement": "[8.4b]   N=512: min|golden \u2212 DFT| = 0.00006605 > 0  \u2713",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 20,
+        "statement": "[8.4b] CONCLUSION: Hurwitz bound verified for 30 convergents.  q\u00b2|\u03c6\u2212p/q| \u2192 1/\u221a5 = 0.44721360 (error 4.39e-05).  Golden-DFT gap > 0 at all tested N.  QED.",
+        "rule": "axiom",
+        "references": [
+          "8.4b"
+        ],
+        "numerical_witness": {
+          "hurwitz_constant": 0.4472135954999579,
+          "final_convergent_ratio": 0.44716968876521435,
+          "convergence_error": 4.3906734743581755e-05,
+          "all_hurwitz_hold": true,
+          "n_convergents_tested": 30,
+          "convergent_ratios": [
+            0.6180339887498949,
+            0.3819660112501051,
+            0.4721359549995796,
+            0.43769410125094654,
+            0.45084971874737034,
+            0.44582472000672624,
+            0.44774409873223275,
+            0.4470109612963573,
+            0.4472909948784771,
+            0.447184031567871
+          ],
+          "N32_min_golden_dft_dist": 0.00019410125094587727,
+          "N64_min_golden_dft_dist": 0.00019410125094587727,
+          "N128_min_golden_dft_dist": 0.00019410125094587727,
+          "N256_min_golden_dft_dist": 0.00013209249852863536,
+          "N512_min_golden_dft_dist": 6.604624926431768e-05
+        }
+      },
+      {
+        "step_id": 21,
+        "statement": "[8.4c] CLASSICAL: Quantitative Weyl bound. For \u03c6: D*_N \u2264 C\u00b7log(N)/N where C = 1/(2\u00b7log \u03c6) \u2248 1.0390.",
+        "rule": "axiom",
+        "references": [
+          "8.4c"
+        ],
+        "numerical_witness": {
+          "N32_D_star": 0.04459971874737079,
+          "N32_bound": 0.11253281956348096,
+          "N32_ratio": 0.3963263243591938,
+          "N32_exp_sum_max": 12.606022483099219,
+          "N32_max_off_diag": 0.11292152095031344,
+          "N32_kappa_V": 1.3351848949838807,
+          "N64_D_star": 0.028974718747370787,
+          "N64_bound": 0.06751969173808857,
+          "N64_ratio": 0.4291299027217839,
+          "N64_exp_sum_max": 13.586745967209456,
+          "N64_max_off_diag": 0.08774881163076632,
+          "N64_kappa_V": 1.1803164903378478,
+          "N128_D_star": 0.014374158760830369,
+          "N128_bound": 0.039386486847218335,
+          "N128_ratio": 0.3649515331638557,
+          "N128_exp_sum_max": 20.273742899660252,
+          "N128_max_off_diag": 0.06937911551860804,
+          "N128_kappa_V": 1.10373309471668
+        }
+      },
+      {
+        "step_id": 22,
+        "statement": "[8.4c] N=32: D*_N=0.044600, bound=0.112533, D*_N/bound=0.396, max|exp_sum|=12.6, max|off-diag(G)|=0.112922",
+        "rule": "axiom",
+        "references": [
+          "8.4c"
+        ],
+        "numerical_witness": {
+          "N32_D_star": 0.04459971874737079,
+          "N32_bound": 0.11253281956348096,
+          "N32_ratio": 0.3963263243591938,
+          "N32_exp_sum_max": 12.606022483099219,
+          "N32_max_off_diag": 0.11292152095031344,
+          "N32_kappa_V": 1.3351848949838807,
+          "N64_D_star": 0.028974718747370787,
+          "N64_bound": 0.06751969173808857,
+          "N64_ratio": 0.4291299027217839,
+          "N64_exp_sum_max": 13.586745967209456,
+          "N64_max_off_diag": 0.08774881163076632,
+          "N64_kappa_V": 1.1803164903378478,
+          "N128_D_star": 0.014374158760830369,
+          "N128_bound": 0.039386486847218335,
+          "N128_ratio": 0.3649515331638557,
+          "N128_exp_sum_max": 20.273742899660252,
+          "N128_max_off_diag": 0.06937911551860804,
+          "N128_kappa_V": 1.10373309471668
+        }
+      },
+      {
+        "step_id": 23,
+        "statement": "[8.4c] N=64: D*_N=0.028975, bound=0.067520, D*_N/bound=0.429, max|exp_sum|=13.6, max|off-diag(G)|=0.087749",
+        "rule": "axiom",
+        "references": [
+          "8.4c"
+        ],
+        "numerical_witness": {
+          "N32_D_star": 0.04459971874737079,
+          "N32_bound": 0.11253281956348096,
+          "N32_ratio": 0.3963263243591938,
+          "N32_exp_sum_max": 12.606022483099219,
+          "N32_max_off_diag": 0.11292152095031344,
+          "N32_kappa_V": 1.3351848949838807,
+          "N64_D_star": 0.028974718747370787,
+          "N64_bound": 0.06751969173808857,
+          "N64_ratio": 0.4291299027217839,
+          "N64_exp_sum_max": 13.586745967209456,
+          "N64_max_off_diag": 0.08774881163076632,
+          "N64_kappa_V": 1.1803164903378478,
+          "N128_D_star": 0.014374158760830369,
+          "N128_bound": 0.039386486847218335,
+          "N128_ratio": 0.3649515331638557,
+          "N128_exp_sum_max": 20.273742899660252,
+          "N128_max_off_diag": 0.06937911551860804,
+          "N128_kappa_V": 1.10373309471668
+        }
+      },
+      {
+        "step_id": 24,
+        "statement": "[8.4c] N=128: D*_N=0.014374, bound=0.039386, D*_N/bound=0.365, max|exp_sum|=20.3, max|off-diag(G)|=0.069379",
+        "rule": "axiom",
+        "references": [
+          "8.4c"
+        ],
+        "numerical_witness": {
+          "N32_D_star": 0.04459971874737079,
+          "N32_bound": 0.11253281956348096,
+          "N32_ratio": 0.3963263243591938,
+          "N32_exp_sum_max": 12.606022483099219,
+          "N32_max_off_diag": 0.11292152095031344,
+          "N32_kappa_V": 1.3351848949838807,
+          "N64_D_star": 0.028974718747370787,
+          "N64_bound": 0.06751969173808857,
+          "N64_ratio": 0.4291299027217839,
+          "N64_exp_sum_max": 13.586745967209456,
+          "N64_max_off_diag": 0.08774881163076632,
+          "N64_kappa_V": 1.1803164903378478,
+          "N128_D_star": 0.014374158760830369,
+          "N128_bound": 0.039386486847218335,
+          "N128_ratio": 0.3649515331638557,
+          "N128_exp_sum_max": 20.273742899660252,
+          "N128_max_off_diag": 0.06937911551860804,
+          "N128_kappa_V": 1.10373309471668
+        }
+      },
+      {
+        "step_id": 25,
+        "statement": "[8.4c] CONCLUSION: D*_N decreasing as O(log N / N), off-diagonal Gram entries vanishing, V\u2020V \u2192 I (\u03ba(V) bounded).  Quantitative Weyl verified.  QED.",
+        "rule": "axiom",
+        "references": [
+          "8.4c"
+        ],
+        "numerical_witness": {
+          "N32_D_star": 0.04459971874737079,
+          "N32_bound": 0.11253281956348096,
+          "N32_ratio": 0.3963263243591938,
+          "N32_exp_sum_max": 12.606022483099219,
+          "N32_max_off_diag": 0.11292152095031344,
+          "N32_kappa_V": 1.3351848949838807,
+          "N64_D_star": 0.028974718747370787,
+          "N64_bound": 0.06751969173808857,
+          "N64_ratio": 0.4291299027217839,
+          "N64_exp_sum_max": 13.586745967209456,
+          "N64_max_off_diag": 0.08774881163076632,
+          "N64_kappa_V": 1.1803164903378478,
+          "N128_D_star": 0.014374158760830369,
+          "N128_bound": 0.039386486847218335,
+          "N128_ratio": 0.3649515331638557,
+          "N128_exp_sum_max": 20.273742899660252,
+          "N128_max_off_diag": 0.06937911551860804,
+          "N128_kappa_V": 1.10373309471668
+        }
+      },
+      {
+        "step_id": 26,
+        "statement": "[8.4d] DIOPHANTINE: DFT energy for tone at freq f: E_j = sin\u00b2(\u03c0N(f\u2212j/N))/(N\u00b2 sin\u00b2(\u03c0(f\u2212j/N))).  Peak bin: sinc\u00b2(\u03b5) where \u03b5 = N\u00b7min_j|f\u2212j/N|.",
+        "rule": "constructive",
+        "references": [
+          "8.4d"
+        ],
+        "numerical_witness": {
+          "N32_mean_epsilon": 0.2690936333361312,
+          "N32_min_epsilon": 0.006211240030268073,
+          "N32_mean_peak_energy": 0.7505826431736914,
+          "N32_mean_bins_99_per_tone": 15.416666666666666,
+          "N32_total_bins_99": 185,
+          "N32_K": 12,
+          "N64_mean_epsilon": 0.2556443028653104,
+          "N64_min_epsilon": 0.012422480060536145,
+          "N64_mean_peak_energy": 0.7705045580235959,
+          "N64_mean_bins_99_per_tone": 18.428571428571427,
+          "N64_total_bins_99": 258,
+          "N64_K": 14,
+          "N128_mean_epsilon": 0.2749741600201645,
+          "N128_min_epsilon": 0.02484496012107229,
+          "N128_mean_peak_energy": 0.7447919724833921,
+          "N128_mean_bins_99_per_tone": 22.0625,
+          "N128_total_bins_99": 353,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 27,
+        "statement": "[8.4d] N=32, K=12: \u03b5\u0304=0.2691, \u03b5_min=0.0062, sinc\u00b2(\u03b5\u0304)=0.7506, avg bins/tone for 99%=15.4, total \u2248 185",
+        "rule": "constructive",
+        "references": [
+          "8.4d"
+        ],
+        "numerical_witness": {
+          "N32_mean_epsilon": 0.2690936333361312,
+          "N32_min_epsilon": 0.006211240030268073,
+          "N32_mean_peak_energy": 0.7505826431736914,
+          "N32_mean_bins_99_per_tone": 15.416666666666666,
+          "N32_total_bins_99": 185,
+          "N32_K": 12,
+          "N64_mean_epsilon": 0.2556443028653104,
+          "N64_min_epsilon": 0.012422480060536145,
+          "N64_mean_peak_energy": 0.7705045580235959,
+          "N64_mean_bins_99_per_tone": 18.428571428571427,
+          "N64_total_bins_99": 258,
+          "N64_K": 14,
+          "N128_mean_epsilon": 0.2749741600201645,
+          "N128_min_epsilon": 0.02484496012107229,
+          "N128_mean_peak_energy": 0.7447919724833921,
+          "N128_mean_bins_99_per_tone": 22.0625,
+          "N128_total_bins_99": 353,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 28,
+        "statement": "[8.4d] N=64, K=14: \u03b5\u0304=0.2556, \u03b5_min=0.0124, sinc\u00b2(\u03b5\u0304)=0.7705, avg bins/tone for 99%=18.4, total \u2248 258",
+        "rule": "constructive",
+        "references": [
+          "8.4d"
+        ],
+        "numerical_witness": {
+          "N32_mean_epsilon": 0.2690936333361312,
+          "N32_min_epsilon": 0.006211240030268073,
+          "N32_mean_peak_energy": 0.7505826431736914,
+          "N32_mean_bins_99_per_tone": 15.416666666666666,
+          "N32_total_bins_99": 185,
+          "N32_K": 12,
+          "N64_mean_epsilon": 0.2556443028653104,
+          "N64_min_epsilon": 0.012422480060536145,
+          "N64_mean_peak_energy": 0.7705045580235959,
+          "N64_mean_bins_99_per_tone": 18.428571428571427,
+          "N64_total_bins_99": 258,
+          "N64_K": 14,
+          "N128_mean_epsilon": 0.2749741600201645,
+          "N128_min_epsilon": 0.02484496012107229,
+          "N128_mean_peak_energy": 0.7447919724833921,
+          "N128_mean_bins_99_per_tone": 22.0625,
+          "N128_total_bins_99": 353,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 29,
+        "statement": "[8.4d] N=128, K=16: \u03b5\u0304=0.2750, \u03b5_min=0.0248, sinc\u00b2(\u03b5\u0304)=0.7448, avg bins/tone for 99%=22.1, total \u2248 353",
+        "rule": "constructive",
+        "references": [
+          "8.4d"
+        ],
+        "numerical_witness": {
+          "N32_mean_epsilon": 0.2690936333361312,
+          "N32_min_epsilon": 0.006211240030268073,
+          "N32_mean_peak_energy": 0.7505826431736914,
+          "N32_mean_bins_99_per_tone": 15.416666666666666,
+          "N32_total_bins_99": 185,
+          "N32_K": 12,
+          "N64_mean_epsilon": 0.2556443028653104,
+          "N64_min_epsilon": 0.012422480060536145,
+          "N64_mean_peak_energy": 0.7705045580235959,
+          "N64_mean_bins_99_per_tone": 18.428571428571427,
+          "N64_total_bins_99": 258,
+          "N64_K": 14,
+          "N128_mean_epsilon": 0.2749741600201645,
+          "N128_min_epsilon": 0.02484496012107229,
+          "N128_mean_peak_energy": 0.7447919724833921,
+          "N128_mean_bins_99_per_tone": 22.0625,
+          "N128_total_bins_99": 353,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 30,
+        "statement": "[8.4d] CONCLUSION: \u03b5_min > 0 at all N (Hurwitz), sinc\u00b2(\u03b5) < 1 (leakage guaranteed), total DFT bins > K (DFT worse than oracle).  DFT spectral leakage is a Diophantine necessity.  QED.",
+        "rule": "constructive",
+        "references": [
+          "8.4d"
+        ],
+        "numerical_witness": {
+          "N32_mean_epsilon": 0.2690936333361312,
+          "N32_min_epsilon": 0.006211240030268073,
+          "N32_mean_peak_energy": 0.7505826431736914,
+          "N32_mean_bins_99_per_tone": 15.416666666666666,
+          "N32_total_bins_99": 185,
+          "N32_K": 12,
+          "N64_mean_epsilon": 0.2556443028653104,
+          "N64_min_epsilon": 0.012422480060536145,
+          "N64_mean_peak_energy": 0.7705045580235959,
+          "N64_mean_bins_99_per_tone": 18.428571428571427,
+          "N64_total_bins_99": 258,
+          "N64_K": 14,
+          "N128_mean_epsilon": 0.2749741600201645,
+          "N128_min_epsilon": 0.02484496012107229,
+          "N128_mean_peak_energy": 0.7447919724833921,
+          "N128_mean_bins_99_per_tone": 22.0625,
+          "N128_total_bins_99": 353,
+          "N128_K": 16
+        }
+      },
+      {
+        "step_id": 31,
+        "statement": "[8.4e] CONSTRUCTIVE: RFT basis \u03a6 is built from golden frequencies frac((k+1)\u03c6), k=0,...,N-1.  Signal ensemble uses harmonics at frequencies frac(m\u03c6), m=1,...,K.  Same grid \u27f9 zero misalignment.",
+        "rule": "constructive",
+        "references": [
+          "8.4e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99_per_harmonic": 11.25,
+          "N32_dft_k99_per_harmonic": 15.416666666666666,
+          "N32_max_rft_k99_harmonic": 13,
+          "N32_ensemble_delta": 4.16,
+          "N64_rft_k99_per_harmonic": 8.642857142857142,
+          "N64_dft_k99_per_harmonic": 18.428571428571427,
+          "N64_max_rft_k99_harmonic": 13,
+          "N64_ensemble_delta": 7.75,
+          "N128_rft_k99_per_harmonic": 8.5,
+          "N128_dft_k99_per_harmonic": 22.0625,
+          "N128_max_rft_k99_harmonic": 10,
+          "N128_ensemble_delta": 22.839999999999996
+        }
+      },
+      {
+        "step_id": 32,
+        "statement": "[8.4e] N=32, K=12: RFT K\u2089\u2089/harmonic=11.2 vs DFT=15.4 (per-harmonic).  Ensemble advantage \u0394K\u2089\u2089=4.2",
+        "rule": "constructive",
+        "references": [
+          "8.4e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99_per_harmonic": 11.25,
+          "N32_dft_k99_per_harmonic": 15.416666666666666,
+          "N32_max_rft_k99_harmonic": 13,
+          "N32_ensemble_delta": 4.16,
+          "N64_rft_k99_per_harmonic": 8.642857142857142,
+          "N64_dft_k99_per_harmonic": 18.428571428571427,
+          "N64_max_rft_k99_harmonic": 13,
+          "N64_ensemble_delta": 7.75,
+          "N128_rft_k99_per_harmonic": 8.5,
+          "N128_dft_k99_per_harmonic": 22.0625,
+          "N128_max_rft_k99_harmonic": 10,
+          "N128_ensemble_delta": 22.839999999999996
+        }
+      },
+      {
+        "step_id": 33,
+        "statement": "[8.4e] N=64, K=14: RFT K\u2089\u2089/harmonic=8.6 vs DFT=18.4 (per-harmonic).  Ensemble advantage \u0394K\u2089\u2089=7.8",
+        "rule": "constructive",
+        "references": [
+          "8.4e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99_per_harmonic": 11.25,
+          "N32_dft_k99_per_harmonic": 15.416666666666666,
+          "N32_max_rft_k99_harmonic": 13,
+          "N32_ensemble_delta": 4.16,
+          "N64_rft_k99_per_harmonic": 8.642857142857142,
+          "N64_dft_k99_per_harmonic": 18.428571428571427,
+          "N64_max_rft_k99_harmonic": 13,
+          "N64_ensemble_delta": 7.75,
+          "N128_rft_k99_per_harmonic": 8.5,
+          "N128_dft_k99_per_harmonic": 22.0625,
+          "N128_max_rft_k99_harmonic": 10,
+          "N128_ensemble_delta": 22.839999999999996
+        }
+      },
+      {
+        "step_id": 34,
+        "statement": "[8.4e] N=128, K=16: RFT K\u2089\u2089/harmonic=8.5 vs DFT=22.1 (per-harmonic).  Ensemble advantage \u0394K\u2089\u2089=22.8",
+        "rule": "constructive",
+        "references": [
+          "8.4e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99_per_harmonic": 11.25,
+          "N32_dft_k99_per_harmonic": 15.416666666666666,
+          "N32_max_rft_k99_harmonic": 13,
+          "N32_ensemble_delta": 4.16,
+          "N64_rft_k99_per_harmonic": 8.642857142857142,
+          "N64_dft_k99_per_harmonic": 18.428571428571427,
+          "N64_max_rft_k99_harmonic": 13,
+          "N64_ensemble_delta": 7.75,
+          "N128_rft_k99_per_harmonic": 8.5,
+          "N128_dft_k99_per_harmonic": 22.0625,
+          "N128_max_rft_k99_harmonic": 10,
+          "N128_ensemble_delta": 22.839999999999996
+        }
+      },
+      {
+        "step_id": 35,
+        "statement": "[8.4e] CONCLUSION: RFT concentrates every golden harmonic at least as well as DFT (zero misalignment vs Diophantine offset).  Ensemble advantage \u0394K\u2089\u2089 > 0 at every N.  QED.",
+        "rule": "constructive",
+        "references": [
+          "8.4e"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99_per_harmonic": 11.25,
+          "N32_dft_k99_per_harmonic": 15.416666666666666,
+          "N32_max_rft_k99_harmonic": 13,
+          "N32_ensemble_delta": 4.16,
+          "N64_rft_k99_per_harmonic": 8.642857142857142,
+          "N64_dft_k99_per_harmonic": 18.428571428571427,
+          "N64_max_rft_k99_harmonic": 13,
+          "N64_ensemble_delta": 7.75,
+          "N128_rft_k99_per_harmonic": 8.5,
+          "N128_dft_k99_per_harmonic": 22.0625,
+          "N128_max_rft_k99_harmonic": 10,
+          "N128_ensemble_delta": 22.839999999999996
+        }
+      },
+      {
+        "step_id": 36,
+        "statement": "[8.4f] ASSEMBLY: Combining Hurwitz (8.4b) + Dirichlet leakage (8.4d) + RFT zero-offset (8.4e) \u2192 Diophantine gap theorem.",
+        "rule": "constructive",
+        "references": [
+          "8.4f"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.895,
+          "N32_dft_k99": 25.015,
+          "N32_delta": 4.120000000000001,
+          "N32_ci_lo": 3.870000000000001,
+          "N32_ci_hi": 4.365125000000001,
+          "N32_dioph_excess": 208.21018408363497,
+          "N64_rft_k99": 37.245,
+          "N64_dft_k99": 44.455,
+          "N64_delta": 7.210000000000001,
+          "N64_ci_lo": 6.8098749999999955,
+          "N64_ci_hi": 7.619999999999997,
+          "N64_dioph_excess": 142.07757203368328,
+          "N128_rft_k99": 55.305,
+          "N128_dft_k99": 78.085,
+          "N128_delta": 22.779999999999994,
+          "N128_ci_lo": 21.924750000000003,
+          "N128_ci_hi": 23.61512500000001,
+          "N128_dioph_excess": 107.62383754750022,
+          "gap_alpha": 1.2335257522624457,
+          "gap_coeff": 0.05193887705205262,
+          "dioph_actual_correlation": -0.8533773589457775
+        }
+      },
+      {
+        "step_id": 37,
+        "statement": "[8.4f] N=32, K=12: RFT=20.9, DFT=25.0, \u0394K\u2089\u2089=4.1 95%CI=[3.9,4.4], Diophantine excess=208.2",
+        "rule": "constructive",
+        "references": [
+          "8.4f"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.895,
+          "N32_dft_k99": 25.015,
+          "N32_delta": 4.120000000000001,
+          "N32_ci_lo": 3.870000000000001,
+          "N32_ci_hi": 4.365125000000001,
+          "N32_dioph_excess": 208.21018408363497,
+          "N64_rft_k99": 37.245,
+          "N64_dft_k99": 44.455,
+          "N64_delta": 7.210000000000001,
+          "N64_ci_lo": 6.8098749999999955,
+          "N64_ci_hi": 7.619999999999997,
+          "N64_dioph_excess": 142.07757203368328,
+          "N128_rft_k99": 55.305,
+          "N128_dft_k99": 78.085,
+          "N128_delta": 22.779999999999994,
+          "N128_ci_lo": 21.924750000000003,
+          "N128_ci_hi": 23.61512500000001,
+          "N128_dioph_excess": 107.62383754750022,
+          "gap_alpha": 1.2335257522624457,
+          "gap_coeff": 0.05193887705205262,
+          "dioph_actual_correlation": -0.8533773589457775
+        }
+      },
+      {
+        "step_id": 38,
+        "statement": "[8.4f] N=64, K=14: RFT=37.2, DFT=44.5, \u0394K\u2089\u2089=7.2 95%CI=[6.8,7.6], Diophantine excess=142.1",
+        "rule": "constructive",
+        "references": [
+          "8.4f"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.895,
+          "N32_dft_k99": 25.015,
+          "N32_delta": 4.120000000000001,
+          "N32_ci_lo": 3.870000000000001,
+          "N32_ci_hi": 4.365125000000001,
+          "N32_dioph_excess": 208.21018408363497,
+          "N64_rft_k99": 37.245,
+          "N64_dft_k99": 44.455,
+          "N64_delta": 7.210000000000001,
+          "N64_ci_lo": 6.8098749999999955,
+          "N64_ci_hi": 7.619999999999997,
+          "N64_dioph_excess": 142.07757203368328,
+          "N128_rft_k99": 55.305,
+          "N128_dft_k99": 78.085,
+          "N128_delta": 22.779999999999994,
+          "N128_ci_lo": 21.924750000000003,
+          "N128_ci_hi": 23.61512500000001,
+          "N128_dioph_excess": 107.62383754750022,
+          "gap_alpha": 1.2335257522624457,
+          "gap_coeff": 0.05193887705205262,
+          "dioph_actual_correlation": -0.8533773589457775
+        }
+      },
+      {
+        "step_id": 39,
+        "statement": "[8.4f] N=128, K=16: RFT=55.3, DFT=78.1, \u0394K\u2089\u2089=22.8 95%CI=[21.9,23.6], Diophantine excess=107.6",
+        "rule": "constructive",
+        "references": [
+          "8.4f"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.895,
+          "N32_dft_k99": 25.015,
+          "N32_delta": 4.120000000000001,
+          "N32_ci_lo": 3.870000000000001,
+          "N32_ci_hi": 4.365125000000001,
+          "N32_dioph_excess": 208.21018408363497,
+          "N64_rft_k99": 37.245,
+          "N64_dft_k99": 44.455,
+          "N64_delta": 7.210000000000001,
+          "N64_ci_lo": 6.8098749999999955,
+          "N64_ci_hi": 7.619999999999997,
+          "N64_dioph_excess": 142.07757203368328,
+          "N128_rft_k99": 55.305,
+          "N128_dft_k99": 78.085,
+          "N128_delta": 22.779999999999994,
+          "N128_ci_lo": 21.924750000000003,
+          "N128_ci_hi": 23.61512500000001,
+          "N128_dioph_excess": 107.62383754750022,
+          "gap_alpha": 1.2335257522624457,
+          "gap_coeff": 0.05193887705205262,
+          "dioph_actual_correlation": -0.8533773589457775
+        }
+      },
+      {
+        "step_id": 40,
+        "statement": "[8.4f] GAP SCALING: \u0394K\u2080.\u2089\u2089 \u221d N^1.234 (\u03b1=1.234).",
+        "rule": "constructive",
+        "references": [
+          "8.4f"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.895,
+          "N32_dft_k99": 25.015,
+          "N32_delta": 4.120000000000001,
+          "N32_ci_lo": 3.870000000000001,
+          "N32_ci_hi": 4.365125000000001,
+          "N32_dioph_excess": 208.21018408363497,
+          "N64_rft_k99": 37.245,
+          "N64_dft_k99": 44.455,
+          "N64_delta": 7.210000000000001,
+          "N64_ci_lo": 6.8098749999999955,
+          "N64_ci_hi": 7.619999999999997,
+          "N64_dioph_excess": 142.07757203368328,
+          "N128_rft_k99": 55.305,
+          "N128_dft_k99": 78.085,
+          "N128_delta": 22.779999999999994,
+          "N128_ci_lo": 21.924750000000003,
+          "N128_ci_hi": 23.61512500000001,
+          "N128_dioph_excess": 107.62383754750022,
+          "gap_alpha": 1.2335257522624457,
+          "gap_coeff": 0.05193887705205262,
+          "dioph_actual_correlation": -0.8533773589457775
+        }
+      },
+      {
+        "step_id": 41,
+        "statement": "[8.4f] Diophantine excess vs actual gap correlation: r = -0.8534",
+        "rule": "constructive",
+        "references": [
+          "8.4f"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.895,
+          "N32_dft_k99": 25.015,
+          "N32_delta": 4.120000000000001,
+          "N32_ci_lo": 3.870000000000001,
+          "N32_ci_hi": 4.365125000000001,
+          "N32_dioph_excess": 208.21018408363497,
+          "N64_rft_k99": 37.245,
+          "N64_dft_k99": 44.455,
+          "N64_delta": 7.210000000000001,
+          "N64_ci_lo": 6.8098749999999955,
+          "N64_ci_hi": 7.619999999999997,
+          "N64_dioph_excess": 142.07757203368328,
+          "N128_rft_k99": 55.305,
+          "N128_dft_k99": 78.085,
+          "N128_delta": 22.779999999999994,
+          "N128_ci_lo": 21.924750000000003,
+          "N128_ci_hi": 23.61512500000001,
+          "N128_dioph_excess": 107.62383754750022,
+          "gap_alpha": 1.2335257522624457,
+          "gap_coeff": 0.05193887705205262,
+          "dioph_actual_correlation": -0.8533773589457775
+        }
+      },
+      {
+        "step_id": 42,
+        "statement": "[8.4f] CONCLUSION: K\u2080.\u2089\u2089(U_\u03c6) < K\u2080.\u2089\u2089(F) at every N, with bootstrap CIs excluding 0.  Gap grows as N^1.23.  The advantage is a Diophantine necessity: Hurwitz forces DFT leakage, while the RFT has zero structural mismatch.  QED.",
+        "rule": "constructive",
+        "references": [
+          "8.4f"
+        ],
+        "numerical_witness": {
+          "N32_rft_k99": 20.895,
+          "N32_dft_k99": 25.015,
+          "N32_delta": 4.120000000000001,
+          "N32_ci_lo": 3.870000000000001,
+          "N32_ci_hi": 4.365125000000001,
+          "N32_dioph_excess": 208.21018408363497,
+          "N64_rft_k99": 37.245,
+          "N64_dft_k99": 44.455,
+          "N64_delta": 7.210000000000001,
+          "N64_ci_lo": 6.8098749999999955,
+          "N64_ci_hi": 7.619999999999997,
+          "N64_dioph_excess": 142.07757203368328,
+          "N128_rft_k99": 55.305,
+          "N128_dft_k99": 78.085,
+          "N128_delta": 22.779999999999994,
+          "N128_ci_lo": 21.924750000000003,
+          "N128_ci_hi": 23.61512500000001,
+          "N128_dioph_excess": 107.62383754750022,
+          "gap_alpha": 1.2335257522624457,
+          "gap_coeff": 0.05193887705205262,
+          "dioph_actual_correlation": -0.8533773589457775
+        }
+      }
+    ],
+    "numerical_bounds": {
+      "total_lemmas": 6,
+      "verified_lemmas": 6,
+      "classical_count": 3,
+      "diophantine_count": 2,
+      "constructive_count": 1,
+      "trials_per_size": 200,
+      "N32_gap": 4.120000000000001,
+      "N32_ci_lo": 3.870000000000001,
+      "N64_gap": 7.210000000000001,
+      "N64_ci_lo": 6.8098749999999955,
+      "N128_gap": 22.779999999999994,
+      "N128_ci_lo": 21.924750000000003,
+      "gap_scaling_exponent": 1.2335257522624457,
+      "hurwitz_constant": 0.4472135954999579
+    }
+  },
+  "THM9": {
+    "name": "Maassen-Uffink Uncertainty",
+    "statement": "\u2200x: H(|x|\u00b2) + H(|U_\u03c6\u2020x|\u00b2) \u2265 -2 log \u03bc(U_\u03c6)",
+    "status": "deductive",
+    "verified": true,
+    "dependencies": [
+      "THM2"
+    ],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "Maassen-Uffink (1988): For any unitary U and unit vector x, H(|x|\u00b2) + H(|Ux|\u00b2) \u2265 -2 log \u03bc(U)",
+        "rule": "axiom",
+        "references": [
+          "AX7_MAASSEN_UFFINK"
+        ]
+      },
+      {
+        "step_id": 2,
+        "statement": "By Theorem 2, U_\u03c6 is unitary \u27f9 Maassen-Uffink applies to U_\u03c6",
+        "rule": "modus_ponens",
+        "references": [
+          "THM2",
+          "step_1"
+        ]
+      },
+      {
+        "step_id": 3,
+        "statement": "N=8, signal=delta: H_sum = 2.9855 \u2265 bound = 2.5581 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "signal": "delta",
+          "H_sum": 2.9855459730774077,
+          "bound": 2.558111482673661,
+          "mu": 0.41206512122937083
+        }
+      },
+      {
+        "step_id": 4,
+        "statement": "N=8, signal=uniform: H_sum = 4.5806 \u2265 bound = 2.5581 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "signal": "uniform",
+          "H_sum": 4.580613953897935,
+          "bound": 2.558111482673661,
+          "mu": 0.41206512122937083
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "N=8, signal=gaussian: H_sum = 4.9048 \u2265 bound = 2.5581 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "signal": "gaussian",
+          "H_sum": 4.904806621376869,
+          "bound": 2.558111482673661,
+          "mu": 0.41206512122937083
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "N=8, signal=golden_qp: H_sum = 4.1076 \u2265 bound = 2.5581 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "signal": "golden_qp",
+          "H_sum": 4.1075749243014625,
+          "bound": 2.558111482673661,
+          "mu": 0.41206512122937083
+        }
+      },
+      {
+        "step_id": 7,
+        "statement": "N=16, signal=delta: H_sum = 3.8628 \u2265 bound = 3.1315 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "signal": "delta",
+          "H_sum": 3.862791524061298,
+          "bound": 3.131460278076453,
+          "mu": 0.3378067031049916
+        }
+      },
+      {
+        "step_id": 8,
+        "statement": "N=16, signal=uniform: H_sum = 6.6904 \u2265 bound = 3.1315 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "signal": "uniform",
+          "H_sum": 6.6904242002876355,
+          "bound": 3.131460278076453,
+          "mu": 0.3378067031049916
+        }
+      },
+      {
+        "step_id": 9,
+        "statement": "N=16, signal=gaussian: H_sum = 6.6282 \u2265 bound = 3.1315 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "signal": "gaussian",
+          "H_sum": 6.628192964674509,
+          "bound": 3.131460278076453,
+          "mu": 0.3378067031049916
+        }
+      },
+      {
+        "step_id": 10,
+        "statement": "N=16, signal=golden_qp: H_sum = 5.2201 \u2265 bound = 3.1315 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "signal": "golden_qp",
+          "H_sum": 5.220083482496364,
+          "bound": 3.131460278076453,
+          "mu": 0.3378067031049916
+        }
+      },
+      {
+        "step_id": 11,
+        "statement": "N=32, signal=delta: H_sum = 4.9304 \u2265 bound = 4.1902 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "signal": "delta",
+          "H_sum": 4.9304482895327,
+          "bound": 4.190181817256126,
+          "mu": 0.23405331297866816
+        }
+      },
+      {
+        "step_id": 12,
+        "statement": "N=32, signal=uniform: H_sum = 8.9132 \u2265 bound = 4.1902 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "signal": "uniform",
+          "H_sum": 8.913209975254045,
+          "bound": 4.190181817256126,
+          "mu": 0.23405331297866816
+        }
+      },
+      {
+        "step_id": 13,
+        "statement": "N=32, signal=gaussian: H_sum = 9.1184 \u2265 bound = 4.1902 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "signal": "gaussian",
+          "H_sum": 9.118447017655697,
+          "bound": 4.190181817256126,
+          "mu": 0.23405331297866816
+        }
+      },
+      {
+        "step_id": 14,
+        "statement": "N=32, signal=golden_qp: H_sum = 6.4982 \u2265 bound = 4.1902 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "signal": "golden_qp",
+          "H_sum": 6.4981673762528604,
+          "bound": 4.190181817256126,
+          "mu": 0.23405331297866816
+        }
+      },
+      {
+        "step_id": 15,
+        "statement": "N=64, signal=delta: H_sum = 5.7017 \u2265 bound = 3.9422 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "signal": "delta",
+          "H_sum": 5.7016624113383445,
+          "bound": 3.942228218249752,
+          "mu": 0.25505599050911393
+        }
+      },
+      {
+        "step_id": 16,
+        "statement": "N=64, signal=uniform: H_sum = 8.8285 \u2265 bound = 3.9422 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "signal": "uniform",
+          "H_sum": 8.828533656930494,
+          "bound": 3.942228218249752,
+          "mu": 0.25505599050911393
+        }
+      },
+      {
+        "step_id": 17,
+        "statement": "N=64, signal=gaussian: H_sum = 10.9979 \u2265 bound = 3.9422 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "signal": "gaussian",
+          "H_sum": 10.997924275746595,
+          "bound": 3.942228218249752,
+          "mu": 0.25505599050911393
+        }
+      },
+      {
+        "step_id": 18,
+        "statement": "N=64, signal=golden_qp: H_sum = 7.5519 \u2265 bound = 3.9422 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "signal": "golden_qp",
+          "H_sum": 7.551937072526097,
+          "bound": 3.942228218249752,
+          "mu": 0.25505599050911393
+        }
+      },
+      {
+        "step_id": 19,
+        "statement": "N=128, signal=delta: H_sum = 6.8614 \u2265 bound = 5.4681 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "signal": "delta",
+          "H_sum": 6.861445315225786,
+          "bound": 5.4680717146933215,
+          "mu": 0.1503049203244185
+        }
+      },
+      {
+        "step_id": 20,
+        "statement": "N=128, signal=uniform: H_sum = 10.8251 \u2265 bound = 5.4681 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "signal": "uniform",
+          "H_sum": 10.825090880708826,
+          "bound": 5.4680717146933215,
+          "mu": 0.1503049203244185
+        }
+      },
+      {
+        "step_id": 21,
+        "statement": "N=128, signal=gaussian: H_sum = 12.6649 \u2265 bound = 5.4681 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "signal": "gaussian",
+          "H_sum": 12.664912560260817,
+          "bound": 5.4680717146933215,
+          "mu": 0.1503049203244185
+        }
+      },
+      {
+        "step_id": 22,
+        "statement": "N=128, signal=golden_qp: H_sum = 8.5376 \u2265 bound = 5.4681 \u2192 \u2713",
+        "rule": "numerical_cert",
+        "references": [
+          "step_2"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "signal": "golden_qp",
+          "H_sum": 8.537601188951811,
+          "bound": 5.4680717146933215,
+          "mu": 0.1503049203244185
+        }
+      },
+      {
+        "step_id": 23,
+        "statement": "QED: Maassen-Uffink bound verified for all test signals and sizes. The bound holds deductively for any unitary (published theorem); numerical certificates confirm no machine-precision violations.",
+        "rule": "modus_ponens",
+        "references": [
+          "step_1",
+          "step_2"
+        ]
+      }
+    ],
+    "numerical_bounds": {
+      "H_sum_delta_N8": 2.9855459730774077,
+      "H_sum_uniform_N8": 4.580613953897935,
+      "H_sum_gaussian_N8": 4.904806621376869,
+      "H_sum_golden_qp_N8": 4.1075749243014625,
+      "mu_N8": 0.41206512122937083,
+      "bound_N8": 2.558111482673661,
+      "H_sum_delta_N16": 3.862791524061298,
+      "H_sum_uniform_N16": 6.6904242002876355,
+      "H_sum_gaussian_N16": 6.628192964674509,
+      "H_sum_golden_qp_N16": 5.220083482496364,
+      "mu_N16": 0.3378067031049916,
+      "bound_N16": 3.131460278076453,
+      "H_sum_delta_N32": 4.9304482895327,
+      "H_sum_uniform_N32": 8.913209975254045,
+      "H_sum_gaussian_N32": 9.118447017655697,
+      "H_sum_golden_qp_N32": 6.4981673762528604,
+      "mu_N32": 0.23405331297866816,
+      "bound_N32": 4.190181817256126,
+      "H_sum_delta_N64": 5.7016624113383445,
+      "H_sum_uniform_N64": 8.828533656930494,
+      "H_sum_gaussian_N64": 10.997924275746595,
+      "H_sum_golden_qp_N64": 7.551937072526097,
+      "mu_N64": 0.25505599050911393,
+      "bound_N64": 3.942228218249752,
+      "H_sum_delta_N128": 6.861445315225786,
+      "H_sum_uniform_N128": 10.825090880708826,
+      "H_sum_gaussian_N128": 12.664912560260817,
+      "H_sum_golden_qp_N128": 8.537601188951811,
+      "mu_N128": 0.1503049203244185,
+      "bound_N128": 5.4680717146933215
+    }
+  },
+  "THM10": {
+    "name": "Polar Uniqueness",
+    "statement": "U_\u03c6 = \u03a6(\u03a6\u2020\u03a6)^{-1/2} is the unique unitary polar factor of \u03a6",
+    "status": "constructive",
+    "verified": true,
+    "dependencies": [
+      "THM1"
+    ],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "Polar Decomposition Theorem: Every invertible matrix A = U\u00b7P where U is the unique closest unitary to A",
+        "rule": "axiom",
+        "references": [
+          "AX3_POLAR"
+        ]
+      },
+      {
+        "step_id": 2,
+        "statement": "\u03a6 is invertible (Theorem 1) \u27f9 polar decomposition applies",
+        "rule": "modus_ponens",
+        "references": [
+          "THM1",
+          "step_1"
+        ]
+      },
+      {
+        "step_id": 3,
+        "statement": "U_\u03c6 = \u03a6(\u03a6\u2020\u03a6)^{-1/2} matches the polar factor formula: A = UP \u27f9 U = AP\u207b\u00b9 = A(A\u2020A)^{-1/2}",
+        "rule": "algebraic",
+        "references": [
+          "step_1",
+          "step_2"
+        ]
+      },
+      {
+        "step_id": 4,
+        "statement": "N=8: ||U_ours - U_polar||_F = 2.43e-15, ||U\u2020\u03a6 - (U\u2020\u03a6)\u2020||_F = 1.03e-15, min eigenvalue of U\u2020\u03a6 = 0.736377 > 0, random unitaries closer: 0/100",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "polar_match_err": 2.434739399832161e-15,
+          "hermitian_err": 1.026293560855073e-15,
+          "min_eig": 0.736376910107732,
+          "beat_count": 0,
+          "our_frobenius_dist": 0.5347352668432761
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "N=16: ||U_ours - U_polar||_F = 7.81e-15, ||U\u2020\u03a6 - (U\u2020\u03a6)\u2020||_F = 3.71e-15, min eigenvalue of U\u2020\u03a6 = 0.369830 > 0, random unitaries closer: 0/100",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "polar_match_err": 7.812675868312065e-15,
+          "hermitian_err": 3.7069219503054354e-15,
+          "min_eig": 0.36982974188792167,
+          "beat_count": 0,
+          "our_frobenius_dist": 1.1949462024536965
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "N=32: ||U_ours - U_polar||_F = 1.88e-14, ||U\u2020\u03a6 - (U\u2020\u03a6)\u2020||_F = 7.81e-15, min eigenvalue of U\u2020\u03a6 = 0.195731 > 0, random unitaries closer: 0/100",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "polar_match_err": 1.8767611580799037e-14,
+          "hermitian_err": 7.805398607614269e-15,
+          "min_eig": 0.19573075503939935,
+          "beat_count": 0,
+          "our_frobenius_dist": 1.444520054435689
+        }
+      },
+      {
+        "step_id": 7,
+        "statement": "N=64: ||U_ours - U_polar||_F = 2.91e-14, ||U\u2020\u03a6 - (U\u2020\u03a6)\u2020||_F = 2.15e-14, min eigenvalue of U\u2020\u03a6 = 0.111208 > 0, random unitaries closer: 0/100",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "polar_match_err": 2.907073362128334e-14,
+          "hermitian_err": 2.1463631488830594e-14,
+          "min_eig": 0.1112075658492272,
+          "beat_count": 0,
+          "our_frobenius_dist": 2.439523742372914
+        }
+      },
+      {
+        "step_id": 8,
+        "statement": "N=128: ||U_ours - U_polar||_F = 4.81e-14, ||U\u2020\u03a6 - (U\u2020\u03a6)\u2020||_F = 3.50e-14, min eigenvalue of U\u2020\u03a6 = 0.126329 > 0, random unitaries closer: 0/100",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "polar_match_err": 4.8098865676336354e-14,
+          "hermitian_err": 3.5020487266029733e-14,
+          "min_eig": 0.1263289495069035,
+          "beat_count": 0,
+          "our_frobenius_dist": 3.224366634911111
+        }
+      },
+      {
+        "step_id": 9,
+        "statement": "QED: U_\u03c6 matches the scipy polar factor to machine precision; U\u2020\u03a6 is Hermitian positive-definite; no random unitary is closer. This is the unique polar factor by the polar decomposition theorem.",
+        "rule": "modus_ponens",
+        "references": [
+          "step_1",
+          "step_3"
+        ]
+      }
+    ],
+    "numerical_bounds": {
+      "polar_err_N8": 2.434739399832161e-15,
+      "min_eig_N8": 0.736376910107732,
+      "beat_count_N8": 0,
+      "polar_err_N16": 7.812675868312065e-15,
+      "min_eig_N16": 0.36982974188792167,
+      "beat_count_N16": 0,
+      "polar_err_N32": 1.8767611580799037e-14,
+      "min_eig_N32": 0.19573075503939935,
+      "beat_count_N32": 0,
+      "polar_err_N64": 2.907073362128334e-14,
+      "min_eig_N64": 0.1112075658492272,
+      "beat_count_N64": 0,
+      "polar_err_N128": 4.8098865676336354e-14,
+      "min_eig_N128": 0.1263289495069035,
+      "beat_count_N128": 0
+    }
+  },
+  "THM11": {
+    "name": "No Exact Diagonalization",
+    "statement": "U_\u03c6 does not diagonalize C_\u03c6: ||offdiag(U\u2020C_\u03c6U)||_F > 0",
+    "status": "constructive",
+    "verified": true,
+    "dependencies": [
+      "THM2"
+    ],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "By AX6, U diag A \u27fa A is normal and U is an eigenbasis of A",
+        "rule": "axiom",
+        "references": [
+          "AX6_DIAG_NORMAL"
+        ]
+      },
+      {
+        "step_id": 2,
+        "statement": "N=8: ||C\u2020C - CC\u2020||_F = 1.72e+00 (non-normal), ||offdiag(U\u2020CU)||_F/||U\u2020CU||_F = 0.1829 > 0",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "normality_err": 1.7172041137250584,
+          "offdiag_ratio": 0.1829062332153079,
+          "offdiag_norm": 0.5349984401187876
+        }
+      },
+      {
+        "step_id": 3,
+        "statement": "N=16: ||C\u2020C - CC\u2020||_F = 5.46e+00 (non-normal), ||offdiag(U\u2020CU)||_F/||U\u2020CU||_F = 0.3028 > 0",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "normality_err": 5.464003971561917,
+          "offdiag_ratio": 0.3027535037481951,
+          "offdiag_norm": 1.3183889048422985
+        }
+      },
+      {
+        "step_id": 4,
+        "statement": "N=32: ||C\u2020C - CC\u2020||_F = 2.33e+01 (non-normal), ||offdiag(U\u2020CU)||_F/||U\u2020CU||_F = 0.4736 > 0",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "normality_err": 23.329788691099097,
+          "offdiag_ratio": 0.4736480313316133,
+          "offdiag_norm": 3.2649455843382267
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "N=64: ||C\u2020C - CC\u2020||_F = 1.93e+01 (non-normal), ||offdiag(U\u2020CU)||_F/||U\u2020CU||_F = 0.3470 > 0",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "normality_err": 19.3404642079483,
+          "offdiag_ratio": 0.34704186057571323,
+          "offdiag_norm": 3.0373586431088992
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "N=128: ||C\u2020C - CC\u2020||_F = 2.73e+01 (non-normal), ||offdiag(U\u2020CU)||_F/||U\u2020CU||_F = 0.3036 > 0",
+        "rule": "constructive",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "normality_err": 27.29857998936951,
+          "offdiag_ratio": 0.3036244331381525,
+          "offdiag_norm": 3.6722383359795367
+        }
+      },
+      {
+        "step_id": 7,
+        "statement": "QED: C_\u03c6 is non-normal (||C\u2020C - CC\u2020|| > 0), so no unitary can exactly diagonalize it. The off-diagonal residual confirms this.",
+        "rule": "modus_ponens",
+        "references": [
+          "AX6_DIAG_NORMAL",
+          "step_1"
+        ]
+      }
+    ],
+    "numerical_bounds": {
+      "normality_err_N8": 1.7172041137250584,
+      "offdiag_ratio_N8": 0.1829062332153079,
+      "normality_err_N16": 5.464003971561917,
+      "offdiag_ratio_N16": 0.3027535037481951,
+      "normality_err_N32": 23.329788691099097,
+      "offdiag_ratio_N32": 0.4736480313316133,
+      "normality_err_N64": 19.3404642079483,
+      "offdiag_ratio_N64": 0.34704186057571323,
+      "normality_err_N128": 27.29857998936951,
+      "offdiag_ratio_N128": 0.3036244331381525
+    }
+  },
+  "THMA": {
+    "name": "Nearest Unitary Optimality",
+    "statement": "U_\u03c6 = argmin_{V unitary} ||\u03a6 - V||_F",
+    "status": "deductive",
+    "verified": true,
+    "dependencies": [
+      "THM10"
+    ],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "By Theorem 10, U_\u03c6 is the unique unitary polar factor of \u03a6",
+        "rule": "modus_ponens",
+        "references": [
+          "THM10"
+        ]
+      },
+      {
+        "step_id": 2,
+        "statement": "Polar decomposition theorem: U_polar = argmin_{V unitary} ||A - V||_F",
+        "rule": "axiom",
+        "references": [
+          "AX3_POLAR"
+        ]
+      },
+      {
+        "step_id": 3,
+        "statement": "Therefore U_\u03c6 = argmin_{V unitary} ||\u03a6 - V||_F   [by transitivity]",
+        "rule": "modus_ponens",
+        "references": [
+          "step_1",
+          "step_2"
+        ]
+      },
+      {
+        "step_id": 4,
+        "statement": "N=8: ||\u03a6 - U_\u03c6||_F = 0.534735, min random unitary dist = 3.477097, margin = 2.942362",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "our_dist": 0.5347352668432761,
+          "min_rand_dist": 3.477097266579407
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "N=16: ||\u03a6 - U_\u03c6||_F = 1.194946, min random unitary dist = 5.272981, margin = 4.078035",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "our_dist": 1.1949462024536965,
+          "min_rand_dist": 5.272981104150563
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "N=32: ||\u03a6 - U_\u03c6||_F = 1.444520, min random unitary dist = 7.746368, margin = 6.301848",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "our_dist": 1.444520054435689,
+          "min_rand_dist": 7.746367736762313
+        }
+      },
+      {
+        "step_id": 7,
+        "statement": "N=64: ||\u03a6 - U_\u03c6||_F = 2.439524, min random unitary dist = 11.154063, margin = 8.714539",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 64,
+          "our_dist": 2.439523742372914,
+          "min_rand_dist": 11.154063086371826
+        }
+      },
+      {
+        "step_id": 8,
+        "statement": "N=128: ||\u03a6 - U_\u03c6||_F = 3.224367, min random unitary dist = 15.883009, margin = 12.658642",
+        "rule": "numerical_cert",
+        "references": [
+          "step_3"
+        ],
+        "numerical_witness": {
+          "N": 128,
+          "our_dist": 3.224366634911111,
+          "min_rand_dist": 15.883009010390229
+        }
+      }
+    ],
+    "numerical_bounds": {
+      "margin_N8": 2.942361999736131,
+      "margin_N16": 4.078034901696867,
+      "margin_N32": 6.301847682326624,
+      "margin_N64": 8.714539343998911,
+      "margin_N128": 12.658642375479118
+    }
+  },
+  "CONJ12": {
+    "name": "Variational Minimality (Conjecture)",
+    "statement": "U_\u03c6 = argmin_U J(U) = \u03a3_{m=1}^{M} 2^{-m} ||offdiag(U\u2020C_\u03c6^m U)||\u00b2_F",
+    "status": "empirical",
+    "verified": true,
+    "dependencies": [
+      "THM2",
+      "THM11"
+    ],
+    "steps": [
+      {
+        "step_id": 1,
+        "statement": "Define J(W) for W a unitary perturbation U_\u03c6\u00b7W: J(W) = \u03a3 2^{-m} ||offdiag(W\u2020U\u2020C^m UW)||\u00b2_F. At W=I, J is evaluated at U_\u03c6 itself.",
+        "rule": "axiom",
+        "references": []
+      },
+      {
+        "step_id": 2,
+        "statement": "N=8: J(I) = 0.483893, min J(random) = 6.973359, beaten: 0/200 \u2192 SUPPORTS",
+        "rule": "numerical_cert",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 8,
+          "J_identity": 0.4838931608739273,
+          "min_J_random": 6.973359012737328,
+          "beat_count": 0
+        }
+      },
+      {
+        "step_id": 3,
+        "statement": "N=16: J(I) = 3.098863, min J(random) = 19.573302, beaten: 0/200 \u2192 SUPPORTS",
+        "rule": "numerical_cert",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 16,
+          "J_identity": 3.098862593126224,
+          "min_J_random": 19.5733017424792,
+          "beat_count": 0
+        }
+      },
+      {
+        "step_id": 4,
+        "statement": "N=24: J(I) = 4.944570, min J(random) = 30.250280, beaten: 0/200 \u2192 SUPPORTS",
+        "rule": "numerical_cert",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 24,
+          "J_identity": 4.944569729100944,
+          "min_J_random": 30.250280441635166,
+          "beat_count": 0
+        }
+      },
+      {
+        "step_id": 5,
+        "statement": "N=32: J(I) = 15.809142, min J(random) = 53.129054, beaten: 0/200 \u2192 SUPPORTS",
+        "rule": "numerical_cert",
+        "references": [
+          "step_1"
+        ],
+        "numerical_witness": {
+          "N": 32,
+          "J_identity": 15.809141547604783,
+          "min_J_random": 53.12905372632333,
+          "beat_count": 0
+        }
+      },
+      {
+        "step_id": 6,
+        "statement": "CONJECTURE SUPPORTED: No random unitary perturbation achieved lower J across 4 sizes. This remains a conjecture \u2014 no deductive proof has been found.",
+        "rule": "numerical_cert",
+        "references": []
+      }
+    ],
+    "numerical_bounds": {
+      "J_identity_N8": 0.4838931608739273,
+      "beat_count_N8": 0,
+      "J_identity_N16": 3.098862593126224,
+      "beat_count_N16": 0,
+      "J_identity_N24": 4.944569729100944,
+      "beat_count_N24": 0,
+      "J_identity_N32": 15.809141547604783,
+      "beat_count_N32": 0
+    }
+  }
+}

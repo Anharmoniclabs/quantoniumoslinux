@@ -1,0 +1,329 @@
+# RFT Experiment Templates for SAGE
+# These are pre-vetted, safe experiment snippets that SAGE can run
+# to gather specific metrics about the RFT implementation.
+
+experiments:
+  
+  # === Unitarity Verification ===
+  rft_unitarity_check:
+    name: "RFT Unitarity Verification"
+    description: "Verify ||U†U - I||_F < 1e-12 for various N"
+    hypothesis: "Canonical RFT maintains machine-precision unitarity"
+    code: |
+      import sys
+      sys.path.insert(0, '.')
+      import numpy as np
+      from algorithms.rft.core.resonant_fourier_transform import rft_basis_matrix
+      
+      results = []
+      for N in [16, 32, 64, 128, 256]:
+          U = rft_basis_matrix(N, N, use_gram_normalization=True)
+          err = np.linalg.norm(U.conj().T @ U - np.eye(N), ord='fro')
+          results.append(f"N={N}: error={err:.2e}")
+      
+      print("Unitarity errors:")
+      for r in results:
+          print(f"  {r}")
+      
+      max_err = max(float(r.split('=')[-1]) for r in results)
+      print(f"\nMax error: {max_err:.2e}")
+      print(f"Status: {'PASS' if max_err < 1e-10 else 'FAIL'}")
+    expected_outcome: "All errors < 1e-12"
+    tags: ["correctness", "unitarity", "rft-core"]
+
+  # === Gram Matrix Conditioning ===
+  gram_conditioning_sweep:
+    name: "Gram Matrix Conditioning Sweep"
+    description: "Measure κ(G) for Fibonacci vs non-Fibonacci N"
+    hypothesis: "Fibonacci N values have dramatically lower condition numbers"
+    code: |
+      import sys
+      sys.path.insert(0, '.')
+      import numpy as np
+      from algorithms.rft.core.resonant_fourier_transform import rft_basis_matrix
+      
+      PHI = (1 + np.sqrt(5)) / 2
+      
+      def gram_cond(N):
+          freqs = np.array([np.modf((k + 1) * PHI)[0] for k in range(N)])
+          n = np.arange(N)
+          Phi = np.exp(2j * np.pi * np.outer(n, freqs)) / np.sqrt(N)
+          G = Phi.conj().T @ Phi
+          eigvals = np.linalg.eigvalsh(G)
+          return eigvals.max() / max(eigvals.min(), 1e-15)
+      
+      # Fibonacci numbers
+      fibs = [8, 13, 21, 34, 55, 89]
+      # Non-Fibonacci numbers
+      non_fibs = [10, 15, 25, 40, 60, 100]
+      
+      print("Fibonacci N:")
+      for N in fibs:
+          k = gram_cond(N)
+          print(f"  N={N:3d}: κ(G) = {k:.2f}")
+      
+      print("\nNon-Fibonacci N:")
+      for N in non_fibs:
+          k = gram_cond(N)
+          print(f"  N={N:3d}: κ(G) = {k:.2f}")
+    expected_outcome: "Fibonacci κ ≈ 2.85, non-Fibonacci κ >> 100"
+    tags: ["conditioning", "fibonacci", "gram-matrix"]
+
+  # === Roundtrip Accuracy ===
+  rft_roundtrip:
+    name: "RFT Roundtrip Accuracy"
+    description: "Verify x == irft(rft(x)) to machine precision"
+    hypothesis: "Forward-inverse roundtrip preserves signal"
+    code: |
+      import sys
+      sys.path.insert(0, '.')
+      import numpy as np
+      from algorithms.rft.core.resonant_fourier_transform import rft_forward, rft_inverse
+      
+      np.random.seed(42)
+      
+      errors = []
+      for N in [32, 64, 128, 256]:
+          x = np.random.randn(N) + 1j * np.random.randn(N)
+          X = rft_forward(x)
+          x_rec = rft_inverse(X)
+          err = np.linalg.norm(x - x_rec) / np.linalg.norm(x)
+          errors.append((N, err))
+          print(f"N={N}: relative error = {err:.2e}")
+      
+      max_err = max(e[1] for e in errors)
+      print(f"\nMax relative error: {max_err:.2e}")
+      print(f"Status: {'PASS' if max_err < 1e-10 else 'FAIL'}")
+    expected_outcome: "All errors < 1e-12"
+    tags: ["correctness", "roundtrip", "rft-core"]
+
+  # === RFTMW Engine Load Test ===
+  rftmw_engine_load:
+    name: "RFTMW Engine Load Test"
+    description: "Check if Qwen25Engine loads without errors"
+    hypothesis: "Engine loads successfully with numpy-only path"
+    code: |
+      import sys
+      import os
+      sys.path.insert(0, '.')
+      os.environ['RFTMW_NO_NATIVE'] = '1'  # Force numpy path
+      
+      try:
+          from quantonium_os_src.engine.rftmw_numpy_engine import Qwen25Engine
+          
+          # Check for pack files
+          from pathlib import Path
+          packs = list(Path('.').glob('*.rftmwpk'))
+          print(f"Found {len(packs)} .rftmwpk files")
+          
+          if packs:
+              pack = packs[0]
+              print(f"Testing load of: {pack}")
+              engine = Qwen25Engine(str(pack))
+              # Don't call load() - just check init
+              print(f"Config: {engine.config}")
+              print("Status: Engine initialized OK")
+          else:
+              print("No pack files found - cannot test engine load")
+              print("Status: SKIP")
+      except Exception as e:
+          print(f"Error: {type(e).__name__}: {e}")
+          print("Status: FAIL")
+    expected_outcome: "Engine initializes without crash"
+    tags: ["rftmw", "engine", "load-test"]
+
+  # === Q4K Dequantization Timing ===
+  q4k_dequant_timing:
+    name: "Q4K Dequantization Timing"
+    description: "Profile Q4K block dequantization speed"
+    hypothesis: "Dequant is a potential bottleneck"
+    code: |
+      import sys
+      sys.path.insert(0, '.')
+      import numpy as np
+      import time
+      
+      try:
+          from quantonium_os_src.engine.rftmw_numpy_engine import _dequant_q4k_blocks
+          
+          # Create random Q4K blocks (144 bytes per block, 256 values)
+          n_blocks = 1000
+          raw = np.random.randint(0, 256, (n_blocks, 144), dtype=np.uint8)
+          
+          # Warmup
+          _ = _dequant_q4k_blocks(raw[:10])
+          
+          # Time it
+          start = time.perf_counter()
+          for _ in range(10):
+              result = _dequant_q4k_blocks(raw)
+          elapsed = (time.perf_counter() - start) / 10
+          
+          values_per_sec = (n_blocks * 256) / elapsed
+          print(f"Blocks: {n_blocks}")
+          print(f"Time per batch: {elapsed*1000:.2f} ms")
+          print(f"Throughput: {values_per_sec/1e6:.2f} M values/sec")
+          print(f"Output shape: {result.shape}")
+      except ImportError as e:
+          print(f"Import error: {e}")
+          print("Status: SKIP")
+    expected_outcome: "Throughput > 100M values/sec"
+    tags: ["rftmw", "dequant", "performance"]
+
+  # === Memory Layout Analysis ===
+  memory_layout:
+    name: "Memory Layout Analysis"
+    description: "Check memory alignment and strides of key arrays"
+    hypothesis: "Proper memory layout enables vectorization"
+    code: |
+      import sys
+      sys.path.insert(0, '.')
+      import numpy as np
+      
+      from algorithms.rft.core.resonant_fourier_transform import rft_basis_matrix
+      
+      N = 256
+      U = rft_basis_matrix(N, N, use_gram_normalization=True)
+      
+      print(f"Shape: {U.shape}")
+      print(f"Dtype: {U.dtype}")
+      print(f"Strides: {U.strides}")
+      print(f"C-contiguous: {U.flags['C_CONTIGUOUS']}")
+      print(f"F-contiguous: {U.flags['F_CONTIGUOUS']}")
+      print(f"Aligned: {U.flags['ALIGNED']}")
+      print(f"Memory: {U.nbytes / 1024:.1f} KB")
+      
+      # Check if strides are optimal for row-major access
+      expected_stride = U.itemsize * N
+      actual_stride = U.strides[0]
+      print(f"Row stride: {actual_stride} (expected {expected_stride})")
+      print(f"Status: {'OPTIMAL' if U.flags['C_CONTIGUOUS'] else 'SUBOPTIMAL'}")
+    expected_outcome: "C-contiguous, aligned"
+    tags: ["memory", "optimization", "layout"]
+
+  # === Import Dependency Graph ===
+  import_graph:
+    name: "Import Dependency Graph"
+    description: "Map import dependencies for RFT core modules"
+    hypothesis: "Circular imports or heavy deps could slow startup"
+    code: |
+      import sys
+      sys.path.insert(0, '.')
+      import ast
+      from pathlib import Path
+      from collections import defaultdict
+      
+      def get_imports(filepath):
+          try:
+              tree = ast.parse(filepath.read_text())
+          except:
+              return []
+          imports = []
+          for node in ast.walk(tree):
+              if isinstance(node, ast.Import):
+                  for alias in node.names:
+                      imports.append(alias.name.split('.')[0])
+              elif isinstance(node, ast.ImportFrom):
+                  if node.module:
+                      imports.append(node.module.split('.')[0])
+          return list(set(imports))
+      
+      rft_core = Path('algorithms/rft/core')
+      if rft_core.exists():
+          for py in sorted(rft_core.glob('*.py')):
+              imports = get_imports(py)
+              external = [i for i in imports if i not in ('numpy', 'scipy', 'typing')]
+              print(f"{py.name}: {len(imports)} imports, {len(external)} non-standard")
+              if external:
+                  print(f"  External: {', '.join(external[:5])}")
+      else:
+          print("algorithms/rft/core not found")
+    expected_outcome: "No circular imports, minimal external deps"
+    tags: ["imports", "architecture", "startup"]
+
+  # === Test Coverage Check ===
+  test_coverage_quick:
+    name: "Quick Test Coverage Check"
+    description: "Count test files and functions for RFT modules"
+    hypothesis: "More tests = more confidence"
+    code: |
+      import ast
+      from pathlib import Path
+      
+      test_dir = Path('tests')
+      if not test_dir.exists():
+          print("tests/ directory not found")
+      else:
+          total_files = 0
+          total_funcs = 0
+          
+          for py in test_dir.rglob('test_*.py'):
+              total_files += 1
+              try:
+                  tree = ast.parse(py.read_text())
+                  funcs = [n for n in ast.walk(tree) 
+                           if isinstance(n, ast.FunctionDef) and n.name.startswith('test_')]
+                  total_funcs += len(funcs)
+              except:
+                  pass
+          
+          print(f"Test files: {total_files}")
+          print(f"Test functions: {total_funcs}")
+          print(f"Avg tests per file: {total_funcs/max(total_files,1):.1f}")
+          
+          # Check RFT-specific tests
+          rft_tests = list(test_dir.rglob('*rft*.py'))
+          print(f"\nRFT-specific test files: {len(rft_tests)}")
+          for t in rft_tests[:5]:
+              print(f"  {t}")
+    expected_outcome: "Coverage info for prioritization"
+    tags: ["testing", "coverage", "inventory"]
+
+# Experiment selection logic for SAGE
+selection_rules:
+  - condition: "last_experiment_type == 'correctness'"
+    next: "performance"
+    reason: "Alternate between correctness and performance"
+  
+  - condition: "no_experiments_today"
+    next: "rft_unitarity_check"
+    reason: "Start with basic correctness verification"
+  
+  - condition: "found_performance_issue"
+    next: "memory_layout"
+    reason: "Check memory for optimization opportunities"
+  
+  - condition: "new_code_in_rft_core"
+    next: "rft_roundtrip"
+    reason: "Verify new code doesn't break roundtrip"
+
+# Safety constraints (enforced in code)
+safety:
+  max_runtime_seconds: 30
+  blocked_tokens:
+    - "open("
+    - "write("
+    - "subprocess"
+    - "os.system"
+    - "exec("
+    - "eval("
+    - "import socket"
+    - "import requests"
+    - "import urllib"
+    - "__import__"
+    - "compile("
+    - "builtins"
+    - "globals("
+    - "locals("
+    - "shutil.rmtree"
+    - "os.remove"
+    - "pathlib.Path.unlink"
+  allowed_imports:
+    - numpy
+    - scipy
+    - time
+    - ast
+    - pathlib
+    - collections
+    - sys
+    - os  # read-only: os.walk, os.path, os.environ

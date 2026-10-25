@@ -1,0 +1,12 @@
+# QuantoniumOS login. install.sh fills in @USER@ for autologin on first boot;
+# after logout, tuigreet asks for credentials and offers the QuantoniumOS session.
+[terminal]
+vt = 1
+
+[default_session]
+command = "tuigreet --time --remember --asterisks --sessions /usr/share/wayland-sessions --cmd /usr/bin/qos-session"
+user = "greeter"
+
+[initial_session]
+command = "/usr/bin/qos-session"
+user = "@USER@"

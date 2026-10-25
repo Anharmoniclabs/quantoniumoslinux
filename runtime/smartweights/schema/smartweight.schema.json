@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantoniumos.local/schemas/smartweight.schema.json",
+  "title": "QuantoniumOS SmartWeights Manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "name",
+    "version",
+    "kind",
+    "identity",
+    "base",
+    "rft_space",
+    "artifacts",
+    "training",
+    "capabilities",
+    "safety"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "smartweights/v1"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "lora_adapter",
+        "rft_delta",
+        "tool_head",
+        "visual_token_head",
+        "knowledge_snapshot",
+        "composite"
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "identity": {
+      "type": "object",
+      "required": ["assistant", "role"],
+      "properties": {
+        "assistant": { "type": "string" },
+        "role": { "type": "string" }
+      }
+    },
+    "base": {
+      "type": "object",
+      "required": ["runtime_model", "training_model", "frozen"],
+      "properties": {
+        "runtime_model": { "type": "string" },
+        "training_model": { "type": "string" },
+        "frozen": { "const": true }
+      }
+    },
+    "rft_space": {
+      "type": "object",
+      "required": ["family", "encoding", "base_tensor_mutation"],
+      "properties": {
+        "family": { "type": "string" },
+        "encoding": { "type": "string" },
+        "base_tensor_mutation": { "const": "none" },
+        "future_compression": { "type": "string" }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path"],
+        "properties": {
+          "path": { "type": "string" },
+          "optional": { "type": "boolean" },
+          "present": { "type": "boolean" },
+          "kind": { "type": "string" },
+          "sha256": { "type": "string" },
+          "bytes": { "type": "integer", "minimum": 0 },
+          "file_count": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "training": {
+      "type": "object",
+      "properties": {
+        "datasets": { "type": "array", "items": { "type": "string" } },
+        "reports": { "type": "array", "items": { "type": "string" } },
+        "guardrails": { "type": "string" }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "efficiency": {
+      "type": "object",
+      "properties": {
+        "goal": { "type": "string" },
+        "budget": {
+          "type": "object",
+          "properties": {
+            "model": { "type": "string" },
+            "base_parameters": { "type": "integer", "minimum": 1 },
+            "active_dense_parameters": { "type": "integer", "minimum": 1 },
+            "lora_rank": { "type": "integer", "minimum": 1 },
+            "target_modules": { "type": "array", "items": { "type": "string" } },
+            "layers": { "type": "integer", "minimum": 1 },
+            "trainable_overlay_parameters": { "type": "integer", "minimum": 0 },
+            "actual_trainable_overlay_parameters": { "type": "integer", "minimum": 0 },
+            "parameters_per_layer": { "type": "integer", "minimum": 0 },
+            "parameters_per_module_per_layer": {
+              "type": "object",
+              "additionalProperties": { "type": "integer", "minimum": 0 }
+            },
+            "storage_estimate": {
+              "type": "object",
+              "properties": {
+                "dtype_bytes": { "type": "integer", "minimum": 1 },
+                "fp_bytes": { "type": "integer", "minimum": 0 },
+                "fp_mb": { "type": "number", "minimum": 0 },
+                "q8_mb": { "type": "number", "minimum": 0 },
+                "q4_mb": { "type": "number", "minimum": 0 }
+              }
+            }
+          }
+        },
+        "phase_plan": {
+          "type": "object",
+          "properties": {
+            "model": { "type": "string" },
+            "lora_rank": { "type": "integer", "minimum": 1 },
+            "strategy": { "type": "string" },
+            "total_trainable_overlay_parameters": { "type": "integer", "minimum": 0 },
+            "total_storage_estimate": {
+              "type": "object",
+              "properties": {
+                "dtype_bytes": { "type": "integer", "minimum": 1 },
+                "fp_bytes": { "type": "integer", "minimum": 0 },
+                "fp_mb": { "type": "number", "minimum": 0 },
+                "q8_mb": { "type": "number", "minimum": 0 },
+                "q4_mb": { "type": "number", "minimum": 0 }
+              }
+            },
+            "matches_full_rank8_budget": { "type": "boolean" },
+            "final_combined_artifact": { "type": "string" },
+            "combine_policy": { "type": "string" },
+            "phases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "index": { "type": "integer", "minimum": 1 },
+                  "id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "target_modules": { "type": "array", "items": { "type": "string" } },
+                  "capabilities": { "type": "array", "items": { "type": "string" } },
+                  "artifact_path": { "type": "string" },
+                  "manifest_path": { "type": "string" },
+                  "trainable_overlay_parameters": { "type": "integer", "minimum": 0 },
+                  "storage_estimate": {
+                    "type": "object",
+                    "properties": {
+                      "dtype_bytes": { "type": "integer", "minimum": 1 },
+                      "fp_bytes": { "type": "integer", "minimum": 0 },
+                      "fp_mb": { "type": "number", "minimum": 0 },
+                      "q8_mb": { "type": "number", "minimum": 0 },
+                      "q4_mb": { "type": "number", "minimum": 0 }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "middleware_strategy": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stage": { "type": "string" },
+              "role": { "type": "string" }
+            }
+          }
+        },
+        "activation_policy": { "type": "string" },
+        "scaling_rule": { "type": "string" }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": [
+        "base_weight_mutation",
+        "loads_as_overlay",
+        "requires_manifest_validation",
+        "destructive_actions",
+        "network_access",
+        "allowed_write_roots"
+      ],
+      "properties": {
+        "base_weight_mutation": { "const": "forbidden" },
+        "loads_as_overlay": { "const": true },
+        "requires_manifest_validation": { "const": true },
+        "destructive_actions": { "const": "requires_user_approval" },
+        "network_access": { "enum": ["off_by_default", "disabled"] },
+        "pii_redaction": { "type": "string" },
+        "allowed_write_roots": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

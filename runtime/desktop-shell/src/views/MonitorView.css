@@ -1,0 +1,189 @@
+.monitor-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--space-lg);
+  gap: var(--space-lg);
+  overflow-y: auto;
+}
+
+.monitor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.monitor-header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--fg);
+}
+.monitor-live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--success);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: blink 1.5s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+/* ── Grid ── */
+.monitor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+@media (max-width: 700px) {
+  .monitor-grid { grid-template-columns: 1fr; }
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+.stat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stat-detail {
+  font-size: 11px;
+  color: var(--fg-muted);
+}
+
+.progress-ring {
+  overflow: visible;
+}
+
+/* ── Sparkline ── */
+.sparkline-canvas {
+  width: 100%;
+  height: 36px;
+  border-radius: 4px;
+}
+
+/* ── Vertex Resonance Graph ── */
+.vertex-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.vertex-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--fg-dim);
+}
+.vertex-header h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg);
+  margin: 0;
+}
+.rft-badge {
+  margin-left: auto;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  border: 1px solid rgba(144,144,144,0.3);
+  border-radius: 4px;
+}
+.vertex-canvas-wrap {
+  position: relative;
+  height: 180px;
+  background: #0f1216;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.vertex-canvas {
+  position: absolute;
+  top: 0; left: 0;
+}
+
+/* ── Process table ── */
+.proc-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-height: 0;
+}
+.proc-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.proc-header h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg);
+}
+.spin {
+  color: var(--fg-dim);
+  animation: spin 3s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.proc-table {
+  display: flex;
+  flex-direction: column;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  overflow-y: auto;
+}
+.proc-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--fg-secondary);
+  border-bottom: 1px solid var(--glass-border);
+}
+.proc-row:last-child { border-bottom: none; }
+.proc-row-header {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--fg-muted);
+  font-size: 10px;
+}
+.proc-empty {
+  grid-template-columns: 1fr;
+  color: var(--fg-dim);
+  text-align: center;
+  padding: var(--space-lg);
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

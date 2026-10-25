@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=QuantoniumOS
+Comment=QuantoniumOS desktop on Hyprland, apps governed by the RFTMW middleware
+Exec=/usr/bin/qos-session
+Type=Application
+DesktopNames=QuantoniumOS;Hyprland

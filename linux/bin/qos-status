@@ -1,0 +1,20 @@
+#!/bin/sh
+# qos-status - one-line RFTMW status for waybar (custom module, return-type json).
+s="$(rftmwctl stats 2>/dev/null)" || { echo '{"text":"RFTMW offline","class":"offline","tooltip":"rftmwd is not running: systemctl --user status rftmwd"}'; exit 0; }
+p="$(rftmwctl procs 2>/dev/null || echo '{}')"
+printf '%s\n%s\n' "$s" "$p" | jq -cs '
+  .[0] as $s | .[1] as $p |
+  def gib: . / 1073741824 * 10 | round / 10 | tostring + "G";
+  {
+    text: "RFTMW \($s.packs_resident_bytes | gib) · PSI \($s.psi_some_avg10)%",
+    class: (if $s.psi_some_avg10 >= 10 then "pressure" elif $s.psi_some_avg10 >= 1 then "warm" else "ok" end),
+    tooltip: ([
+      "Available  \($s.mem_available | gib) of \($s.mem_total | gib)",
+      "Page cache \($s.page_cache | gib)   zram/swap free \($s.swap_free | gib)",
+      "Packs      \($s.packs) mapped, \($s.packs_resident_bytes | gib) resident",
+      "Pressure   some \($s.psi_some_avg10)%  full \($s.psi_full_avg10)%  events \($s.pressure_events)",
+      "",
+      "Workloads (rftmw.slice):"
+    ] + [ ($p.workloads // [])[] | select(.running) |
+          "  \(.name)  \((.memory_current // 0) | gib)" ] | join("\n"))
+  }'

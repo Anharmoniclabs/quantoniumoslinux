@@ -1,0 +1,8 @@
+{
+  "base_url": "http://127.0.0.1:18081/v1",
+  "model": "eldrae-local",
+  "constrained_tools": true,
+  "llama_server": "C:/AI-Workspace/llama.cpp/b11706/llama-server.exe",
+  "model_path": "E:/AI-Models/GGUF/LLM/Ornith-1.5-9B/Ornith-1.5-9B-Q4_K_M.gguf",
+  "archive_drive": "H:/"
+}

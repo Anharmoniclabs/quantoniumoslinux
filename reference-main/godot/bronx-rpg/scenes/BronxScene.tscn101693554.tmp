@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://nkgyegggsem2"]
+
+[ext_resource type="Script" uid="uid://cso6osfaleqdw" path="res://scripts/BronxScene.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://cfsljmrvrrv42" path="res://scripts/WorldLoader.gd" id="2_world"]
+[ext_resource type="Script" uid="uid://bjv4saqdgm71s" path="res://scripts/AgentBridge.gd" id="3_bridge"]
+[ext_resource type="PackedScene" path="res://scenes/Hud.tscn" id="4_hud"]
+
+[node name="BronxScene" type="Node2D" unique_id=1884312708]
+script = ExtResource("1_main")
+
+[node name="World" type="Node2D" parent="." unique_id=1119456373]
+script = ExtResource("2_world")
+
+[node name="Agents" type="Node2D" parent="." unique_id=1133703374]
+
+[node name="AgentBridge" type="Node" parent="." unique_id=502287173]
+script = ExtResource("3_bridge")
+
+[node name="HUD" parent="." unique_id=459020996 instance=ExtResource("4_hud")]

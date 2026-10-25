@@ -1,0 +1,17 @@
+run = "bash start.sh"
+entrypoint = "start.sh"
+
+[nix]
+channel = "stable-24_05"
+
+[nix.packages]
+gcc = "gcc"
+nodejs = "nodejs_20"
+curl = "curl"
+
+[deployment]
+run = ["bash", "start.sh"]
+
+[[ports]]
+localPort = 8000
+externalPort = 80

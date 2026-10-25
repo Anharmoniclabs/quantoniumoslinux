@@ -1,0 +1,2305 @@
+{
+  "tile_size": 32,
+  "map_w": 31,
+  "map_h": 17,
+  "village_square": {
+    "x": 15,
+    "y": 8
+  },
+  "tiles": [
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "office_door"
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "office_door"
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "office_door"
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "office_door"
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "conf_carpet"
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "office_door"
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "office_door"
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "office_door"
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "hardwood",
+        "v": 4
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "marble"
+      },
+      {
+        "t": "marble"
+      },
+      {
+        "t": "marble"
+      },
+      {
+        "t": "marble"
+      },
+      {
+        "t": "elevator_door"
+      },
+      {
+        "t": "marble"
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "office_door"
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "carpet",
+        "v": 4
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "carpet",
+        "v": 5
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "hardwood",
+        "v": 3
+      },
+      {
+        "t": "hardwood",
+        "v": 2
+      },
+      {
+        "t": "hardwood",
+        "v": 1
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "marble"
+      },
+      {
+        "t": "marble"
+      },
+      {
+        "t": "marble"
+      },
+      {
+        "t": "marble"
+      },
+      {
+        "t": "elevator"
+      },
+      {
+        "t": "elevator"
+      },
+      {
+        "t": "hardwood",
+        "v": 0
+      },
+      {
+        "t": "hardwood",
+        "v": 7
+      },
+      {
+        "t": "hardwood",
+        "v": 6
+      },
+      {
+        "t": "hardwood",
+        "v": 5
+      },
+      {
+        "t": "office_wall"
+      },
+      {
+        "t": "carpet",
+        "v": 3
+      },
+      {
+        "t": "carpet",
+        "v": 2
+      },
+      {
+        "t": "carpet",
+        "v": 1
+      },
+      {
+        "t": "carpet",
+        "v": 0
+      },
+      {
+        "t": "carpet",
+        "v": 7
+      },
+      {
+        "t": "carpet",
+        "v": 6
+      },
+      {
+        "t": "glass_wall"
+      }
+    ],
+    [
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      },
+      {
+        "t": "glass_wall"
+      }
+    ]
+  ],
+  "decorations": [
+    {
+      "x": 2,
+      "y": 2,
+      "type": "desk",
+      "variant": 0
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "type": "office_chair",
+      "variant": 0
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "type": "desk",
+      "variant": 1
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "type": "office_chair",
+      "variant": 0
+    },
+    {
+      "x": 2,
+      "y": 10,
+      "type": "desk",
+      "variant": 2
+    },
+    {
+      "x": 4,
+      "y": 10,
+      "type": "office_chair",
+      "variant": 0
+    },
+    {
+      "x": 2,
+      "y": 14,
+      "type": "desk",
+      "variant": 3
+    },
+    {
+      "x": 4,
+      "y": 14,
+      "type": "office_chair",
+      "variant": 0
+    },
+    {
+      "x": 28,
+      "y": 2,
+      "type": "desk",
+      "variant": 2
+    },
+    {
+      "x": 26,
+      "y": 2,
+      "type": "office_chair",
+      "variant": 0
+    },
+    {
+      "x": 28,
+      "y": 6,
+      "type": "desk",
+      "variant": 3
+    },
+    {
+      "x": 26,
+      "y": 6,
+      "type": "office_chair",
+      "variant": 0
+    },
+    {
+      "x": 28,
+      "y": 10,
+      "type": "desk",
+      "variant": 0
+    },
+    {
+      "x": 26,
+      "y": 10,
+      "type": "office_chair",
+      "variant": 0
+    },
+    {
+      "x": 28,
+      "y": 14,
+      "type": "desk",
+      "variant": 1
+    },
+    {
+      "x": 26,
+      "y": 14,
+      "type": "office_chair",
+      "variant": 0
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "type": "bookshelf",
+      "variant": 0
+    },
+    {
+      "x": 5,
+      "y": 9,
+      "type": "bookshelf",
+      "variant": 0
+    },
+    {
+      "x": 5,
+      "y": 13,
+      "type": "bookshelf",
+      "variant": 0
+    },
+    {
+      "x": 25,
+      "y": 9,
+      "type": "bookshelf",
+      "variant": 0
+    },
+    {
+      "x": 25,
+      "y": 13,
+      "type": "bookshelf",
+      "variant": 0
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "type": "server_rack",
+      "variant": 0
+    },
+    {
+      "x": 25,
+      "y": 1,
+      "type": "server_rack",
+      "variant": 0
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "type": "coffee_machine",
+      "variant": 0
+    },
+    {
+      "x": 21,
+      "y": 1,
+      "type": "water_cooler",
+      "variant": 0
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "type": "potted_plant",
+      "variant": 2
+    },
+    {
+      "x": 22,
+      "y": 4,
+      "type": "potted_plant",
+      "variant": 0
+    },
+    {
+      "x": 8,
+      "y": 12,
+      "type": "potted_plant",
+      "variant": 0
+    },
+    {
+      "x": 22,
+      "y": 12,
+      "type": "potted_plant",
+      "variant": 2
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "type": "potted_plant",
+      "variant": 1
+    },
+    {
+      "x": 19,
+      "y": 8,
+      "type": "potted_plant",
+      "variant": 0
+    },
+    {
+      "x": 15,
+      "y": 6,
+      "type": "whiteboard",
+      "variant": 0
+    }
+  ],
+  "buildings": [
+    {
+      "key": "forge_office",
+      "x": 1,
+      "y": 1,
+      "w": 6,
+      "h": 3,
+      "label": "FORGE OFFICE",
+      "door": {
+        "x": 7,
+        "y": 2
+      }
+    },
+    {
+      "key": "vial_office",
+      "x": 1,
+      "y": 5,
+      "w": 6,
+      "h": 3,
+      "label": "VIAL OFFICE",
+      "door": {
+        "x": 7,
+        "y": 6
+      }
+    },
+    {
+      "key": "ward_office",
+      "x": 1,
+      "y": 9,
+      "w": 6,
+      "h": 3,
+      "label": "WARD OFFICE",
+      "door": {
+        "x": 7,
+        "y": 10
+      }
+    },
+    {
+      "key": "lore_office",
+      "x": 1,
+      "y": 13,
+      "w": 6,
+      "h": 3,
+      "label": "LORE OFFICE",
+      "door": {
+        "x": 7,
+        "y": 14
+      }
+    },
+    {
+      "key": "spark_office",
+      "x": 24,
+      "y": 1,
+      "w": 6,
+      "h": 3,
+      "label": "SPARK OFFICE",
+      "door": {
+        "x": 23,
+        "y": 2
+      }
+    },
+    {
+      "key": "tide_office",
+      "x": 24,
+      "y": 5,
+      "w": 6,
+      "h": 3,
+      "label": "TIDE OFFICE",
+      "door": {
+        "x": 23,
+        "y": 6
+      }
+    },
+    {
+      "key": "oracle_office",
+      "x": 24,
+      "y": 9,
+      "w": 6,
+      "h": 3,
+      "label": "ORACLE OFFICE",
+      "door": {
+        "x": 23,
+        "y": 10
+      }
+    },
+    {
+      "key": "sage_office",
+      "x": 24,
+      "y": 13,
+      "w": 6,
+      "h": 3,
+      "label": "SAGE OFFICE",
+      "door": {
+        "x": 23,
+        "y": 14
+      }
+    },
+    {
+      "key": "conference",
+      "x": 12,
+      "y": 6,
+      "w": 7,
+      "h": 4,
+      "label": "CONFERENCE",
+      "door": {
+        "x": 19,
+        "y": 8
+      }
+    },
+    {
+      "key": "elevator_lobby",
+      "x": 13,
+      "y": 14,
+      "w": 6,
+      "h": 2,
+      "label": "ELEVATOR LOBBY",
+      "door": {
+        "x": 19,
+        "y": 15
+      }
+    }
+  ],
+  "agent_homes": {
+    "FORGE": {
+      "x": 4,
+      "y": 2
+    },
+    "VIAL": {
+      "x": 4,
+      "y": 6
+    },
+    "WARD": {
+      "x": 4,
+      "y": 10
+    },
+    "LORE": {
+      "x": 4,
+      "y": 14
+    },
+    "SPARK": {
+      "x": 27,
+      "y": 2
+    },
+    "TIDE": {
+      "x": 27,
+      "y": 6
+    },
+    "ORACLE": {
+      "x": 27,
+      "y": 10
+    },
+    "SAGE": {
+      "x": 27,
+      "y": 14
+    }
+  }
+}

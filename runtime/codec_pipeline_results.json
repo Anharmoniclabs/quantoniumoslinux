@@ -1,0 +1,274 @@
+{
+  "variant_shootout": {
+    "fibonacci_chain": {
+      "dft_k99": 84,
+      "top5": [
+        [
+          "op_rft_cascade",
+          69,
+          0.8214285714285714
+        ],
+        [
+          "noise_shrink_manifold",
+          70,
+          0.8333333333333334
+        ],
+        [
+          "op_rft_phyllotaxis",
+          72,
+          0.8571428571428571
+        ],
+        [
+          "op_rft_geometric",
+          76,
+          0.9047619047619048
+        ],
+        [
+          "op_rft_fibonacci",
+          79,
+          0.9404761904761905
+        ]
+      ]
+    },
+    "fib_diffraction": {
+      "dft_k99": 253,
+      "top5": [
+        [
+          "fibonacci_tilt",
+          12,
+          0.04743083003952569
+        ],
+        [
+          "hyperbolic_phase",
+          54,
+          0.2134387351778656
+        ],
+        [
+          "golden_ratio_exact",
+          85,
+          0.3359683794466403
+        ],
+        [
+          "op_rft_phyllotaxis",
+          172,
+          0.6798418972332015
+        ],
+        [
+          "op_rft_cascade",
+          174,
+          0.6877470355731226
+        ]
+      ]
+    },
+    "penrose_1d": {
+      "dft_k99": 29,
+      "top5": [
+        [
+          "op_rft_geometric",
+          41,
+          1.4137931034482758
+        ],
+        [
+          "op_rft_fibonacci",
+          43,
+          1.4827586206896552
+        ],
+        [
+          "noise_shrink_manifold",
+          44,
+          1.5172413793103448
+        ],
+        [
+          "op_rft_cascade",
+          44,
+          1.5172413793103448
+        ],
+        [
+          "op_rft_golden",
+          47,
+          1.6206896551724137
+        ]
+      ]
+    },
+    "quasi_sqrt2": {
+      "dft_k99": 124,
+      "top5": [
+        [
+          "noise_shrink_manifold",
+          20,
+          0.16129032258064516
+        ],
+        [
+          "op_rft_beating",
+          44,
+          0.3548387096774194
+        ],
+        [
+          "op_rft_golden",
+          46,
+          0.3709677419354839
+        ],
+        [
+          "op_rft_geometric",
+          48,
+          0.3870967741935484
+        ],
+        [
+          "dct",
+          49,
+          0.3951612903225806
+        ]
+      ]
+    },
+    "quasi_pi": {
+      "dft_k99": 102,
+      "top5": [
+        [
+          "dct",
+          27,
+          0.2647058823529412
+        ],
+        [
+          "noise_shrink_manifold",
+          43,
+          0.4215686274509804
+        ],
+        [
+          "op_rft_fibonacci",
+          44,
+          0.43137254901960786
+        ],
+        [
+          "op_rft_harmonic",
+          44,
+          0.43137254901960786
+        ],
+        [
+          "op_rft_golden",
+          50,
+          0.49019607843137253
+        ]
+      ]
+    },
+    "phyllotaxis": {
+      "dft_k99": 5,
+      "top5": [
+        [
+          "op_rft_cascade",
+          10,
+          2.0
+        ],
+        [
+          "noise_shrink_manifold",
+          12,
+          2.4
+        ],
+        [
+          "op_rft_geometric",
+          15,
+          3.0
+        ],
+        [
+          "op_rft_fibonacci",
+          20,
+          4.0
+        ],
+        [
+          "op_rft_beating",
+          22,
+          4.4
+        ]
+      ]
+    },
+    "thue_morse": {
+      "dft_k99": 60,
+      "top5": [
+        [
+          "op_rft_geometric",
+          43,
+          0.7166666666666667
+        ],
+        [
+          "op_rft_beating",
+          43,
+          0.7166666666666667
+        ],
+        [
+          "op_rft_golden",
+          46,
+          0.7666666666666667
+        ],
+        [
+          "op_rft_fibonacci",
+          46,
+          0.7666666666666667
+        ],
+        [
+          "op_rft_harmonic",
+          46,
+          0.7666666666666667
+        ]
+      ]
+    },
+    "silver_ratio": {
+      "dft_k99": 8,
+      "top5": [
+        [
+          "op_rft_cascade",
+          24,
+          3.0
+        ],
+        [
+          "noise_shrink_manifold",
+          32,
+          4.0
+        ],
+        [
+          "op_rft_fibonacci",
+          32,
+          4.0
+        ],
+        [
+          "op_rft_beating",
+          35,
+          4.375
+        ],
+        [
+          "op_rft_geometric",
+          36,
+          4.5
+        ]
+      ]
+    },
+    "phi_qusit": {
+      "dft_k99": 83,
+      "top5": [
+        [
+          "op_rft_geometric",
+          6,
+          0.07228915662650602
+        ],
+        [
+          "op_rft_cascade",
+          6,
+          0.07228915662650602
+        ],
+        [
+          "noise_shrink_manifold",
+          7,
+          0.08433734939759036
+        ],
+        [
+          "hyperbolic_phase",
+          8,
+          0.0963855421686747
+        ],
+        [
+          "op_rft_fibonacci",
+          9,
+          0.10843373493975904
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,115 @@
+.settings-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--space-lg);
+  gap: var(--space-xl);
+  overflow-y: auto;
+  max-width: 600px;
+}
+
+.settings-header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.settings-section h2 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-md);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.settings-label {
+  font-size: 13px;
+  color: var(--fg);
+}
+
+.settings-input {
+  padding: 6px 12px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  color: var(--fg-secondary);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  min-width: 250px;
+  outline: none;
+}
+.settings-input:focus {
+  border-color: var(--input-focus);
+}
+
+.settings-about {
+  font-size: 13px;
+  color: var(--fg-secondary);
+  line-height: 1.8;
+}
+.settings-about .dim {
+  color: var(--fg-dim);
+  font-size: 11px;
+}
+
+/* Permission toggle */
+.settings-perm-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.settings-perm-info .settings-label {
+  display: flex;
+  align-items: center;
+}
+.settings-hint {
+  font-size: 11px;
+  color: var(--fg-dim);
+}
+
+.perm-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--input-bg);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.perm-toggle:hover {
+  border-color: var(--fg-muted);
+}
+.perm-toggle.active {
+  background: #4a4a4a;
+  border-color: #666;
+}
+.perm-toggle.requesting {
+  opacity: 0.5;
+  cursor: wait;
+}
+.perm-toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--fg-muted);
+  transition: transform 0.2s, background 0.2s;
+}
+.perm-toggle.active .perm-toggle-knob {
+  transform: translateX(20px);
+  background: var(--fg);
+}

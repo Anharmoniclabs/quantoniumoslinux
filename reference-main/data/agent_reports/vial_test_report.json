@@ -1,0 +1,33 @@
+{
+  "agent": "VIAL",
+  "timestamp": "2026-04-11T23:02:05Z",
+  "test_file_count": 123,
+  "test_function_count": 867,
+  "untested_modules": [
+    "rpg_headless",
+    "agent_base",
+    "agent_forge",
+    "agent_lore",
+    "agent_oracle",
+    "agent_sage",
+    "agent_spark",
+    "agent_tide",
+    "agent_vial",
+    "agent_ward",
+    "memory_stream",
+    "permissions",
+    "quest_board",
+    "skill_library",
+    "ai_model_wrapper",
+    "baremetal_engine_3d",
+    "build_domain_corpus",
+    "build_multidomain_corpus",
+    "build_open_science_corpus",
+    "build_pack_from_gguf"
+  ],
+  "untested_count": 88,
+  "recent_runs": 5,
+  "recent_passes": 0,
+  "recent_failures": 5,
+  "health": "RED"
+}

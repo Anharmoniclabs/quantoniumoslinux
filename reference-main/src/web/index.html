@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+  SPDX-License-Identifier: LicenseRef-SPX-Proprietary
+  Copyright (C) 2025-2026 Luis M. Minier / quantoniumos
+
+  Minimal demo page for in-browser layer-streaming inference.
+  Loads the WASM engine in a Web Worker and streams generated tokens.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QuantoniumOS — Browser Inference Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0d1117; color: #c9d1d9;
+      display: flex; flex-direction: column;
+      align-items: center; padding: 2rem;
+    }
+    h1 { font-size: 1.4rem; margin-bottom: 1rem; color: #58a6ff; }
+    #status { font-size: 0.85rem; margin-bottom: 1rem; color: #8b949e; }
+    textarea {
+      width: 600px; max-width: 90vw; height: 120px;
+      background: #161b22; color: #c9d1d9; border: 1px solid #30363d;
+      border-radius: 6px; padding: 0.75rem; font-size: 0.95rem;
+      resize: vertical;
+    }
+    #output {
+      width: 600px; max-width: 90vw; min-height: 200px;
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 6px; padding: 0.75rem; margin-top: 1rem;
+      font-family: "Fira Code", monospace; font-size: 0.9rem;
+      white-space: pre-wrap; line-height: 1.5;
+    }
+    button {
+      margin-top: 0.75rem; padding: 0.5rem 1.5rem;
+      background: #238636; color: #fff; border: none;
+      border-radius: 6px; cursor: pointer; font-size: 0.9rem;
+    }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button:hover:not(:disabled) { background: #2ea043; }
+    .controls { display: flex; gap: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>QuantoniumOS Layer-Streaming Inference</h1>
+  <div id="status">Loading…</div>
+  <textarea id="prompt" placeholder="Enter your prompt here…">The key insight behind transformer models is</textarea>
+  <div class="controls">
+    <button id="btn-generate" disabled>Generate</button>
+    <button id="btn-abort" disabled>Abort</button>
+  </div>
+  <div id="output"></div>
+
+  <script type="module">
+    const MODEL_CONFIG = {
+      layers: 36, hidden: 2048, heads: 16, kv_heads: 2,
+      head_dim: 128, ffn_dim: 11008, vocab: 151936,
+      max_seq: 2048, kv_keep_ratio: 0.60
+    };
+
+    // Adjust these URLs to point to your hosted model chunks
+    const BASE_URL = "./models/qwen25-7b";
+    const WASM_URL = "./rftmw_streaming.js";
+    const EMBEDDINGS_URL = `${BASE_URL}/embeddings.bin`;
+    const LAYER_URL_TEMPLATE = `${BASE_URL}/layer_{NN}.bin`;
+
+    const statusEl = document.getElementById("status");
+    const outputEl = document.getElementById("output");
+    const promptEl = document.getElementById("prompt");
+    const btnGen = document.getElementById("btn-generate");
+    const btnAbort = document.getElementById("btn-abort");
+
+    let worker = null;
+
+    function initWorker() {
+      worker = new Worker("./inference_worker.js", { type: "module" });
+
+      worker.onmessage = (e) => {
+        const msg = e.data;
+        switch (msg.type) {
+          case "ready":
+            statusEl.textContent = "Model loaded — ready to generate";
+            btnGen.disabled = false;
+            break;
+          case "token":
+            // For a real app, decode token_id to text via the tokenizer.
+            // Here we just show the raw token ID as a placeholder.
+            outputEl.textContent += `[${msg.token}]`;
+            break;
+          case "done":
+            statusEl.textContent = "Generation complete";
+            btnGen.disabled = false;
+            btnAbort.disabled = true;
+            break;
+          case "aborted":
+            statusEl.textContent = "Generation aborted";
+            btnGen.disabled = false;
+            btnAbort.disabled = true;
+            break;
+          case "error":
+            statusEl.textContent = `Error: ${msg.error}`;
+            btnGen.disabled = false;
+            btnAbort.disabled = true;
+            break;
+        }
+      };
+
+      statusEl.textContent = "Initializing WASM engine…";
+      worker.postMessage({
+        type: "init",
+        config: MODEL_CONFIG,
+        wasmUrl: WASM_URL,
+        embeddingsUrl: EMBEDDINGS_URL,
+        layerUrlTemplate: LAYER_URL_TEMPLATE
+      });
+    }
+
+    btnGen.addEventListener("click", () => {
+      const text = promptEl.value.trim();
+      if (!text || !worker) return;
+
+      outputEl.textContent = "";
+      statusEl.textContent = "Generating…";
+      btnGen.disabled = true;
+      btnAbort.disabled = false;
+
+      // In production, tokenize on the main thread first.
+      // For this demo, send raw text (the worker would need a tokenizer).
+      // Placeholder: encode each char as its code point (NOT correct for real use).
+      const tokens = Array.from(text).map((ch) => ch.codePointAt(0));
+
+      worker.postMessage({ type: "generate", tokens, maxTokens: 128 });
+    });
+
+    btnAbort.addEventListener("click", () => {
+      if (worker) worker.postMessage({ type: "abort" });
+    });
+
+    initWorker();
+  </script>
+</body>
+</html>

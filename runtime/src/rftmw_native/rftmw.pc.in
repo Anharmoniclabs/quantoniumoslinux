@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: LicenseRef-SPX-Proprietary
+# Copyright (C) 2025 Luis M. Minier / quantoniumos
+# This file is governed by LICENSE-SPX-PROPRIETARY.md.
+# Patent pending: USPTO Application 19/169,399
+
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: rftmw
+Description: High-performance RFTMW transform and compression library (patent-practicing)
+Version: @PROJECT_VERSION@
+Libs: -L${libdir} -lrftmw
+Cflags: -I${includedir}

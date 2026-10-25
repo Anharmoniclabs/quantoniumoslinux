@@ -1,0 +1,350 @@
+.guild-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--space-lg);
+  gap: var(--space-lg);
+  overflow: hidden;
+}
+
+.guild-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.guild-header-title h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--fg);
+  margin: 0;
+}
+.guild-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--fg-dim);
+  margin-top: 2px;
+}
+
+.guild-header-actions {
+  display: flex;
+  gap: 6px;
+}
+.guild-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface-2, rgba(255, 255, 255, 0.04));
+  color: var(--fg);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.guild-btn:hover {
+  background: var(--surface-3, rgba(255, 255, 255, 0.08));
+  border-color: var(--accent);
+}
+.guild-btn.active {
+  border-color: #22c55e;
+  color: #22c55e;
+}
+
+/* ── Agent grid ─────────────────────────────────────────────────── */
+.guild-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.guild-card {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-2, rgba(255, 255, 255, 0.03));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.guild-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.guild-card.working::before {
+  opacity: 0.12;
+  background: radial-gradient(circle at top right, #22c55e, transparent 70%);
+}
+.guild-card.failed::before {
+  opacity: 0.15;
+  background: radial-gradient(circle at top right, #ef4444, transparent 70%);
+}
+.guild-card.cooldown::before {
+  opacity: 0.1;
+  background: radial-gradient(circle at top right, #eab308, transparent 70%);
+}
+.guild-card.offline {
+  opacity: 0.55;
+}
+
+.guild-card-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.guild-card-icon {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
+}
+.guild-card-id {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.guild-card-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--fg);
+  letter-spacing: 0.3px;
+}
+.guild-card-role {
+  font-size: 8px;
+  color: var(--fg-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.guild-card-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fg-dim);
+  flex-shrink: 0;
+}
+.guild-card-dot.working {
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+  animation: pulse 1.2s infinite;
+}
+.guild-card-dot.idle { background: #64748b; }
+.guild-card-dot.cooldown { background: #eab308; }
+.guild-card-dot.failed { background: #ef4444; }
+.guild-card-dot.offline { background: #3b3f47; }
+
+.guild-card-engine {
+  font-size: 8px;
+  font-family: monospace;
+  font-weight: 700;
+  padding: 1px 4px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+.guild-card-stats {
+  display: flex;
+  gap: 8px;
+  padding: 4px 0;
+  border-top: 1px solid var(--border);
+}
+.guild-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+}
+.guild-stat-label {
+  font-size: 8px;
+  color: var(--fg-dim);
+  letter-spacing: 0.3px;
+}
+.guild-stat-value {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--fg);
+}
+.guild-stat-value.small {
+  font-size: 11px;
+  text-transform: capitalize;
+}
+
+.guild-quest {
+  font-size: 11px;
+  color: var(--fg);
+  padding: 4px 6px;
+  background: rgba(34, 197, 94, 0.08);
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Live feed ──────────────────────────────────────────────────── */
+.guild-log-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 6px;
+}
+.guild-log-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.guild-log-head h3 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--fg);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.guild-pin {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--fg-dim);
+  cursor: pointer;
+}
+.guild-pin input {
+  margin: 0;
+}
+
+.guild-log {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--surface-1, rgba(0, 0, 0, 0.2));
+  border: 1px solid var(--border);
+  font-family: ui-monospace, "SF Mono", "Consolas", monospace;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.guild-log-empty {
+  color: var(--fg-dim);
+  font-style: italic;
+}
+.guild-log-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 2px 0;
+  color: var(--fg);
+}
+.guild-log-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.guild-log-row.i .guild-log-bullet { background: #64748b; }
+.guild-log-row.ok .guild-log-bullet { background: #22c55e; }
+.guild-log-row.err .guild-log-bullet { background: #ef4444; }
+.guild-log-row.q .guild-log-bullet { background: #3b82f6; }
+.guild-log-text {
+  word-break: break-word;
+  flex: 1;
+  user-select: text;
+  cursor: text;
+}
+
+/* ── Offline state ──────────────────────────────────────────────── */
+.guild-offline {
+  margin: auto;
+  text-align: center;
+  padding: 24px;
+  color: var(--fg-dim);
+  max-width: 360px;
+}
+.guild-offline h3 {
+  color: var(--fg);
+  margin: 8px 0;
+  font-size: 15px;
+}
+.guild-offline p {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.guild-offline code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+
+/* ── Desktop toasts (fired by App.tsx via useGuildEvent) ────────── */
+.guild-toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  z-index: 10000;
+  pointer-events: none;
+  max-width: 340px;
+}
+.guild-toast {
+  pointer-events: auto;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--surface-2, rgba(20, 24, 28, 0.95));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent, #3b82f6);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  color: var(--fg);
+  font-size: 12px;
+  animation: toast-in 0.25s ease;
+  max-width: 340px;
+}
+.guild-toast.ok    { border-left-color: #22c55e; }
+.guild-toast.err   { border-left-color: #ef4444; }
+.guild-toast.q     { border-left-color: #3b82f6; }
+.guild-toast-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--fg-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+.guild-toast-body {
+  line-height: 1.4;
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}

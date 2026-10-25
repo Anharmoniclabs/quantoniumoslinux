@@ -1,0 +1,27 @@
+#!/bin/sh
+# qos-run - launch a program as an RFTMW workload.
+#
+#   qos-run [--name NAME] [--mem-high MB] [--mem-max MB] [--swap-max MB] [--cpu-weight W] -- cmd [args...]
+#   qos-run firefox                      (no limits; just tracked in rftmw.slice)
+#
+# rftmwd starts it as systemd scope qos-NAME.scope in rftmw.slice, inheriting this
+# process's environment and working directory. If rftmwd is unreachable the program
+# is exec'd directly, so a broker problem never leaves the desktop unusable.
+set -eu
+name="" opts=""
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --name) name="$2"; shift 2 ;;
+        --mem-high|--mem-max|--swap-max|--cpu-weight) opts="$opts $1 $2"; shift 2 ;;
+        --) shift; break ;;
+        -*) echo "qos-run: unknown option $1" >&2; exit 2 ;;
+        *) break ;;
+    esac
+done
+[ $# -gt 0 ] || { echo "usage: qos-run [--name N] [limits] -- cmd [args...]" >&2; exit 2; }
+[ -n "$name" ] || name="$(basename "$1" | tr -c 'A-Za-z0-9_\n-' '_')-$$"
+# shellcheck disable=SC2086  # opts is a deliberately split option list
+if rftmwctl spawn "$name" $opts -- "$@" >/dev/null 2>&1; then
+    exit 0
+fi
+exec "$@"

@@ -1,0 +1,442 @@
+[
+ {
+  "name": "check_native_build",
+  "description": "Verify rftmw_native C++ module compiles",
+  "agent": "FORGE",
+  "category": "build",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "check_build_artifacts",
+  "description": "Check native build output files exist",
+  "agent": "FORGE",
+  "category": "build",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "scan_asm_kernels",
+  "description": "Count and list ASM kernel source files",
+  "agent": "FORGE",
+  "category": "build",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "dispatch_patrol",
+  "description": "Post standard patrol quests for all agents",
+  "agent": "ORACLE",
+  "category": "coordination",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "status_dashboard",
+  "description": "Generate guild status dashboard",
+  "agent": "ORACLE",
+  "category": "coordination",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "write_report",
+  "description": "Write daily agent status report",
+  "agent": "ORACLE",
+  "category": "coordination",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "run_pytest",
+  "description": "Run pytest suite and report pass/fail",
+  "agent": "VIAL",
+  "category": "test",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "count_tests",
+  "description": "Count test files and test functions",
+  "agent": "VIAL",
+  "category": "test",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "find_untested",
+  "description": "Find source files without matching tests",
+  "agent": "VIAL",
+  "category": "test",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "secret_scan",
+  "description": "Scan repo for hardcoded secrets/keys",
+  "agent": "WARD",
+  "category": "security",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "dep_audit",
+  "description": "Check requirements.txt for known issues",
+  "agent": "WARD",
+  "category": "security",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "safety_check",
+  "description": "Validate agent safety provenance",
+  "agent": "WARD",
+  "category": "security",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "link_check",
+  "description": "Validate internal markdown links",
+  "agent": "LORE",
+  "category": "docs",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "doc_inventory",
+  "description": "Count and list documentation files",
+  "agent": "LORE",
+  "category": "docs",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "stale_doc_scan",
+  "description": "Find references to missing files in docs",
+  "agent": "LORE",
+  "category": "docs",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "asset_check",
+  "description": "Verify UI assets exist and have correct dimensions",
+  "agent": "SPARK",
+  "category": "ui",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "app_import_check",
+  "description": "Verify chatbox modules can be imported",
+  "agent": "SPARK",
+  "category": "ui",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "theme_validate",
+  "description": "Validate theme color palettes",
+  "agent": "SPARK",
+  "category": "ui",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "mobile_deps_check",
+  "description": "Validate mobile package.json dependencies",
+  "agent": "TIDE",
+  "category": "frontend",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "mobile_structure",
+  "description": "Verify mobile project structure",
+  "agent": "TIDE",
+  "category": "frontend",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "ts_syntax_scan",
+  "description": "Scan TypeScript/JS files for common issues",
+  "agent": "TIDE",
+  "category": "frontend",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "run_cmake_build",
+  "description": "Actually run cmake build for native module",
+  "agent": "FORGE",
+  "category": "build",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "build_report",
+  "description": "Generate build health report with metrics",
+  "agent": "FORGE",
+  "category": "build",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "run_pytest_targeted",
+  "description": "Run pytest on a specific test file or directory",
+  "agent": "VIAL",
+  "category": "test",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "test_report",
+  "description": "Generate comprehensive test health report",
+  "agent": "VIAL",
+  "category": "test",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "code_smell_scan",
+  "description": "Scan for dangerous code patterns",
+  "agent": "WARD",
+  "category": "security",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "security_report",
+  "description": "Generate full security audit report",
+  "agent": "WARD",
+  "category": "security",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "doc_quality_scan",
+  "description": "Check docs for quality issues (TODOs, empty sections)",
+  "agent": "LORE",
+  "category": "docs",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "doc_report",
+  "description": "Generate comprehensive documentation health report",
+  "agent": "LORE",
+  "category": "docs",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "rpg_integrity",
+  "description": "Validate RPG sprite/world/renderer consistency",
+  "agent": "SPARK",
+  "category": "ui",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "ui_report",
+  "description": "Generate comprehensive UI health report",
+  "agent": "SPARK",
+  "category": "ui",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "ts_todo_scan",
+  "description": "Find TODO/FIXME/HACK markers in frontend code",
+  "agent": "TIDE",
+  "category": "frontend",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "frontend_report",
+  "description": "Generate comprehensive frontend health report",
+  "agent": "TIDE",
+  "category": "frontend",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "smart_dispatch",
+  "description": "Read agent reports and post targeted follow-up quests",
+  "agent": "ORACLE",
+  "category": "coordination",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "guild_report",
+  "description": "Aggregate all agent reports into guild health report",
+  "agent": "ORACLE",
+  "category": "coordination",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "analyze_architecture",
+  "description": "Map project directory tree and module structure",
+  "agent": "SAGE",
+  "category": "research",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "analyze_module",
+  "description": "Deep-read a Python module and summarize its design",
+  "agent": "SAGE",
+  "category": "research",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "run_experiment",
+  "description": "Run a safe Python snippet and capture output",
+  "agent": "SAGE",
+  "category": "research",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "research_report",
+  "description": "Generate comprehensive research findings report",
+  "agent": "SAGE",
+  "category": "research",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "cross_reference",
+  "description": "Find cross-module dependencies and coupling",
+  "agent": "SAGE",
+  "category": "research",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "deep_optimization_scan",
+  "description": "Repo-wide learn + 14b optimization experiments + desktop report",
+  "agent": "SAGE",
+  "category": "research",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "route_quest",
+  "description": "Route a task to the best agent using AGENT_ROUTER_CONFIG.yaml",
+  "agent": "ORACLE",
+  "category": "coordination",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "run_template_experiment",
+  "description": "Run a pre-vetted experiment template from SAGE_EXPERIMENTS.yaml",
+  "agent": "SAGE",
+  "category": "research",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ },
+ {
+  "name": "list_experiments",
+  "description": "List all available experiment templates",
+  "agent": "SAGE",
+  "category": "research",
+  "times_used": 0,
+  "last_used": "",
+  "avg_duration_ms": 0.0,
+  "success_rate": 1.0
+ }
+]

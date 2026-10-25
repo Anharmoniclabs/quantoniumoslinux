@@ -1,0 +1,10 @@
+#!/bin/sh
+# qos-session - QuantoniumOS Wayland session entry (greetd runs this after login).
+# The user manager (started by pam_systemd) has already brought up rftmwd via
+# default.target; make sure it is up before the compositor starts launching apps.
+export XDG_CURRENT_DESKTOP=QuantoniumOS:Hyprland
+export XDG_SESSION_DESKTOP=quantoniumos
+export XDG_SESSION_TYPE=wayland
+export QUANTONIUM_HOME=/opt/quantoniumos
+systemctl --user start rftmwd.service 2>/dev/null || true
+exec Hyprland

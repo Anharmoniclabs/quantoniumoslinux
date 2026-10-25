@@ -1,0 +1,138 @@
+.launchpad {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 300ms ease;
+  z-index: 1;
+}
+.launchpad.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.launchpad.visible {
+  opacity: 1;
+}
+
+/* ── Decorative rings ── */
+.lp-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 350ms ease, transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lp-ring.expanded {
+  opacity: 1;
+  transform: scale(1);
+}
+.lp-ring-outer {
+  width: 560px;
+  height: 560px;
+  border-color: rgba(255, 255, 255, 0.04);
+}
+.lp-ring-inner {
+  width: 224px;
+  height: 224px;
+  border-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ── Center Q logo ── */
+.lp-center {
+  position: absolute;
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform 200ms ease;
+}
+.lp-center:hover {
+  transform: scale(1.08);
+}
+.lp-center.expanded {
+  transform: scale(1.05);
+}
+.lp-q-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  opacity: 0.6;
+  transition: opacity 200ms;
+}
+.lp-center:hover .lp-q-logo {
+  opacity: 0.85;
+}
+.lp-center.expanded .lp-q-logo {
+  opacity: 0.9;
+}
+
+/* ── App buttons (positioned via transform from center) ── */
+.lp-app {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 80px;
+  padding: 10px 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 300ms ease,
+              background 180ms ease,
+              border-color 180ms ease,
+              color 180ms ease;
+  z-index: 3;
+}
+.lp-app.expanded {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lp-app:hover,
+.lp-app.hovered {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--fg);
+}
+
+.lp-app-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.lp-app-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 76px;
+}
+
+.lp-app-cat {
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--fg-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

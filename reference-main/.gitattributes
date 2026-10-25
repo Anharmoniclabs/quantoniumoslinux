@@ -1,0 +1,28 @@
+.gitattributes
++3
+-0
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2025 Luis M. Minier / quantoniumos
+# =================================================================
+# quantoniumos Git LFS Configuration
+# =================================================================
+# This file ensures large AI model files are handled properly by Git LFS
+# Large AI model files (>100MB) - use Git LFS
+*.safetensors filter=lfs diff=lfs merge=lfs -text
+*.h5 filter=lfs diff=lfs merge=lfs -text
+*.rftmwpk filter=lfs diff=lfs merge=lfs -text
+# Large JSON model files (>50MB) - use Git LFS  
+ai/models/quantum/quantonium_streaming_7b.json filter=lfs diff=lfs merge=lfs -text
+ai/models/quantum/quantonium_120b_quantum_states.json filter=lfs diff=lfs merge=lfs -text
+# Large compressed models
+*.pkl.gz filter=lfs diff=lfs merge=lfs -text
+*.pyd filter=lfs diff=lfs merge=lfs -text
+# Training models directory
+ai/training/models/ filter=lfs diff=lfs merge=lfs -text
+# Ensure text files are handled as text
+*.json text
+*.py text
+*.md text
+*.txt text
+*.gguf filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
