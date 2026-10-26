@@ -71,7 +71,8 @@ rftmw_spectral_sparse_dot_asm:
     mov r10d, r9d
     and r10d, -8          ; r10d = n_aligned (multiple of 8)
 
-    vxorps ymm0, ymm0, ymm0   ; accumulator
+    vxorps ymm0, ymm0, ymm0   ; accumulator (real terms)
+    vxorps ymm3, ymm3, ymm3   ; accumulator (imag terms): a second chain halves FMA latency stalls
 
     xor eax, eax          ; i = 0
 
@@ -114,8 +115,8 @@ align 16
     ; 5. acc += coeff_re * gathered_re
     vfmadd231ps ymm0, ymm6, ymm1
 
-    ; 6. acc += coeff_im * gathered_im
-    vfmadd231ps ymm0, ymm7, ymm2
+    ; 6. acc_im += coeff_im * gathered_im
+    vfmadd231ps ymm3, ymm7, ymm2
 
     add eax, 8
     jmp .vec_loop
@@ -124,6 +125,7 @@ align 16
 ; Horizontal reduction of ymm0 -> single float
 ; ---------------------------------------------------------------
 .tail_start:
+    vaddps ymm0, ymm0, ymm3
     ; Reduce ymm0: 8 floats -> 1 float
     vextractf128 xmm1, ymm0, 1
     vaddps xmm0, xmm0, xmm1     ; 4 floats

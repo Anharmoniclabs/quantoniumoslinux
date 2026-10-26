@@ -4,6 +4,7 @@
 ; rftmw_sgemv_f32.asm
 ; -------------------
 ; Single-row AVX2/FMA float32 dot product used by the dense GEMV wrapper.
+; Uses ymm0-ymm5 only (volatile on both ABIs).
 ;
 ; Body is written against the Windows x64 ABI register assignment:
 ;   rcx = weights_row  (cols)
@@ -30,22 +31,45 @@ rftmw_dot_f32_asm:
     test r9d, r9d
     jle .zero
 
-    mov r10d, r9d
-    and r10d, -8
-
+    ; Four independent accumulators (32 floats per iteration) hide the FMA
+    ; latency; a single chain caps throughput at one FMA per 4 cycles.
     vxorps ymm0, ymm0, ymm0
+    vxorps ymm1, ymm1, ymm1
+    vxorps ymm2, ymm2, ymm2
+    vxorps ymm3, ymm3, ymm3
     xor eax, eax
 
-.vec_loop:
+    mov r10d, r9d
+    and r10d, -32
+    jmp .check32
+.loop32:
+    vmovups ymm4, [rcx + rax * 4]
+    vfmadd231ps ymm0, ymm4, [rdx + rax * 4]
+    vmovups ymm5, [rcx + rax * 4 + 32]
+    vfmadd231ps ymm1, ymm5, [rdx + rax * 4 + 32]
+    vmovups ymm4, [rcx + rax * 4 + 64]
+    vfmadd231ps ymm2, ymm4, [rdx + rax * 4 + 64]
+    vmovups ymm5, [rcx + rax * 4 + 96]
+    vfmadd231ps ymm3, ymm5, [rdx + rax * 4 + 96]
+    add eax, 32
+.check32:
     cmp eax, r10d
-    jae .reduce
+    jb .loop32
 
-    vmovups ymm1, [rcx + rax * 4]
-    vmovups ymm2, [rdx + rax * 4]
-    vfmadd231ps ymm0, ymm1, ymm2
-
+    mov r10d, r9d
+    and r10d, -8
+    jmp .check8
+.loop8:
+    vmovups ymm4, [rcx + rax * 4]
+    vfmadd231ps ymm0, ymm4, [rdx + rax * 4]
     add eax, 8
-    jmp .vec_loop
+.check8:
+    cmp eax, r10d
+    jb .loop8
+
+    vaddps ymm0, ymm0, ymm1
+    vaddps ymm2, ymm2, ymm3
+    vaddps ymm0, ymm0, ymm2
 
 .reduce:
     vextractf128 xmm1, ymm0, 1

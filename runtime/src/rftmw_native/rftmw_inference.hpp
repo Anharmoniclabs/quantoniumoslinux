@@ -14,6 +14,7 @@
 #include <cmath>
 #include <cstdint>
 #include <cstring>
+#include <cstdlib>
 #include <vector>
 #include <algorithm>
 #include <limits>
@@ -45,6 +46,7 @@ struct ThreadPool {
     std::vector<std::thread> workers;
     std::vector<Task> tasks;
     std::mutex mu;
+    std::mutex run_mu;                  // one parallel region at a time
     std::condition_variable cv_work;    // workers wait on this
     std::condition_variable cv_done;    // caller waits on this
     int pending = 0;
@@ -55,10 +57,16 @@ struct ThreadPool {
         return pool;
     }
 
+    // RFTMW_THREADS overrides the thread count (e.g. to leave cores for other
+    // workloads). The calling thread runs one chunk itself, so N threads means
+    // N-1 workers.
     ThreadPool() {
-        int n = std::min(8, std::max(1, static_cast<int>(
-            std::thread::hardware_concurrency())));
-        for (int i = 0; i < n; ++i) {
+        int n = std::max(1, static_cast<int>(std::thread::hardware_concurrency()));
+        if (const char* env = std::getenv("RFTMW_THREADS")) {
+            const int v = std::atoi(env);
+            if (v > 0) n = v;
+        }
+        for (int i = 0; i < n - 1; ++i) {
             workers.emplace_back([this, i]() { worker_loop(i); });
         }
     }
@@ -75,16 +83,18 @@ struct ThreadPool {
     ThreadPool(const ThreadPool&) = delete;
     ThreadPool& operator=(const ThreadPool&) = delete;
 
-    int num_workers() const { return static_cast<int>(workers.size()); }
+    // Threads available to a parallel region, including the caller.
+    int num_workers() const { return static_cast<int>(workers.size()) + 1; }
 
     void run(std::function<void(int, int)> fn, int n) {
+        std::lock_guard<std::mutex> serial(run_mu);
         int nw = std::min(num_workers(), n);
         int chunk = (n + nw - 1) / nw;
         {
             std::lock_guard<std::mutex> lk(mu);
             tasks.clear();
             pending = 0;
-            for (int t = 0; t < nw; ++t) {
+            for (int t = 1; t < nw; ++t) {
                 int s = t * chunk;
                 int e = std::min(s + chunk, n);
                 if (s >= e) break;
@@ -93,6 +103,7 @@ struct ThreadPool {
             }
         }
         cv_work.notify_all();
+        fn(0, std::min(chunk, n));      // caller's share
         // Wait for all tasks to complete
         std::unique_lock<std::mutex> lk(mu);
         cv_done.wait(lk, [this]() { return pending == 0; });
@@ -184,7 +195,54 @@ inline void dense_sgemv_f32(
     });
 #else
     parallel_for(rows, total_work, [&](int r0, int r1) {
-        for (int row = r0; row < r1; ++row) {
+        int row = r0;
+#ifdef __AVX2__
+        // Four rows per pass: x is loaded once per four rows and the four FMA
+        // chains overlap. Per-row summation order matches the one-row loop below,
+        // so results are bit-identical to it.
+        auto madd = [](__m256 w, __m256 x, __m256 acc) {
+#ifdef __FMA__
+            return _mm256_fmadd_ps(w, x, acc);
+#else
+            return _mm256_add_ps(acc, _mm256_mul_ps(w, x));
+#endif
+        };
+        auto hsum = [](__m256 acc) {
+            __m128 hi = _mm256_extractf128_ps(acc, 1);
+            __m128 lo = _mm256_castps256_ps128(acc);
+            __m128 sum4 = _mm_add_ps(lo, hi);
+            __m128 shuf = _mm_movehdup_ps(sum4);
+            sum4 = _mm_add_ps(sum4, shuf);
+            shuf = _mm_movehl_ps(sum4, sum4);
+            sum4 = _mm_add_ss(sum4, shuf);
+            return _mm_cvtss_f32(sum4);
+        };
+        for (; row + 4 <= r1; row += 4) {
+            const float* w0 = weights + static_cast<size_t>(row) * cols;
+            const float* w1 = w0 + cols;
+            const float* w2 = w1 + cols;
+            const float* w3 = w2 + cols;
+            __m256 a0 = _mm256_setzero_ps(), a1 = _mm256_setzero_ps();
+            __m256 a2 = _mm256_setzero_ps(), a3 = _mm256_setzero_ps();
+            int i = 0;
+            for (; i + 7 < cols; i += 8) {
+                const __m256 xv = _mm256_loadu_ps(x + i);
+                a0 = madd(_mm256_loadu_ps(w0 + i), xv, a0);
+                a1 = madd(_mm256_loadu_ps(w1 + i), xv, a1);
+                a2 = madd(_mm256_loadu_ps(w2 + i), xv, a2);
+                a3 = madd(_mm256_loadu_ps(w3 + i), xv, a3);
+            }
+            float d0 = hsum(a0), d1 = hsum(a1), d2 = hsum(a2), d3 = hsum(a3);
+            for (; i < cols; ++i) {
+                d0 += w0[i] * x[i];
+                d1 += w1[i] * x[i];
+                d2 += w2[i] * x[i];
+                d3 += w3[i] * x[i];
+            }
+            y[row] = d0; y[row + 1] = d1; y[row + 2] = d2; y[row + 3] = d3;
+        }
+#endif
+        for (; row < r1; ++row) {
             const float* w = weights + static_cast<size_t>(row) * cols;
 #ifdef __AVX2__
         __m256 acc = _mm256_setzero_ps();

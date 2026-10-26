@@ -244,6 +244,13 @@ target_include_directories(rftmw_headers INTERFACE
     ${KERNEL_INCLUDE_DIRS}
 )
 
+# Optional OpenMP: threads the large-N raw RFT path and the Q4_K/Q6_K mmap matmuls.
+# Without it the pragmas compile to serial loops.
+find_package(OpenMP COMPONENTS CXX)
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(rftmw_headers INTERFACE OpenMP::OpenMP_CXX)
+endif()
+
 if(KERNEL_C_SOURCES OR KERNEL_ASM_SOURCES OR NATIVE_ASM_SOURCES OR NATIVE_C_SOURCES)
     add_library(rftmw_kernels STATIC
         ${KERNEL_C_SOURCES}
@@ -437,6 +444,7 @@ message(STATUS "  FMA: ${COMPILER_SUPPORTS_FMA}")
 message(STATUS "  LTO: ${LTO_SUPPORTED}")
 message(STATUS "  Fast math: ${ENABLE_FAST_MATH}")
 message(STATUS "  ASM kernels: ${RFTMW_ENABLE_ASM}")
+message(STATUS "  OpenMP: ${OpenMP_CXX_FOUND}")
 if(RFTMW_ENABLE_ASM)
     message(STATUS "    C sources: ${KERNEL_C_SOURCES}")
     message(STATUS "    ASM sources: ${KERNEL_ASM_SOURCES}")

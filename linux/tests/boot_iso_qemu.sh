@@ -38,6 +38,8 @@ probe "rftmwd: socket listening"      "rftmwd: listening on /run/user/1000/rftmw
 probe "session launched shell via qos-run" "spawned shell pid"
 probe "Hyprland compositor up"        "Connected to a wayland compositor: QuantoniumOS:Hyprland"
 probe "ollama served as workload"     "Listening on 127.0.0.1:11434"
+probe "ollama: flash attention on"    "OLLAMA_FLASH_ATTENTION:true"
+probe "ollama: q8_0 KV cache"         "OLLAMA_KV_CACHE_TYPE:q8_0"
 if check "workload shell exited"; then echo "FAIL shell still running"; rc=1; else echo "PASS shell still running"; fi
 echo "--- QuantoniumOS lines from the boot log"
 grep -a "rftmwd\|qos-\|Hyprland\|greetd" "$LOG" | grep -v "^\s*$" | tail -25

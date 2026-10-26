@@ -62,6 +62,7 @@ of a local-AI desktop actually lives, between the apps and the kernel:
 | `install.sh` | Omarchy-style installer for an existing Arch system. |
 | `iso/build-iso.sh` | Bootable live ISO (archiso, derived from `releng`). |
 | `tests/` | ASM cross-ABI test, rftmwd end-to-end suite, session-tool tests, Arch-chroot ISO build for non-Arch hosts. |
+| `bench/` | Kernel benchmark and output-equivalence check against the original sources. |
 
 ## Install
 
@@ -105,6 +106,44 @@ systemd-cgls --user-unit rftmw.slice            # the same workloads, seen from 
 Keybinds: `Super+Return` terminal, `Super+Space` launcher, `Super+B` browser,
 `Super+Q` QuantoniumOS shell, `Super+M` live RFTMW monitor, `Super+Shift+M` evict
 idle packs, `Super+W` close window, `Super+1..6` switch workspace.
+
+## Performance
+
+Measured with `linux/bench/run_bench.sh`, which builds the same benchmark against the
+original sources (`bench/baseline/`) and the current ones, then checks that every output
+matches (worst relative difference 5.8e-7, i.e. float32 rounding). i5-6600, 4 cores,
+WSL2:
+
+| Kernel | Before | After | Why |
+|---|---|---|---|
+| RFT N=256, per call | 1212 ms | 0.017 ms | basis cached per size (was rebuilt, O(N^3), every call) |
+| RFT N=256, first call in a process | 1212 ms | 5 ms | basis stored on disk; prebuilt sizes ship in `/usr/share/quantoniumos/rftmw-basis` |
+| RFT N=4096 forward / inverse | 621 / 371 ms | 1.4 / 2.7 ms | phasor recurrence instead of per-entry sin/cos, 16-lane blocks, OpenMP, adjoint computed once |
+| ASM dot, 2048 floats in cache | 245 ns | 100 ns | 4 accumulators instead of 1 FMA chain |
+| sgemv 896x896 (cache-resident) | 33.6 GB/s | 54.8 GB/s | 4 rows per pass, caller thread joins the pool |
+| sgemv 11008x2048 (DRAM) | 26 GB/s | 26 GB/s | already at this machine's memory bandwidth |
+
+Large matrix-vector products, which dominate LLM decoding, are limited by memory
+bandwidth, not compute. Beyond this point they only get faster by moving fewer bytes
+(quantised weights), not by better kernels.
+
+OS-level settings for the same workload:
+- **Ollama** (`/etc/quantoniumos/ollama.env`): flash attention and a q8_0 KV cache
+  (half the KV memory of f16), one resident model, 30-minute keep-alive.
+- **Memory:** zram (zstd) with `swappiness=180`, `page-cluster=0`, early kswapd
+  watermarks, THP on madvise, and MGLRU `min_ttl_ms=1000`, so memory exhaustion ends
+  in an OOM kill of the largest workload rather than a frozen desktop.
+- **Disk:** 2 MiB readahead on block devices, so model files load in larger reads.
+- **Build:** `-O3 -march=x86-64-v3`, LTO, and OpenMP for the large-N RFT path and the
+  Q4_K/Q6_K mmap matmuls. Those matmuls were written with OpenMP pragmas, but the build
+  never enabled OpenMP, so until now they ran on one core.
+- `RFTMW_THREADS=N` caps the native thread pool, for example to leave cores for the
+  desktop.
+
+Not adopted: sched_ext schedulers (scx_lavd, scx_bpfland). The desktop-oriented ones
+schedule by their own interactivity heuristics and don't reliably honor the cgroup CPU
+weights rftmwd uses to rank workloads. The kernel's default EEVDF scheduler does honor
+them, which keeps the shell ahead of Ollama.
 
 ## Verified so far
 

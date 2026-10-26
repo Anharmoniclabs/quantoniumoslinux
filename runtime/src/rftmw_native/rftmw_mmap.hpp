@@ -217,8 +217,11 @@ public:
             return false;
         }
 
-        // Advise kernel for sequential + willneed
-        madvise(data_, size_, MADV_SEQUENTIAL | MADV_WILLNEED);
+        // Start readahead of the whole pack. madvise values are not flags: the
+        // former MADV_SEQUENTIAL | MADV_WILLNEED evaluated to MADV_WILLNEED anyway,
+        // and SEQUENTIAL would be wrong here (every token re-reads all weights, so
+        // pages must not be dropped behind the reader).
+        madvise(data_, size_, MADV_WILLNEED);
 #endif
         return true;
     }

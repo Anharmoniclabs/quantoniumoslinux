@@ -34,6 +34,11 @@ for f in "$LINUX"/bin/*; do install -m 0755 "$f" "$ROOT/usr/bin/$(basename "$f")
 for f in "$TREE"/runtime/src/rftmw_native/build/rftmw_*; do
     [ -f "$f" ] && [ -x "$f" ] && ln -sf "/opt/quantoniumos/runtime/src/rftmw_native/build/$(basename "$f")" "$ROOT/usr/bin/$(basename "$f")"
 done
+# Prebuilt canonical RFT bases (read-only lookup dir of rftmw_core's basis store).
+if [ -d "$TREE/build/rftmw-basis" ]; then
+    install -d "$ROOT/usr/share/quantoniumos/rftmw-basis"
+    install -m 0644 "$TREE"/build/rftmw-basis/*.bin "$ROOT/usr/share/quantoniumos/rftmw-basis/"
+fi
 
 # 3. System configuration (systemd units, sysctl, zram, THP, greetd, session file).
 #    Existing files are kept as *.pre-quantoniumos once, so the install is reversible.

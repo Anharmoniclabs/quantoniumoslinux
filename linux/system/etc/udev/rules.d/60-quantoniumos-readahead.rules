@@ -1,0 +1,3 @@
+# Model weights are multi-GB files faulted in through mmap and MADV_WILLNEED; a
+# 2 MiB readahead window loads them in fewer, larger reads than the 128 KiB default.
+ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="nvme*|sd*|vd*|mmcblk*", ATTR{queue/read_ahead_kb}="2048"
