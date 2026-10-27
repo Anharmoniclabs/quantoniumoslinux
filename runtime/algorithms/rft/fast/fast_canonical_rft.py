@@ -102,7 +102,7 @@ class _NufftPhiEngine:
 
         # Pre-plan the adjoint: Φ† x
         #   source = sample indices n, target = -2π f_k
-        self._plan_adj = finufft.Plan(3, (1,), eps=eps, dtype='complex128')
+        self._plan_adj = finufft.Plan(3, 1, eps=eps, dtype='complex128')
         self._plan_adj.setpts(
             np.arange(N, dtype=np.float64),
             s=-2 * np.pi * freqs,
@@ -110,7 +110,7 @@ class _NufftPhiEngine:
 
         # Pre-plan the forward: Φ c
         #   source = 2π f_k, target = sample indices n
-        self._plan_fwd = finufft.Plan(3, (1,), eps=eps, dtype='complex128')
+        self._plan_fwd = finufft.Plan(3, 1, eps=eps, dtype='complex128')
         self._plan_fwd.setpts(
             2 * np.pi * freqs,
             s=np.arange(N, dtype=np.float64),

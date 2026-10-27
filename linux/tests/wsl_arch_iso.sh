@@ -37,7 +37,7 @@ mountpoint -q "$ROOT/out" || mount --bind "$BASE/out" "$ROOT/out"
 cleanup() { umount "$ROOT/src" "$ROOT/out" 2>/dev/null || true; }
 # shellcheck disable=SC2154  # rc is assigned inside the trap string
 trap 'rc=$?; cleanup; exit $rc' EXIT
-[ -x "$ROOT/src/linux/iso/build-iso.sh" ] || { echo "source not visible in chroot" >&2; exit 1; }
+[ -f "$ROOT/src/linux/iso/build-iso.sh" ] || { echo "source not visible in chroot" >&2; exit 1; }
 
 log "Preparing chroot"
 "$ROOT/usr/bin/arch-chroot" "$ROOT" /bin/bash -euo pipefail -c '
@@ -48,6 +48,6 @@ log "Preparing chroot"
 
 log "Building ISO"
 "$ROOT/usr/bin/arch-chroot" "$ROOT" /bin/bash -euo pipefail -c \
-    "QOS_BUILD_USER=builder QOS_WORK=/var/tmp/qos-iso QOS_SKIP_DESKTOP=${QOS_SKIP_DESKTOP:-0} /src/linux/iso/build-iso.sh /out"
+    "QOS_BUILD_USER=builder QOS_WORK=/var/tmp/qos-iso QOS_SKIP_DESKTOP=${QOS_SKIP_DESKTOP:-0} bash /src/linux/iso/build-iso.sh /out"
 log "Done"
 ls -la "$BASE/out"

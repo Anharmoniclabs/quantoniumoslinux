@@ -18,6 +18,8 @@ man-db
 cmake
 ninja
 nasm
+fftw
+shellcheck
 python
 python-pip
 python-numpy

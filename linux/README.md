@@ -64,6 +64,14 @@ of a local-AI desktop actually lives, between the apps and the kernel:
 | `tests/` | ASM cross-ABI test, rftmwd end-to-end suite, session-tool tests, Arch-chroot ISO build for non-Arch hosts. |
 | `bench/` | Kernel benchmark and output-equivalence check against the original sources. |
 
+The Linux daemon's `RFT.FORWARD` and `RFT.SELFTEST` use an FFTW-backed fast
+canonical transform for sizes up to 1024. It applies the raw phi-grid transform
+with Bluestein FFTs and the Toeplitz Gram inverse square root with a 64-pole
+rational approximation and multi-shift CG. The spectral interval is empirically
+validated through N=1024; this route is approximate, not a formal error bound.
+For numerical failures at N<=256, the engine falls back to its dense canonical
+implementation. Build dependency: Arch package `fftw`.
+
 ## Install
 
 **On an existing Arch install** (after `archinstall` with a minimal profile):
@@ -100,6 +108,7 @@ rftmwctl pack.budget 8192                       # cap resident packs at 8 GiB
 qos-run --name llm --mem-high 12288 --mem-max 14336 --swap-max 0 -- rftmw_qwen25_native ...
 rftmwctl procs                                  # per-workload memory.current / peak / limits
 rftmwctl rft.selftest 64                        # canonical RFT round-trip + ASM kernel check
+rftmwctl rft.forward 1 0 -1 0                    # fast canonical path (N <= 1024)
 systemd-cgls --user-unit rftmw.slice            # the same workloads, seen from systemd
 ```
 

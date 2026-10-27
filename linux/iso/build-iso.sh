@@ -29,6 +29,7 @@ step "Build dependencies on the host"
 pacman -S --needed --noconfirm "${PKGS[@]}" rsync
 
 step "Building QuantoniumOS (x86-64-v3 baseline) as $BUILD_USER"
+install -d -m 0755 "$WORK"
 STAGE="$WORK/stage"
 rm -rf "$STAGE"; install -d "$STAGE"
 rsync -a --exclude '.git' --exclude 'node_modules' --exclude '.venv' \
@@ -39,7 +40,7 @@ chown -R "$BUILD_USER" "$STAGE"
 # HOME must be writable for cargo/npm caches when building as an arbitrary user.
 install -d -o "$BUILD_USER" "$WORK/home"
 runuser -u "$BUILD_USER" -- env HOME="$WORK/home" QOS_MARCH=x86-64-v3 QOS_SKIP_DESKTOP="${QOS_SKIP_DESKTOP:-0}" \
-    "$STAGE/linux/build.sh" "$STAGE"
+    bash "$STAGE/linux/build.sh" "$STAGE"
 
 step "Assembling archiso profile"
 PROFILE="$WORK/profile"
@@ -64,7 +65,7 @@ rm -f "$AIR/etc/systemd/system/multi-user.target.wants/systemd-networkd.service"
       "$AIR/etc/systemd/system/sockets.target.wants/systemd-networkd.socket" \
       "$AIR/etc/systemd/system/systemd-networkd-wait-online.service.d" 2>/dev/null || true
 
-"$STAGE/linux/install-files.sh" "$AIR" "$STAGE" "$LIVE_USER"
+bash "$STAGE/linux/install-files.sh" "$AIR" "$STAGE" "$LIVE_USER"
 ln -sf /usr/lib/systemd/system/NetworkManager.service "$AIR/etc/systemd/system/multi-user.target.wants/NetworkManager.service"
 echo 'w /sys/module/zswap/parameters/enabled - - - - N' > "$AIR/etc/tmpfiles.d/91-quantoniumos-zswap.conf"
 

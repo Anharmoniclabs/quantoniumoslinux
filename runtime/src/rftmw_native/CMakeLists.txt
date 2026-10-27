@@ -244,6 +244,14 @@ target_include_directories(rftmw_headers INTERFACE
     ${KERNEL_INCLUDE_DIRS}
 )
 
+find_path(FFTW3_INCLUDE_DIR fftw3.h)
+find_library(FFTW3_LIBRARY NAMES fftw3)
+if(FFTW3_INCLUDE_DIR AND FFTW3_LIBRARY)
+    target_include_directories(rftmw_headers INTERFACE ${FFTW3_INCLUDE_DIR})
+    target_compile_definitions(rftmw_headers INTERFACE RFTMW_HAVE_FFTW3=1)
+    target_link_libraries(rftmw_headers INTERFACE ${FFTW3_LIBRARY})
+endif()
+
 # Optional OpenMP: threads the large-N raw RFT path and the Q4_K/Q6_K mmap matmuls.
 # Without it the pragmas compile to serial loops.
 find_package(OpenMP COMPONENTS CXX)
@@ -418,6 +426,7 @@ endif()
 
 install(FILES
     rftmw_core.hpp
+    rftmw_fast_canonical.hpp
     rftmw_compression.hpp
     rftmw_asm_kernels.hpp
     DESTINATION include/rftmw

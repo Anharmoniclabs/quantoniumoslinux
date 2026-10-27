@@ -655,14 +655,16 @@ bool cpu_has_avx2_fma() {
 }
 
 std::string rft_selftest(size_t n) {
+    if (n == 0 || n > rftmw::fast_canonical::MAX_N)
+        return err("selftest size must be in 1.." + std::to_string(rftmw::fast_canonical::MAX_N));
     std::mt19937 rng(42);
     std::normal_distribution<double> nd;
     rftmw::RealVec x(n);
     for (auto& v : x) v = nd(rng);
     rftmw::RFTMWEngine engine;
     auto t0 = std::chrono::steady_clock::now();
-    auto X = engine.forward(x);
-    auto y = engine.inverse(X);
+    auto X = engine.forward_fast_canonical(x);
+    auto y = engine.inverse_fast_canonical(X);
     double us = std::chrono::duration<double, std::micro>(std::chrono::steady_clock::now() - t0).count();
     double max_err = 0;
     for (size_t i = 0; i < n; ++i) max_err = std::max(max_err, std::abs(x[i] - y[i]));
@@ -691,9 +693,10 @@ std::string rft_forward(const std::vector<std::string>& args) {
         if (*end) return err("not a number: " + args[i]);
         x.push_back(v);
     }
-    if (x.empty() || x.size() > RFTMW_CANONICAL_MAX_N) return err("need 1.." + std::to_string(RFTMW_CANONICAL_MAX_N) + " samples");
+    if (x.empty() || x.size() > rftmw::fast_canonical::MAX_N)
+        return err("need 1.." + std::to_string(rftmw::fast_canonical::MAX_N) + " samples");
     rftmw::RFTMWEngine engine;
-    auto X = engine.forward(x);
+    auto X = engine.forward_fast_canonical(x);
     std::ostringstream o;
     o.precision(12);
     o << "{\"ok\":true,\"coeffs\":[";
@@ -958,10 +961,21 @@ private:
         if (cmd == "KILL") return a.size() == 2 ? work_.kill(a[1]) : err("usage: KILL <name>");
         if (cmd == "RFT.SELFTEST") {
             uint64_t n = 64;
-            if (a.size() > 1 && (!parse_u64(a[1], n) || n < 2 || n > 128)) return err("n must be 2..128");
-            return rft_selftest(n);
+            if (a.size() > 1 && (!parse_u64(a[1], n) || n < 2 || n > rftmw::fast_canonical::MAX_N))
+                return err("n must be 2.." + std::to_string(rftmw::fast_canonical::MAX_N));
+            try {
+                return rft_selftest(n);
+            } catch (const std::exception& ex) {
+                return err(std::string("RFT self-test failed: ") + ex.what());
+            }
         }
-        if (cmd == "RFT.FORWARD") return rft_forward(a);
+        if (cmd == "RFT.FORWARD") {
+            try {
+                return rft_forward(a);
+            } catch (const std::exception& ex) {
+                return err(std::string("RFT forward failed: ") + ex.what());
+            }
+        }
         return err("unknown command: " + a[0] + " (try HELP)");
     }
 };

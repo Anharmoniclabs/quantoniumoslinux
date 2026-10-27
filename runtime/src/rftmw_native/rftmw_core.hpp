@@ -40,6 +40,10 @@
 #include <string>
 #include <random>
 
+#ifndef RFTMW_HAVE_FFTW3
+#define RFTMW_HAVE_FFTW3 0
+#endif
+
 #ifdef __AVX2__
 #include <immintrin.h>
 #define RFTMW_HAS_AVX2 1
@@ -77,6 +81,11 @@ constexpr double TWO_PI  = 2.0 * PI;
 using Complex    = std::complex<double>;
 using ComplexVec = std::vector<Complex>;
 using RealVec    = std::vector<double>;
+
+namespace fast_canonical {
+ComplexVec forward(const RealVec& input);
+RealVec inverse(const ComplexVec& coeffs);
+}
 
 #ifndef RFTMW_CANONICAL_MAX_N
 #define RFTMW_CANONICAL_MAX_N 256
@@ -656,6 +665,34 @@ class RFTMWEngine {
 public:
     explicit RFTMWEngine(size_t max_size = 65536) : max_size_(max_size) {}
 
+    ComplexVec forward_fast_canonical(const RealVec& input) const {
+#if RFTMW_HAVE_FFTW3
+        try {
+            return fast_canonical::forward(input);
+        } catch (...) {
+            if (input.size() <= RFTMW_CANONICAL_MAX_N_RUNTIME) return forward(input);
+            throw;
+        }
+#else
+    (void)input;
+    throw std::runtime_error("fast canonical RFT requires FFTW3 at build time");
+#endif
+    }
+
+    RealVec inverse_fast_canonical(const ComplexVec& coeffs) const {
+#if RFTMW_HAVE_FFTW3
+        try {
+            return fast_canonical::inverse(coeffs);
+        } catch (...) {
+            if (coeffs.size() <= RFTMW_CANONICAL_MAX_N_RUNTIME) return inverse(coeffs);
+            throw;
+        }
+#else
+    (void)coeffs;
+    throw std::runtime_error("fast canonical RFT requires FFTW3 at build time");
+#endif
+    }
+
     ComplexVec forward(const RealVec& input) const {
         const size_t N = input.size();
         if (N == 0) return {};
@@ -714,3 +751,7 @@ private:
 };
 
 } // namespace rftmw
+
+#if RFTMW_HAVE_FFTW3
+#include "rftmw_fast_canonical.hpp"
+#endif

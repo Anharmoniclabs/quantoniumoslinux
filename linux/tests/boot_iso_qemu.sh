@@ -6,13 +6,14 @@
 #   boot_iso_qemu.sh /out/quantoniumos-*.iso [timeout_s]
 set -uo pipefail
 ISO="${1:?ISO}"; TIMEOUT="${2:-900}"
+CPUS="${QOS_BOOT_CPUS:-4}"; MEMORY_MB="${QOS_BOOT_MEMORY_MB:-6144}"
 W="$(mktemp -d)"; LOG="${QOS_BOOT_LOG:-/out/boot.log}"
 trap 'rm -rf "$W"' EXIT
 bsdtar -xf "$ISO" -C "$W" arch/boot/x86_64/vmlinuz-linux arch/boot/x86_64/initramfs-linux.img loader/entries
 UUID="$(grep -ho 'archisosearchuuid=[^ ]*' "$W"/loader/entries/*.conf | head -1)"
 ACCEL=tcg; [ -w /dev/kvm ] && ACCEL=kvm
 echo "booting with $ACCEL, $UUID, log: $LOG"
-timeout "$TIMEOUT" qemu-system-x86_64 -machine q35,accel=$ACCEL -cpu max -smp 4 -m 6144 \
+timeout "$TIMEOUT" qemu-system-x86_64 -machine q35,accel=$ACCEL -cpu max -smp "$CPUS" -m "$MEMORY_MB" \
     -cdrom "$ISO" -kernel "$W/arch/boot/x86_64/vmlinuz-linux" -initrd "$W/arch/boot/x86_64/initramfs-linux.img" \
     -append "archisobasedir=arch $UUID console=ttyS0,115200 systemd.journald.forward_to_console=1 systemd.log_color=0" \
     -vga std -display none -serial "file:$LOG" -no-reboot &
