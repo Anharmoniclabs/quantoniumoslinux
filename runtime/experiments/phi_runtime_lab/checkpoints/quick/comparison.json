@@ -1,0 +1,182 @@
+[
+  {
+    "mode": "phi",
+    "best_step": 30,
+    "best_val_bpb": 6.952383,
+    "parameter_count": 42672,
+    "checkpoint": "/workspaces/quantoniumoslinux/runtime/experiments/phi_runtime_lab/checkpoints/quick/phi.pt",
+    "context": 64,
+    "train_seconds": 0.52,
+    "gradient_filter": "none",
+    "corpus": {
+      "source": "/workspaces/quantoniumoslinux/runtime/docs",
+      "sha256_fingerprints": [
+        "ba297fe4ffafdfb98210a059de8630d3ab9280893e732a9133fe5afbf573464f",
+        "5063043a9ae2e7493f5a3735773b20f239cc8d4ac887335adf6037d31acbed33",
+        "0073b6501ed14a1954ffe86f9b22016a0bbf44c0d1d7c545527b8b95d802bf76"
+      ],
+      "file_count": 145,
+      "split_method": "disjoint documents (exact duplicate files removed)",
+      "bytes": {
+        "train": 1160940,
+        "val": 119992,
+        "test": 250726
+      },
+      "warning": "Check for near-duplicates; same project documents may share passages across splits."
+    },
+    "max_rss_mib": 358.2,
+    "model_config": {
+      "mode": "phi",
+      "mixer_basis": "auto",
+      "width": 48,
+      "layers": 1,
+      "heads": 4,
+      "window": 8,
+      "mix_group": 16,
+      "mlp_ratio": 2,
+      "vocab": 256
+    },
+    "total_seconds": 0.59,
+    "train_bytes_per_sec": 14722.9,
+    "validation_history": [
+      {
+        "step": 1,
+        "train_bpb": 8.023207,
+        "val_bpb": 7.885426,
+        "train_seconds": 0.029
+      },
+      {
+        "step": 15,
+        "train_bpb": 7.647947,
+        "val_bpb": 7.459992,
+        "train_seconds": 0.248
+      },
+      {
+        "step": 30,
+        "train_bpb": 7.019859,
+        "val_bpb": 6.952383,
+        "train_seconds": 0.522
+      }
+    ]
+  },
+  {
+    "mode": "dft",
+    "best_step": 30,
+    "best_val_bpb": 6.926024,
+    "parameter_count": 42672,
+    "checkpoint": "/workspaces/quantoniumoslinux/runtime/experiments/phi_runtime_lab/checkpoints/quick/dft.pt",
+    "context": 64,
+    "train_seconds": 0.42,
+    "gradient_filter": "none",
+    "corpus": {
+      "source": "/workspaces/quantoniumoslinux/runtime/docs",
+      "sha256_fingerprints": [
+        "ba297fe4ffafdfb98210a059de8630d3ab9280893e732a9133fe5afbf573464f",
+        "5063043a9ae2e7493f5a3735773b20f239cc8d4ac887335adf6037d31acbed33",
+        "0073b6501ed14a1954ffe86f9b22016a0bbf44c0d1d7c545527b8b95d802bf76"
+      ],
+      "file_count": 145,
+      "split_method": "disjoint documents (exact duplicate files removed)",
+      "bytes": {
+        "train": 1160940,
+        "val": 119992,
+        "test": 250726
+      },
+      "warning": "Check for near-duplicates; same project documents may share passages across splits."
+    },
+    "max_rss_mib": 355.5,
+    "model_config": {
+      "mode": "dft",
+      "mixer_basis": "auto",
+      "width": 48,
+      "layers": 1,
+      "heads": 4,
+      "window": 8,
+      "mix_group": 16,
+      "mlp_ratio": 2,
+      "vocab": 256
+    },
+    "total_seconds": 0.47,
+    "train_bytes_per_sec": 18418.1,
+    "validation_history": [
+      {
+        "step": 1,
+        "train_bpb": 8.016489,
+        "val_bpb": 7.873301,
+        "train_seconds": 0.018
+      },
+      {
+        "step": 15,
+        "train_bpb": 7.621845,
+        "val_bpb": 7.431598,
+        "train_seconds": 0.208
+      },
+      {
+        "step": 30,
+        "train_bpb": 6.983493,
+        "val_bpb": 6.926024,
+        "train_seconds": 0.417
+      }
+    ]
+  },
+  {
+    "mode": "local",
+    "best_step": 30,
+    "best_val_bpb": 6.804373,
+    "parameter_count": 35504,
+    "checkpoint": "/workspaces/quantoniumoslinux/runtime/experiments/phi_runtime_lab/checkpoints/quick/local.pt",
+    "context": 64,
+    "train_seconds": 0.24,
+    "gradient_filter": "none",
+    "corpus": {
+      "source": "/workspaces/quantoniumoslinux/runtime/docs",
+      "sha256_fingerprints": [
+        "ba297fe4ffafdfb98210a059de8630d3ab9280893e732a9133fe5afbf573464f",
+        "5063043a9ae2e7493f5a3735773b20f239cc8d4ac887335adf6037d31acbed33",
+        "0073b6501ed14a1954ffe86f9b22016a0bbf44c0d1d7c545527b8b95d802bf76"
+      ],
+      "file_count": 145,
+      "split_method": "disjoint documents (exact duplicate files removed)",
+      "bytes": {
+        "train": 1160940,
+        "val": 119992,
+        "test": 250726
+      },
+      "warning": "Check for near-duplicates; same project documents may share passages across splits."
+    },
+    "max_rss_mib": 350.7,
+    "model_config": {
+      "mode": "local",
+      "mixer_basis": "auto",
+      "width": 48,
+      "layers": 1,
+      "heads": 4,
+      "window": 8,
+      "mix_group": 16,
+      "mlp_ratio": 2,
+      "vocab": 256
+    },
+    "total_seconds": 0.27,
+    "train_bytes_per_sec": 31698.2,
+    "validation_history": [
+      {
+        "step": 1,
+        "train_bpb": 7.955994,
+        "val_bpb": 7.86324,
+        "train_seconds": 0.012
+      },
+      {
+        "step": 15,
+        "train_bpb": 7.527616,
+        "val_bpb": 7.341618,
+        "train_seconds": 0.13
+      },
+      {
+        "step": 30,
+        "train_bpb": 6.849905,
+        "val_bpb": 6.804373,
+        "train_seconds": 0.242
+      }
+    ]
+  }
+]

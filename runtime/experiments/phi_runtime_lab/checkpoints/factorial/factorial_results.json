@@ -1,0 +1,290 @@
+[
+  {
+    "mode": "phi",
+    "best_step": 100,
+    "best_val_bpb": 5.876591,
+    "parameter_count": 42672,
+    "checkpoint": "/workspaces/quantoniumoslinux/runtime/experiments/phi_runtime_lab/checkpoints/factorial/phi_memory__phi_mixer.pt",
+    "context": 64,
+    "train_seconds": 1.36,
+    "gradient_filter": "none",
+    "corpus": {
+      "source": "/workspaces/quantoniumoslinux/runtime/docs",
+      "sha256_fingerprints": [
+        "ba297fe4ffafdfb98210a059de8630d3ab9280893e732a9133fe5afbf573464f",
+        "5063043a9ae2e7493f5a3735773b20f239cc8d4ac887335adf6037d31acbed33",
+        "0073b6501ed14a1954ffe86f9b22016a0bbf44c0d1d7c545527b8b95d802bf76"
+      ],
+      "file_count": 145,
+      "split_method": "disjoint documents (exact duplicate files removed)",
+      "bytes": {
+        "train": 1160940,
+        "val": 119992,
+        "test": 250726
+      },
+      "warning": "Check for near-duplicates; same project documents may share passages across splits."
+    },
+    "max_rss_mib": 358.4,
+    "model_config": {
+      "mode": "phi",
+      "mixer_basis": "phi",
+      "width": 48,
+      "layers": 1,
+      "heads": 4,
+      "window": 8,
+      "mix_group": 16,
+      "mlp_ratio": 2,
+      "vocab": 256
+    },
+    "total_seconds": 1.5,
+    "train_bytes_per_sec": 18780.8,
+    "validation_history": [
+      {
+        "step": 1,
+        "train_bpb": 8.023207,
+        "val_bpb": 7.921224,
+        "train_seconds": 0.019
+      },
+      {
+        "step": 25,
+        "train_bpb": 7.251408,
+        "val_bpb": 7.257111,
+        "train_seconds": 0.339
+      },
+      {
+        "step": 50,
+        "train_bpb": 6.324791,
+        "val_bpb": 6.603677,
+        "train_seconds": 0.675
+      },
+      {
+        "step": 75,
+        "train_bpb": 5.862806,
+        "val_bpb": 6.130978,
+        "train_seconds": 1.028
+      },
+      {
+        "step": 100,
+        "train_bpb": 5.484,
+        "val_bpb": 5.876591,
+        "train_seconds": 1.363
+      }
+    ]
+  },
+  {
+    "mode": "phi",
+    "best_step": 100,
+    "best_val_bpb": 5.87625,
+    "parameter_count": 42672,
+    "checkpoint": "/workspaces/quantoniumoslinux/runtime/experiments/phi_runtime_lab/checkpoints/factorial/phi_memory__dft_mixer.pt",
+    "context": 64,
+    "train_seconds": 1.36,
+    "gradient_filter": "none",
+    "corpus": {
+      "source": "/workspaces/quantoniumoslinux/runtime/docs",
+      "sha256_fingerprints": [
+        "ba297fe4ffafdfb98210a059de8630d3ab9280893e732a9133fe5afbf573464f",
+        "5063043a9ae2e7493f5a3735773b20f239cc8d4ac887335adf6037d31acbed33",
+        "0073b6501ed14a1954ffe86f9b22016a0bbf44c0d1d7c545527b8b95d802bf76"
+      ],
+      "file_count": 145,
+      "split_method": "disjoint documents (exact duplicate files removed)",
+      "bytes": {
+        "train": 1160940,
+        "val": 119992,
+        "test": 250726
+      },
+      "warning": "Check for near-duplicates; same project documents may share passages across splits."
+    },
+    "max_rss_mib": 355.9,
+    "model_config": {
+      "mode": "phi",
+      "mixer_basis": "dft",
+      "width": 48,
+      "layers": 1,
+      "heads": 4,
+      "window": 8,
+      "mix_group": 16,
+      "mlp_ratio": 2,
+      "vocab": 256
+    },
+    "total_seconds": 1.49,
+    "train_bytes_per_sec": 18791.6,
+    "validation_history": [
+      {
+        "step": 1,
+        "train_bpb": 8.023207,
+        "val_bpb": 7.921234,
+        "train_seconds": 0.019
+      },
+      {
+        "step": 25,
+        "train_bpb": 7.252265,
+        "val_bpb": 7.258053,
+        "train_seconds": 0.329
+      },
+      {
+        "step": 50,
+        "train_bpb": 6.325704,
+        "val_bpb": 6.6041,
+        "train_seconds": 0.651
+      },
+      {
+        "step": 75,
+        "train_bpb": 5.862933,
+        "val_bpb": 6.131045,
+        "train_seconds": 1.036
+      },
+      {
+        "step": 100,
+        "train_bpb": 5.484151,
+        "val_bpb": 5.87625,
+        "train_seconds": 1.362
+      }
+    ]
+  },
+  {
+    "mode": "dft",
+    "best_step": 100,
+    "best_val_bpb": 5.877262,
+    "parameter_count": 42672,
+    "checkpoint": "/workspaces/quantoniumoslinux/runtime/experiments/phi_runtime_lab/checkpoints/factorial/dft_memory__phi_mixer.pt",
+    "context": 64,
+    "train_seconds": 1.38,
+    "gradient_filter": "none",
+    "corpus": {
+      "source": "/workspaces/quantoniumoslinux/runtime/docs",
+      "sha256_fingerprints": [
+        "ba297fe4ffafdfb98210a059de8630d3ab9280893e732a9133fe5afbf573464f",
+        "5063043a9ae2e7493f5a3735773b20f239cc8d4ac887335adf6037d31acbed33",
+        "0073b6501ed14a1954ffe86f9b22016a0bbf44c0d1d7c545527b8b95d802bf76"
+      ],
+      "file_count": 145,
+      "split_method": "disjoint documents (exact duplicate files removed)",
+      "bytes": {
+        "train": 1160940,
+        "val": 119992,
+        "test": 250726
+      },
+      "warning": "Check for near-duplicates; same project documents may share passages across splits."
+    },
+    "max_rss_mib": 358.4,
+    "model_config": {
+      "mode": "dft",
+      "mixer_basis": "phi",
+      "width": 48,
+      "layers": 1,
+      "heads": 4,
+      "window": 8,
+      "mix_group": 16,
+      "mlp_ratio": 2,
+      "vocab": 256
+    },
+    "total_seconds": 1.51,
+    "train_bytes_per_sec": 18504.2,
+    "validation_history": [
+      {
+        "step": 1,
+        "train_bpb": 8.016489,
+        "val_bpb": 7.911924,
+        "train_seconds": 0.018
+      },
+      {
+        "step": 25,
+        "train_bpb": 7.213208,
+        "val_bpb": 7.238077,
+        "train_seconds": 0.378
+      },
+      {
+        "step": 50,
+        "train_bpb": 6.294038,
+        "val_bpb": 6.601672,
+        "train_seconds": 0.698
+      },
+      {
+        "step": 75,
+        "train_bpb": 5.846535,
+        "val_bpb": 6.129264,
+        "train_seconds": 1.02
+      },
+      {
+        "step": 100,
+        "train_bpb": 5.464768,
+        "val_bpb": 5.877262,
+        "train_seconds": 1.383
+      }
+    ]
+  },
+  {
+    "mode": "dft",
+    "best_step": 100,
+    "best_val_bpb": 5.877105,
+    "parameter_count": 42672,
+    "checkpoint": "/workspaces/quantoniumoslinux/runtime/experiments/phi_runtime_lab/checkpoints/factorial/dft_memory__dft_mixer.pt",
+    "context": 64,
+    "train_seconds": 1.51,
+    "gradient_filter": "none",
+    "corpus": {
+      "source": "/workspaces/quantoniumoslinux/runtime/docs",
+      "sha256_fingerprints": [
+        "ba297fe4ffafdfb98210a059de8630d3ab9280893e732a9133fe5afbf573464f",
+        "5063043a9ae2e7493f5a3735773b20f239cc8d4ac887335adf6037d31acbed33",
+        "0073b6501ed14a1954ffe86f9b22016a0bbf44c0d1d7c545527b8b95d802bf76"
+      ],
+      "file_count": 145,
+      "split_method": "disjoint documents (exact duplicate files removed)",
+      "bytes": {
+        "train": 1160940,
+        "val": 119992,
+        "test": 250726
+      },
+      "warning": "Check for near-duplicates; same project documents may share passages across splits."
+    },
+    "max_rss_mib": 356.1,
+    "model_config": {
+      "mode": "dft",
+      "mixer_basis": "dft",
+      "width": 48,
+      "layers": 1,
+      "heads": 4,
+      "window": 8,
+      "mix_group": 16,
+      "mlp_ratio": 2,
+      "vocab": 256
+    },
+    "total_seconds": 1.64,
+    "train_bytes_per_sec": 16904.9,
+    "validation_history": [
+      {
+        "step": 1,
+        "train_bpb": 8.016489,
+        "val_bpb": 7.911915,
+        "train_seconds": 0.019
+      },
+      {
+        "step": 25,
+        "train_bpb": 7.213807,
+        "val_bpb": 7.238756,
+        "train_seconds": 0.513
+      },
+      {
+        "step": 50,
+        "train_bpb": 6.294858,
+        "val_bpb": 6.601973,
+        "train_seconds": 0.854
+      },
+      {
+        "step": 75,
+        "train_bpb": 5.84661,
+        "val_bpb": 6.129476,
+        "train_seconds": 1.18
+      },
+      {
+        "step": 100,
+        "train_bpb": 5.465116,
+        "val_bpb": 5.877105,
+        "train_seconds": 1.514
+      }
+    ]
+  }
+]
