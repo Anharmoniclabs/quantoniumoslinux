@@ -51,7 +51,7 @@ def run(args):
                     source = str(row.get("url") or row.get("id") or "")
                 if not isinstance(body, str):
                     continue
-                body = body.replace("\\x00", "").strip()
+                body = body.replace("\x00", "").strip()
                 raw = body.encode("utf-8")
                 if len(raw) < 160 or len(raw) > args.max_document_kb * 1024 or SECRET.search(body):
                     continue
@@ -61,7 +61,7 @@ def run(args):
                 if used + len(raw) > cap:
                     break
                 seen.add(digest)
-                output.write(json.dumps({"text": body, "source": source, "license": license_id, "language": language, "sha256": digest, "dataset": CODE if kind == "code" else GENERAL}, ensure_ascii=False) + "\\n")
+                output.write(json.dumps({"text": body, "source": source, "license": license_id, "language": language, "sha256": digest, "dataset": CODE if kind == "code" else GENERAL}, ensure_ascii=False) + "\n")
                 used += len(raw)
                 accepted += 1
                 if accepted % 100 == 0:
@@ -70,7 +70,7 @@ def run(args):
         print(kind, summary[kind], flush=True)
         if accepted == 0:
             raise SystemExit(f"No {kind} records passed filters. Check the HF source schema and license fields.")
-    (dest / "sources_manifest.json").write_text(json.dumps({"sources": summary, "code_dataset": CODE, "general_dataset": GENERAL, "note": "Review source terms and attribution. This is not a PII scrub. New tokenizer/corpus requires new training run."}, indent=2) + "\\n")
+    (dest / "sources_manifest.json").write_text(json.dumps({"sources": summary, "code_dataset": CODE, "general_dataset": GENERAL, "note": "Review source terms and attribution. This is not a PII scrub. New tokenizer/corpus requires new training run."}, indent=2) + "\n")
     print("SAVED", dest, flush=True)
 
 if __name__ == "__main__":
