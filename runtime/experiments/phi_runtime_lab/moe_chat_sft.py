@@ -139,6 +139,9 @@ def main():
     sp=spm.SentencePieceProcessor(model_file=str(base/"tokenizer.model"))
     if original.cfg.vocab!=sp.vocab_size():
         p.error("Vocabulary mismatch: keep the old tokenizer")
+    # ckpt_load copies state_dict into model; free the duplicate 146 MiB
+    # checkpoint tensor payload, preserving only metadata needed later.
+    pretrained.pop("state_dict",None)
     sftdir=Path(a.sft_dir).expanduser().resolve()
     manifest=sftdir/"manifest.json"
     if not manifest.is_file(): p.error("Missing SFT manifest")
@@ -175,6 +178,7 @@ def main():
         if "sft_rng_state" in saved:rng.setstate(saved["sft_rng_state"])
         if "sft_torch_rng" in saved:torch.set_rng_state(saved["sft_torch_rng"])
         print("SFT RESUMED",step,flush=True)
+    del original
     print("SFT PLAN",json.dumps({"pretraining_checkpoint":str(Path(a.checkpoint).resolve()),
         "pretrained_steps":pretrained.get("step"),
         "sft_start":step,"sft_end":a.steps,
