@@ -2,7 +2,7 @@
 """35M–100M sparse hybrid MoE research trainer for QuantoniumOS.
 
 Trains from scratch on prepared, fixed-split coding + general-knowledge corpora.
-Uses PyTorch CPU for training; native RFTMW MoE inference requires a new port.
+Uses PyTorch CPU by default with optional CUDA training; native RFTMW MoE inference requires a new port.
 """
 from __future__ import annotations
 import argparse
@@ -35,6 +35,14 @@ def setup(threads: int, seed: int):
     torch.manual_seed(seed)
     np.random.seed(seed)
     random.seed(seed)
+
+
+def resolve_device(choice: str) -> torch.device:
+    if choice == 'auto':
+        choice = 'cuda' if torch.cuda.is_available() else 'cpu'
+    if choice == 'cuda' and not torch.cuda.is_available():
+        raise RuntimeError('CUDA selected but torch.cuda.is_available() is False')
+    return torch.device(choice)
 
 
 def model_configuration(a, vocab: int) -> MoEConfig:
@@ -78,6 +86,7 @@ def sample_batch(data: np.ndarray, batch: int, context: int, rng: np.random.Gene
 @torch.inference_mode()
 def evaluate_domain(model, data, context: int, batch: int, batches: int):
     model.eval()
+    device = next(model.parameters()).device
     last = len(data) - context - 1
     if last < 0:
         raise ValueError('Validation split shorter than context')
@@ -87,7 +96,7 @@ def evaluate_domain(model, data, context: int, batch: int, batches: int):
     for j in range(0, len(starts), batch):
         idx = starts[j:j+batch, None] + np.arange(context + 1, dtype=np.int64)
         slab = torch.from_numpy(np.asarray(data[idx], dtype=np.int64))
-        x, y = slab[:, :-1], slab[:, 1:]
+        x, y = slab[:, :-1].to(device), slab[:, 1:].to(device)
         logits = model(x)
         nll_sum += float(F.cross_entropy(logits.reshape(-1, model.cfg.vocab),
                                         y.reshape(-1), reduction='sum').item())
@@ -162,6 +171,9 @@ def overview(model, manifest: dict | None = None):
 
 def train(a):
     setup(a.threads, a.seed)
+    device = resolve_device(getattr(a, 'device', 'cpu'))
+    print('TRAIN DEVICE', str(device),
+          torch.cuda.get_device_name(device) if device.type == 'cuda' else 'CPU', flush=True)
     manifest, datasets, path = load_data(a.data_dir)
     cfg = model_configuration(a, manifest['vocab'])
     cfg.validate()
@@ -180,6 +192,7 @@ def train(a):
         print('DRY-RUN COMPLETE: architecture built, no training executed.', flush=True)
         return
 
+    model = model.to(device)
     opt = optimizer_for(a, model)
     start_step = 0
     best = float('inf')
@@ -207,6 +220,8 @@ def train(a):
             rng.bit_generator.state = previous['numpy_rng_state']
             choose.setstate(previous['python_rng_state'])
             torch.set_rng_state(previous['torch_rng_state'])
+            if device.type == 'cuda' and 'cuda_rng_state_all' in previous:
+                torch.cuda.set_rng_state_all(previous['cuda_rng_state_all'])
         else:
             print('WARNING: RNG state not stored; sampling will restart.', flush=True)
     out = Path(a.out).expanduser().resolve()
@@ -230,6 +245,7 @@ def train(a):
         for _ in range(a.accum):
             source = 'code' if choose.random() < a.code_share else 'general'
             x, y = sample_batch(datasets[f'train_{source}'], a.batch, a.context, rng)
+            x, y = x.to(device), y.to(device)
             logits = model(x)
             lm = F.cross_entropy(logits.reshape(-1, cfg.vocab), y.reshape(-1))
             penalty, router = model.router_penalty()
@@ -274,6 +290,8 @@ def train(a):
                        'numpy_rng_state': rng.bit_generator.state,
                        'python_rng_state': choose.getstate(),
                        'torch_rng_state': torch.get_rng_state()}
+            if device.type == 'cuda':
+                payload['cuda_rng_state_all'] = torch.cuda.get_rng_state_all()
             if improved:
                 # Best is inference-only and stays lightweight (no optimizer state).
                 atomic_checkpoint(out, payload)
@@ -419,6 +437,8 @@ def main():
     q.add_argument('--weight-decay',type=float,default=0.05)
     q.add_argument('--optimizer',choices=['adamw','adafactor'],default='adafactor')
     q.add_argument('--threads',type=int,default=4)
+    q.add_argument('--device', choices=['cpu','cuda','auto'], default='cpu',
+                   help='PyTorch compute device; CPU by default for backwards compatibility')
     q.add_argument('--seed',type=int,default=20261027)
     q.add_argument('--max-seconds',type=float,default=0.0)
     q.add_argument('--dry-run',action='store_true')
