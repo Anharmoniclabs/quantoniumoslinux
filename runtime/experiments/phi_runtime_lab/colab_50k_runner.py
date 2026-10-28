@@ -162,6 +162,7 @@ def main():
         print("TARGET ALREADY REACHED:", current, flush=True)
         return
 
+    milestones = {20000, 30000, 40000, 50000}
     chunks = 0
     with tempfile.TemporaryDirectory(prefix="segments_", dir=str(work)) as temporary:
         tmp = Path(temporary)
@@ -175,7 +176,9 @@ def main():
             if a.max_chunks and chunks >= a.max_chunks:
                 print("PAUSED AT COMPLETED BACKUP STEP:", current, flush=True)
                 break
-            end = min(current + a.chunk_steps, a.target_steps)
+            next_milestones = [m for m in milestones if current < m <= a.target_steps]
+            boundary = min(next_milestones) if next_milestones else a.target_steps
+            end = min(current + a.chunk_steps, a.target_steps, boundary)
             out = tmp / f"segment_{end}.pt"
             finished_last = tmp / f"segment_{end}.last.pt"
             logfile = tmp / f"segment_{end}.log"
@@ -206,6 +209,15 @@ def main():
                 "last_val_mean_bpt": result["val_mean_bpt"],
             }
             atomic_json(marker, state)
+            if step in milestones:
+                milestone_dir = drive / "milestones"
+                print(f"PRESERVING MILESTONE {step} in Drive", flush=True)
+                atomic_copy(finished_last, milestone_dir / f"phi_{step}.last.pt")
+                atomic_copy(out, milestone_dir / f"phi_{step}.pt")
+                milestone_step, _ = verify_pair(milestone_dir / f"phi_{step}.last.pt",
+                                                milestone_dir / f"phi_{step}.pt", fingerprint)
+                if milestone_step != step:
+                    raise RuntimeError("Milestone checkpoint verification failed")
             try:
                 atomic_copy(logfile, drive / "latest_segment.log")
                 with (drive / "history.jsonl").open("a", encoding="utf8") as history:
