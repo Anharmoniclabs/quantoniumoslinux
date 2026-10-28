@@ -28,6 +28,24 @@ Then rerun this script; no manual file download or upload is needed.
 AUTH
   exit 3
 fi
+# An existing remote name is NOT evidence of valid OAuth. Test safely
+# before transferring the creator-owned pose pack; never print the token.
+if ! rclone lsf "$REMOTE:" --max-depth 1 >/dev/null 2>&1; then
+  cat >&2 <<AUTH
+Google Drive remote '$REMOTE' exists, but its authentication is missing,
+expired or otherwise unusable.
+
+Run in this Codespaces terminal:
+    rclone config reconnect $REMOTE:
+
+Follow the browser authorization prompts, then verify:
+    rclone lsf $REMOTE:Quantonium/JC_V06_Private/
+
+No ZIP download/upload on your computer is needed. Never paste OAuth
+tokens into GitHub, a public terminal log, or chat.
+AUTH
+  exit 3
+fi
 if [[ ! -s "$MOTION" ]]; then
   echo "Missing trained V0.4 model: $MOTION" >&2
   exit 3
