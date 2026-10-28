@@ -77,8 +77,10 @@ def load_examples(path,sp,context,max_prompt_tokens):
 
 
 def pack(batch,context,eos):
-    x=torch.full((len(batch),context),eos,dtype=torch.long)
-    y=torch.full((len(batch),context),-100,dtype=torch.long)
+    # Dynamic batch width avoids needless CPU work and router updates on pads.
+    width=min(context,max(len(src) for src,_ in batch))
+    x=torch.full((len(batch),width),eos,dtype=torch.long)
+    y=torch.full((len(batch),width),-100,dtype=torch.long)
     for i,(src,labels) in enumerate(batch):
         x[i,:len(src)]=src
         y[i,:len(labels)]=labels
