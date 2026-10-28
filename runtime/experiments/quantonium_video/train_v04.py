@@ -263,6 +263,36 @@ def evaluate(model,args):
     return {"samples":count,**{k:round(v/count,6) for k,v in totals.items()}}
 
 
+def override_preview_assets(args, f, layers, actor):
+    """Optional OWNED PNG asset preview. Training and validation remain synthetic.
+
+    Background PNG is a flat plate; camera parallax requires separate layer passes.
+    Character PNG must have transparency, and stays a rigid cutout in V0.4.
+    """
+    if args.background_png:
+        with Image.open(args.background_png) as source:
+            bg=source.convert("RGB").resize((args.size,args.size),
+                                             Image.Resampling.LANCZOS)
+        sky=to_tensor(bg)[None]
+        blank=torch.zeros((1,4,args.size,args.size))
+        layers=(sky,blank,blank)
+    if args.character_png:
+        with Image.open(args.character_png) as source:
+            sprite=source.convert("RGBA")
+        if sprite.getextrema()[3] == (255,255):
+            raise ValueError("Character PNG must contain real transparency (alpha channel)")
+        max_w=int(args.size*.32)
+        max_h=int(args.size*.40)
+        sprite.thumbnail((max_w,max_h),Image.Resampling.LANCZOS)
+        canvas=Image.new("RGBA",(args.size,args.size),(0,0,0,0))
+        x0=float(f[0,0]);y0=float(f[0,1])
+        at=(round(x0*args.size-sprite.width/2),
+            round(y0*args.size-sprite.height))
+        canvas.alpha_composite(sprite,at)
+        actor=to_tensor(canvas)[None]
+    return layers,actor
+
+
 def export_preview(model,args):
     model.eval()
     seed=900777
@@ -272,6 +302,7 @@ def export_preview(model,args):
         for i in range(args.frames):
             t=i/(args.frames-1)
             f,gt,linear,layers,actor=batch_cases([seed],[t],args.size)
+            layers,actor=override_preview_assets(args,f,layers,actor)
             output=render(layers,actor,f,model(f))[0]
             reference=render(layers,actor,f,gt)[0]
             baseline=render(layers,actor,f,linear)[0]
@@ -414,6 +445,8 @@ def main():
     p.add_argument("--steps",type=int,default=1000,help="total optimizer steps; 0=continuous")
     p.add_argument("--save-every",type=int,default=200)
     p.add_argument("--val-scenes",type=int,default=12)
+    p.add_argument("--character-png",default="",help="Optional original transparent RGBA character cutout for preview only")
+    p.add_argument("--background-png",default="",help="Optional background plate for preview only")
     p.add_argument("--lr",type=float,default=.0008)
     args=p.parse_args()
     if args.size<96 or args.frames<5 or args.save_every<1 or args.batch<1:
