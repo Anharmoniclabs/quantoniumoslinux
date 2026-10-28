@@ -26,6 +26,8 @@ def main():
     p.add_argument("--eval-every", type=int, default=250)
     p.add_argument("--eval-batches", type=int, default=16)
     p.add_argument("--threads", type=int, default=4)
+    p.add_argument("--device", choices=["cpu","cuda","auto"], default="cpu",
+                   help="CPU by default; choose cuda to continue training on a GPU")
     p.add_argument("--max-seconds", type=float, default=0)
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--no-save-optimizer", action="store_true",
@@ -67,11 +69,12 @@ def main():
     args.eval_every = a.eval_every
     args.eval_batches = a.eval_batches
     args.threads = a.threads
+    args.device = a.device
     args.max_seconds = a.max_seconds
     args.save_optimizer = not a.no_save_optimizer
     args.dry_run = False
     report = {
-        "from_step": current, "to_step": a.target_steps,
+        "from_step": current, "to_step": a.target_steps, "device": a.device,
         "input": str(source), "output_best": str(dest), "output_latest": str(target_last),
         "corpus_sha256":saved["data_fingerprint"],"tokenizer":saved.get("tokenizer"),
         "optimizer_state_available": "optimizer_state" in saved,
