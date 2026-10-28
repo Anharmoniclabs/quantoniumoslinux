@@ -88,12 +88,14 @@ def pack(batch,context,eos):
 
 
 @torch.inference_mode()
-def evaluate(model,examples,context,eos,batch_size,limit):
+def evaluate(model,examples,context,eos,batch_size,limit,device):
     model.eval()
     count=total_nll=0
     for start in range(0,min(limit,len(examples)),batch_size):
         entries=examples[start:min(start+batch_size,len(examples),limit)]
         x,y=pack(entries,context,eos)
+        x=x.to(device)
+        y=y.to(device)
         logits=model(x)
         loss=F.cross_entropy(logits.reshape(-1,model.cfg.vocab),
                              y.reshape(-1),ignore_index=-100,reduction="sum")
@@ -116,6 +118,7 @@ def main():
     p.add_argument("--batch",type=int,default=1)
     p.add_argument("--accum",type=int,default=2)
     p.add_argument("--threads",type=int,default=4)
+    p.add_argument("--device",choices=["auto","cpu","cuda"],default="auto",help="Run training on GPU when available")
     p.add_argument("--seed",type=int,default=20261028)
     p.add_argument("--lr",type=float,default=0.0001)
     p.add_argument("--optimizer",choices=["adafactor","adamw"],default="adafactor")
@@ -130,6 +133,10 @@ def main():
     if a.context<64 or not 8<=a.max_prompt_tokens<a.context-8:
         p.error("context>=64 and 8<=max-prompt-tokens<context-8 required")
     setup(a.threads,a.seed)
+    device=torch.device('cuda' if a.device=='auto' and torch.cuda.is_available() else ('cpu' if a.device=='auto' else a.device))
+    if device.type=='cuda' and not torch.cuda.is_available():
+        p.error('CUDA requested but no GPU is available. Change Colab runtime type first.')
+    print('SFT DEVICE',device,torch.cuda.get_device_name(0) if device.type=='cuda' else 'CPU',flush=True)
     original, pretrained=ckpt_load(a.checkpoint)
     pretrain_manifest,_,base=load_data(a.data_dir)
     if pretrained.get("data_fingerprint")!=pretrain_manifest.get("data_fingerprint"):
@@ -184,8 +191,9 @@ def main():
         "sft_start":step,"sft_end":a.steps,
         "parameters":sum(q.numel() for q in model.parameters()),
         "context":a.context,"training_pairs":len(training),"val_pairs":len(validation),
-        "trainable_answer_tokens_only":True,"sft_corpus":str(sftdir)},indent=2),flush=True)
+        "trainable_answer_tokens_only":True,"sft_corpus":str(sftdir),"device":str(device)},indent=2),flush=True)
     if a.dry_run: return
+    model=model.to(device)
     if a.optimizer=="adafactor":
         if not hasattr(torch.optim,"Adafactor"):
             raise SystemExit("Adafactor not available in PyTorch; use --optimizer adamw")
@@ -203,6 +211,8 @@ def main():
         for _ in range(a.accum):
             chosen=[training[rng.randrange(len(training))] for _ in range(a.batch)]
             x,y=pack(chosen,a.context,sp.eos_id())
+            x=x.to(device)
+            y=y.to(device)
             logits=model(x)
             lm=F.cross_entropy(logits.reshape(-1,model.cfg.vocab),
                                y.reshape(-1),ignore_index=-100)
@@ -215,7 +225,7 @@ def main():
         grad=float(torch.nn.utils.clip_grad_norm_(model.parameters(),a.clip))
         optimizer.step()
         if index==1 or index%a.eval_every==0 or index==a.steps:
-            info=evaluate(model,validation,a.context,sp.eos_id(),a.batch,a.val_examples)
+            info=evaluate(model,validation,a.context,sp.eos_id(),a.batch,a.val_examples,device)
             current=info["val_answer_bpt"]
             improved=current<best
             best=min(best,current)
