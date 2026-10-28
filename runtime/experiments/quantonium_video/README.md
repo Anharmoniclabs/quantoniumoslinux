@@ -1,4 +1,12 @@
-# Quantonium Anime Video V0.1 (CPU experiment)
+# Quantonium Anime Video (CPU experiments)
+
+**Current JC pipeline: [V0.7 Blender-first training](V07_BLENDER_TRAINING.md).**
+Image-to-rig fitting and a verified Blender shot now precede guided RGBA
+in-between training. The eight original cels and V0.4 checkpoint are preserved.
+See that guide for the Codespaces launcher, exact registration limits, outputs
+and the experimental quality status. Earlier experiments remain documented below.
+
+## V0.1
 This is **not ByteDance Seedance**, not a full text-to-video generator, and not trained on copyrighted anime. It is an original tiny 2D frame-inbetweening model intended as the first measurable building block toward cinematic animation, with a synthetic procedural training set produced on the fly.
 
 ## Quick start on the OptiPlex (WSL Ubuntu, Python >=3.10)
