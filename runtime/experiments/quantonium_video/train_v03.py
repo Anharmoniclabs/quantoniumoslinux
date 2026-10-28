@@ -257,7 +257,7 @@ def preview(model,args,val_shots):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument("--out",default="~/quantonium-video-runs/v03")
-    p.add_argument("--frames-dir",default="",help="Optional OWNED frame sequence folders, at least two shots")
+    p.add_argument("--frames-dir",default=os.environ.get("QVIDEO_FRAMES_DIR",""),help="Optional OWNED frame sequence folders, at least two shots")
     p.add_argument("--size",type=int,default=128)
     p.add_argument("--frames",type=int,default=12)
     p.add_argument("--width",type=int,default=24)
