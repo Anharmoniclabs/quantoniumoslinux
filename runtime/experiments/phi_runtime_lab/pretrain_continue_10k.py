@@ -98,6 +98,10 @@ def main():
     dest.parent.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(source_best,dest)
     print("PRESERVED PRIOR BEST",dest,flush=True)
+    # Release old model/checkpoint copies before allocating another 38M model.
+    del saved, best_payload, original, _
+    import gc
+    gc.collect()
     moe_train.train(args)
 
 
