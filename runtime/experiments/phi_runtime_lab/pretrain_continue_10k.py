@@ -7,6 +7,7 @@ A new output prefix protects the 5k model. This is not a chat fine-tuner.
 """
 import argparse
 import json
+import shutil
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -86,6 +87,17 @@ def main():
     if a.dry_run:
         print("DRY RUN OK; no model weights were changed.",flush=True)
         return
+    # Preserve the previous best checkpoint. Without this, a continuation
+    # that never improves validation would leave the new best path absent.
+    source_best = source.with_name(source.name.replace(".last.pt", ".pt"))
+    if not source_best.is_file():
+        source_best = source
+    _, best_payload = moe_train.ckpt_load(str(source_best))
+    if best_payload["config"] != saved["config"] or best_payload["data_fingerprint"] != saved["data_fingerprint"]:
+        p.error("Previous best checkpoint differs from latest checkpoint")
+    dest.parent.mkdir(parents=True,exist_ok=True)
+    shutil.copyfile(source_best,dest)
+    print("PRESERVED PRIOR BEST",dest,flush=True)
     moe_train.train(args)
 
 
