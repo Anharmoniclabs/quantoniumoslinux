@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """V0.2: CPU frame warping from two keyframes, with crossfade baseline."""
-import argparse, json, math, os, random, time
+import argparse, json, math, os, random, signal, time
 from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
@@ -111,9 +111,14 @@ def main():
         images[0].save(temp,save_all=True,append_images=images[1:],duration=500,loop=0)
         os.replace(temp,out/"preview_latest.gif")
         model.train();print("SAVED",step,ckpt,flush=True)
+    stop_requested = False
+    def request_stop(signum, frame):
+        nonlocal stop_requested
+        stop_requested = True
+    signal.signal(signal.SIGTERM, request_stop)
     try:
         started=time.monotonic()
-        while args.steps==0 or step<args.steps:
+        while (args.steps==0 or step<args.steps) and not stop_requested:
             records=[triplet(random.randrange(800000),args.size,args.frames_dir) for _ in range(args.batch)]
             a=torch.stack([v[0] for v in records]);m=torch.stack([v[1] for v in records]);b=torch.stack([v[2] for v in records])
             pred,fa,fb=model(a,b)
