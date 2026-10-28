@@ -227,7 +227,7 @@ def preview(model,args,val_shots):
         for i in range(args.frames):
             if i==0: out=a[0]
             elif i==args.frames-1: out=b[0]
-            else: out=model(a,b,torch.tensor([i/(args.frames-1)]))[0]
+            else: out=model(a,b,torch.tensor([i/(args.frames-1)]))[0][0]  # batch -> CHW
             pixels=(out.clamp(0,1).permute(1,2,0).numpy()*255).astype(np.uint8)
             frames.append(Image.fromarray(pixels).resize((args.size*3,args.size*3),
                                                         Image.Resampling.NEAREST))
