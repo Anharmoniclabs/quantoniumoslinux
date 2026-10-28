@@ -233,6 +233,8 @@ def train(a):
     processed = previously_processed
     start_time = time.perf_counter()
     total_training = previous_training_seconds
+    if device.type == 'cuda':
+        torch.cuda.reset_peak_memory_stats(device)
     router = None
     written = False
     last_step = start_step
@@ -274,6 +276,12 @@ def train(a):
                    'train_seconds': round(total_training, 3),
                    'wall_seconds': round(time.perf_counter() - start_time, 3),
                    'tokens_per_train_second': round(processed / max(total_training, 1e-9), 1),
+                   'session_tokens_per_second': round((processed - previously_processed) /
+                                                      max(total_training - previous_training_seconds, 1e-9), 1),
+                   'session_train_seconds': round(total_training - previous_training_seconds, 3),
+                   'device': str(device),
+                   'peak_cuda_allocated_mib': round(torch.cuda.max_memory_allocated(device)/2**20, 1)
+                                              if device.type == 'cuda' else None,
                    'peak_rss_mib': round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024, 1),
                    'last_expert_routing': router['expert_selection'] if router else []}
             with metrics_file.open('a', encoding='utf-8') as f:
