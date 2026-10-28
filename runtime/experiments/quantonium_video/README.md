@@ -65,3 +65,74 @@ Options: `QVIDEO_THREADS=3`, `QVIDEO_STEPS=5000`, `QVIDEO_OUT=/path`,
 `QVIDEO_PYTHON=/path/to/python` can be passed before the launcher command.
 On the current procedural dataset, this is an engineering study of
 frame interpolation, not a Seedance-class video-generation system.
+
+## V0.3: 12-frame, arbitrary-timestamp video generation (CPU)
+
+V0.3 uses a separate U-Net-like temporal warp model. It predicts two displacement
+fields, an occlusion/blending mask, and a small residual for any timestamp
+between two anchor frames. The procedural scenes include camera pans and
+layer parallax. This is still **frame interpolation**, not text-to-video or a
+trained Seedance replacement. V0.2 weights are not compatible.
+
+In **WSL Ubuntu** on the OptiPlex:
+
+```bash
+cd /mnt/c/Users/Anharoniclabs/quantoniumoslinux
+git pull --ff-only origin feat/quantonium-anime-video-v01
+source ~/.quantonium-video-env/bin/activate
+sudo apt install -y ffmpeg  # optional if already present
+python -u runtime/experiments/quantonium_video/train_v03.py \
+    --out ~/quantonium-video-runs/v03 --steps 20 --save-every 10 --threads 4
+```
+
+For a separate background run to 1,000 TOTAL steps:
+
+```bash
+bash runtime/experiments/quantonium_video/run_v03.sh start
+bash runtime/experiments/quantonium_video/run_v03.sh status
+bash runtime/experiments/quantonium_video/run_v03.sh logs
+bash runtime/experiments/quantonium_video/run_v03.sh stop
+```
+
+To continue the **same** run to 5,000 TOTAL steps:
+
+```bash
+QVIDEO_STEPS=5000 bash runtime/experiments/quantonium_video/run_v03.sh start
+```
+
+The runner writes under `~/quantonium-video-runs/v03` on WSL's
+Linux filesystem. The checkpoint `latest.pt`, optional `best.pt`,
+`preview_latest.mp4` (or GIF without ffmpeg), and bounded-on-restart
+log are the only recurring outputs. The preview is a **12-frame sequence**
+at 12 FPS (some frames are neural predictions; endpoints are anchors).
+The model is trained from scratch and intentionally does not alter V0.2.
+
+### Owned Blender / OpenToonz data
+
+Use a folder with **at least two shot subfolders**, each with four or more
+consecutive PNG/JPG frames, numbered in order. E.g.:
+```text
+/home/user/anime-shots/
+  shot001/0001.png 0002.png 0003.png 0004.png ...
+  shot002/0001.png 0002.png 0003.png 0004.png ...
+```
+
+```bash
+python -u runtime/experiments/quantonium_video/train_v03.py \
+  --out ~/quantonium-video-runs/v03-real \
+  --frames-dir ~/anime-shots \
+  --size 128 --frames 12 --steps 1000 --threads 4
+```
+
+Training/validation are separated **by shot folder**, not adjacent frames,
+to avoid direct leakage. Use only animation you own or have rights to train
+on. Training frames and model checkpoints remain local and out of Git.
+
+### Evaluation
+
+Every 200 steps, V0.3 reports `model_l1`, `crossfade_l1`, and
+`edge_l1` on a fixed evaluation split. We want `model_l1` lower than
+the crossfade baseline, along with clean continuous playback.
+Benchmark values on synthetic data must not be interpreted as evidence of
+real-anime generalization or Seedance-level quality. FFmpeg MP4 is optional:
+the trainer falls back to an animated GIF if ffmpeg is not installed.
