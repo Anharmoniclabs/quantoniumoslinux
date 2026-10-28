@@ -386,6 +386,12 @@ def train(args):
         if improved: shutil.copyfile(checkpoint,out/"best.pt")
         print("SAVED",step,checkpoint,flush=True)
 
+    if args.preview_only:
+        if not checkpoint.exists():
+            raise SystemExit("No trained V0.4 checkpoint available for --preview-only")
+        export_preview(model,args)
+        return
+
     stopping=False
     def stop_request(sig,frame):
         nonlocal stopping
@@ -445,6 +451,7 @@ def main():
     p.add_argument("--steps",type=int,default=1000,help="total optimizer steps; 0=continuous")
     p.add_argument("--save-every",type=int,default=200)
     p.add_argument("--val-scenes",type=int,default=12)
+    p.add_argument("--preview-only",action="store_true",help="Export using the saved weights without training")
     p.add_argument("--character-png",default="",help="Optional original transparent RGBA character cutout for preview only")
     p.add_argument("--background-png",default="",help="Optional background plate for preview only")
     p.add_argument("--lr",type=float,default=.0008)
