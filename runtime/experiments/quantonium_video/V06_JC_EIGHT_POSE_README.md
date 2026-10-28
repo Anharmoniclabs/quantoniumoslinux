@@ -1,49 +1,46 @@
-# Quantonium Video V0.6: authentic JC eight-pose kick proof
+# Quantonium Video V0.6 — JC eight-pose animation proof
 
-The V0.5 single-PNG experiment failed creator QC: head cropped, extra reference-sheet content, and rigid sliding cutout. **Do not call it an anime generation result.**
+The older V0.5 preview failed creator QC: cropped head, extraneous character-sheet callouts, and a rigid image sliding over a generated city background.
 
-V0.6 instead uses the **eight distinct JC kick poses** on page 3 of the creator's *Full Cast Movement & In-Betweens Bible*. A new preview renderer advances through the action poses and optionally adds a *small* learned root-motion offset from the verified V0.4 5,000-step controller. No face or limbs are synthesized. This is not Blender rigging or trained diffusion/optical-flow inbetweening.
+## Current workflow: GitHub push → Codespaces fetch → render
 
-## Codespaces: use the private 8-pose asset pack
+**Everything required for the V0.6 pose proof is now committed to `feat/quantonium-anime-video-v01`.**
+All eight creator-owned JC kick poses are tracked in
+`runtime/experiments/quantonium_video/assets/jc_v06_lossless/`
+as **pixel-identical lossless WebP** files. The code converts these into PNGs
+outside the repository during rendering. An MP4 proof, integrity checksums,
+and the V0.6 renderer are also committed.
 
-The creator receives the private `JC_V06_8_Private_Poses.zip` asset bundle through their ChatGPT conversation. This ZIP is **not in the public GitHub repo** because it contains creator-owned artwork.
+The creator explicitly approved making these pose assets available in the
+public GitHub repository. This does not waive their copyright.
 
-1. In the Codespaces Explorer upload the ZIP into `/workspaces/quantoniumoslinux/JC_V06_8_Private_Poses.zip`. Keep it uncommitted.
-2. Fetch **only source files** from the video branch:
+Run in the **existing GitHub Codespace**:
 
 ```bash
 cd /workspaces/quantoniumoslinux
 source .phistate-env/bin/activate
 git fetch origin feat/quantonium-anime-video-v01
-git restore --source=origin/feat/quantonium-anime-video-v01 --worktree -- runtime/experiments/quantonium_video
+git restore --source=origin/feat/quantonium-anime-video-v01 \
+  --worktree -- runtime/experiments/quantonium_video
+python -m pip install -q pillow
+bash runtime/experiments/quantonium_video/fetch_and_render_v06.sh
 ```
 
-3. Extract outside the repo and inspect the review PNG:
+No Google Drive, rclone, local computer, uploaded ZIP, or OAuth setup is needed.
 
-```bash
-mkdir -p ~/quantonium-anime-data/jc_v06
-unzip -o JC_V06_8_Private_Poses.zip -d ~/quantonium-anime-data/jc_v06
-ls -lh ~/quantonium-anime-data/jc_v06/pose_assets/pose_*.png
-```
+It reads the completed V0.4 motion checkpoint from
+`~/quantonium-video-runs/v04_codespace/latest.pt`, which is never modified.
 
-4. Build the proof MP4 **using your actual trained V0.4 checkpoint**:
+Outputs:
+- `~/quantonium-video-runs/v06_codespace/jc_action_cels_v06.mp4`
+- `~/quantonium-video-runs/v06_codespace/jc_pose_frame_review.png`
+- `~/quantonium-video-runs/v06_codespace/v06_proof_manifest.json`
+- `~/quantonium-anime-data/jc_v06/pose_assets/pose_01.png` through `pose_08.png`
 
-```bash
-python -u runtime/experiments/quantonium_video/v06_pose_cels.py \
-  --poses ~/quantonium-anime-data/jc_v06/pose_assets \
-  --motion-checkpoint ~/quantonium-video-runs/v04_codespace/latest.pt \
-  --out ~/quantonium-video-runs/v06_codespace \
-  --frames 48 --fps 24 --width 960 --height 540
+These are the creator's eight body-changing kick poses, not a static cutout.
+The trajectory comes from the trained V0.4 controller. The poses themselves
+are selected existing drawings, **not generated in-between drawings**,
+not Blender rigging, and not a new generative video model.
 
-ls -lh ~/quantonium-video-runs/v06_codespace/jc_action_cels_v06.mp4 \
-       ~/quantonium-video-runs/v06_codespace/jc_pose_frame_review.png
-```
-
-The MP4 is a **2-second, 24fps pose-changing proof**, with actual arm/leg silhouette changes and only small body root movement. If an approved background plate exists, add `--background /path/to/approved_background.png`. Without a supplied plate, it uses a deliberately simple studio-color background rather than an improvised video-game-looking city.
-
-## Quality-control and scientific limits
-
-- Review eyes, pendant, hair, fingers, shoes, crop alpha, relative character scale and the action timing. It is an **unapproved proof** until creator review.
-- The entire V0.4 `latest.pt` and `best.pt` remain unchanged.
-- Eight drawings on one sheet do **not** establish enough data for a generative video foundation model. To train a temporal pose-synthesis model, prepare time-aligned multi-frame action clips / pose labels and train/evaluate a separately specified architecture.
-- No Blender scene or 2D bone rig is built here. A Blender rig or learned optical-flow/deformation network is a **separate V0.7 stage**. Don't claim it exists.
+The 5,000-step V0.4 checkpoint remains intact. Review the new action proof
+before approving visual continuity and timing.
