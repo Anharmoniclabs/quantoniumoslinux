@@ -35,7 +35,7 @@ case "${1:-status}" in
         fi
         nohup bash "$HERE/run_5000.sh" worker </dev/null >>"$LOG_FILE" 2>&1 &
         echo "$!" > "$PID_FILE"
-        echo "Started V0.2 training to $TARGET TOTAL steps (PID $(cat "$PID_FILE"))."
+        echo "Started video training ($TRAINER) to $TARGET TOTAL steps (PID $(cat "$PID_FILE"))."
         echo "Checkpoint: $OUT/latest.pt"
         echo "Log: $LOG_FILE"
         echo "Use '$0 status' or '$0 logs' to inspect progress."
