@@ -9,7 +9,7 @@ import hashlib
 import json
 import re
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 
 APPROVED = {
     'name': 'JC / Jayc (Juan Carlos Cabral)',
@@ -91,6 +91,8 @@ def main():
                    help='Normalized page crop 0..1; adjust if art does not fill crop')
     p.add_argument('--out',default='~/quantonium-video-runs/v05/jayc_private',
                    help='Private output, kept outside git')
+    p.add_argument('--preview-page', action='store_true',
+                   help='Create numbered-page grid for choosing manual crop; does not export a sprite')
     p.add_argument('--height',type=int,default=900)
     p.add_argument('--white-threshold',type=int,default=239)
     a=p.parse_args()
@@ -100,13 +102,38 @@ def main():
     if not path.is_file(): raise SystemExit('No Bible at '+str(path))
     doc=fitz.open(path)
     i=find_page(doc,a.page)
+    out=Path(a.out).expanduser().resolve()
+    out.mkdir(parents=True,exist_ok=True)
+    page=doc[i]
+
+    # The 64-page full-cast character sheet includes detail callouts and
+    # swatches. Guessing a rectangular crop silently cuts off JC and captures
+    # neighboring panels. We deliberately reject that unsafe default.
+    needs_manual_crop = len(doc)==64 and i==0 and a.crop is None
+    if a.preview_page or needs_manual_crop:
+        view=page.get_pixmap(matrix=fitz.Matrix(1.45,1.45),alpha=False)
+        preview=Image.frombytes('RGB',(view.width,view.height),view.samples)
+        marks=ImageDraw.Draw(preview)
+        for fraction in range(0, 11):
+            x=round(preview.width*fraction/10)
+            y=round(preview.height*fraction/10)
+            marks.line((x,0,x,preview.height),fill=(210,35,45),width=1)
+            marks.line((0,y,preview.width,y),fill=(210,35,45),width=1)
+            if fraction<10:
+                marks.text((x+4,4),f'x={fraction/10:.1f}',fill=(165,0,0))
+                marks.text((4,y+4),f'y={fraction/10:.1f}',fill=(165,0,0))
+        grid=out/'jayc_full_page_crop_grid.png'
+        preview.save(grid)
+        print('SAVED FULL PAGE CROP GRID',grid,flush=True)
+        print('Choose --crop X0 Y0 X1 Y1 to isolate the FULL head-to-shoes character,',flush=True)
+        print('without the adjacent detail faces, palette chips, labels or text.',flush=True)
+        if a.preview_page:
+            return
+        raise SystemExit('REFUSING UNSAFE AUTOMATIC CROP for 64-page sheet. Select a manual crop after reviewing the full-page grid.')
     bounds=a.crop or crop_default(doc,i)
     x0,y0,x1,y1=bounds
     if not (0<=x0<x1<=1 and 0<=y0<y1<=1):
         raise SystemExit('--crop values must be normalized 0..1')
-    out=Path(a.out).expanduser().resolve()
-    out.mkdir(parents=True,exist_ok=True)
-    page=doc[i]
     zoom=max(1.0,min(4.0,a.height/max(1,page.rect.height*(y1-y0))))
     pix=page.get_pixmap(matrix=fitz.Matrix(zoom,zoom),alpha=False)
     full=Image.frombytes('RGB',(pix.width,pix.height),pix.samples)
