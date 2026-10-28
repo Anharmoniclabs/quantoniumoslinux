@@ -39,10 +39,20 @@ def run(args):
                     license_id = str(row.get("license") or "").lower().strip()
                     if license_id not in LICENSES:
                         continue
-                    language = str(row.get("language") or "").lower().strip()
+                    # Raw Parquet exposes content/path/license; the legacy loader
+                    # derived language from the filename extension.
+                    path = str(row.get("path") or "").lower()
+                    exts = {
+                        ".py": "python", ".js": "javascript",
+                        ".ts": "typescript", ".tsx": "typescript",
+                        ".rs": "rust", ".c": "c", ".h": "c",
+                        ".cpp": "c++", ".cc": "c++", ".cxx": "c++",
+                        ".hpp": "c++", ".hh": "c++", ".hxx": "c++",
+                    }
+                    language = next((lang for ext, lang in exts.items() if path.endswith(ext)), "")
                     if language not in args.languages:
                         continue
-                    body = row.get("code") or row.get("content")
+                    body = row.get("content") or row.get("code")
                     source = f"{row.get('repo_name', '')}/{row.get('path', '')}"
                 else:
                     license_id = "odc-by"
