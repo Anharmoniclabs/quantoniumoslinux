@@ -89,3 +89,32 @@ def restore_latest(destination, run, expected_config):
             raise IOError('Restore copy failed verification')
         temp.replace(run/name)
     return folder
+
+
+def run_foreground(command, cwd, log_path, stop_file):
+    """Stream training and fail visibly; notebook Interrupt requests a clean save."""
+    import subprocess
+    stop_file = Path(stop_file)
+    with Path(log_path).open('a') as log:
+        process = subprocess.Popen(command, cwd=cwd, stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT, text=True, bufsize=1, start_new_session=True)
+        try:
+            for line in process.stdout:
+                print(line, end='', flush=True)
+                log.write(line)
+                log.flush()
+            code = process.wait()
+        except KeyboardInterrupt:
+            stop_file.touch()
+            print('Stop requested. Waiting for the current update and verified Drive save.', flush=True)
+            # Keep draining output so the child can finish its save and exit.
+            for line in process.stdout:
+                print(line, end='', flush=True)
+                log.write(line)
+                log.flush()
+            code = process.wait()
+        finally:
+            process.stdout.close()
+        if code:
+            raise subprocess.CalledProcessError(code, command)
+        return code

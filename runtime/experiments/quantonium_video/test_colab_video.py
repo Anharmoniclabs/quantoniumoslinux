@@ -3,6 +3,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import sys
+import subprocess
 import torch
 
 from colab_video_runtime import save_snapshot, restore_latest, verify_snapshot
@@ -17,6 +19,35 @@ def fixture(run,step):
         torch.save(state,run/name)
     (run/'metrics_latest.json').write_text(json.dumps({'phase_step':step}))
     (run/'run_manifest.json').write_text(json.dumps({'config':state['config']}))
+
+
+class ForegroundTests(unittest.TestCase):
+    def test_output_is_logged_and_exit_failure_is_visible(self):
+        from colab_video_runtime import run_foreground
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            command=[sys.executable,'-u','-c',"print('checkpoint saved'); raise SystemExit(3)"]
+            with self.assertRaises(subprocess.CalledProcessError):
+                run_foreground(command,root,root/'train.log',root/'STOP')
+            self.assertIn('checkpoint saved',(root/'train.log').read_text())
+
+    def test_interrupt_requests_stop_and_waits_for_save(self):
+        from colab_video_runtime import run_foreground
+        from unittest.mock import patch, Mock
+        class Output:
+            def __init__(self): self.calls=0
+            def __iter__(self):
+                self.calls+=1
+                if self.calls==1: raise KeyboardInterrupt
+                return iter(['DRIVE SNAPSHOT VERIFIED 101\n','STOPPED phase 101\n'])
+            def close(self): pass
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);proc=Mock(stdout=Output());proc.wait.return_value=0
+            with patch('subprocess.Popen',return_value=proc):
+                self.assertEqual(run_foreground(['trainer'],root,root/'train.log',root/'STOP'),0)
+            self.assertTrue((root/'STOP').exists())
+            self.assertIn('STOPPED phase 101',(root/'train.log').read_text())
+            proc.wait.assert_called_once()
 
 
 class SnapshotTests(unittest.TestCase):

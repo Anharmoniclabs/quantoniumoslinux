@@ -118,6 +118,8 @@ def train(args):
             batch=args.batch,lr=args.lr,jc_weight=args.jc_weight)
         step,best = 0,float('inf')
         latest = out/'latest.pt'
+        if getattr(args,'require_resume',False) and not latest.exists():
+            raise FileNotFoundError('Resume required: latest.pt is missing; restore the saved run')
         if latest.exists():
             saved = torch.load(latest,map_location='cpu',weights_only=True)
             if saved['config'] != config:
@@ -169,7 +171,7 @@ def train(args):
                 print('DRIVE SNAPSHOT VERIFIED',step,saved_path,flush=True)
             print(json.dumps(metrics),flush=True)
 
-        while step < args.steps and not stopping:
+        while (args.steps == 0 or step < args.steps) and not stopping:
             if getattr(args,'stop_file','') and Path(args.stop_file).exists():
                 stopping = True
                 break
@@ -194,7 +196,7 @@ def train(args):
                 save()
         if step%args.save_every or not latest.exists():
             save()
-        print('FINISHED phase',step,flush=True)
+        print('STOPPED phase' if stopping else 'FINISHED phase',step,flush=True)
 
 
 if __name__ == '__main__':
@@ -203,7 +205,8 @@ if __name__ == '__main__':
         p.add_argument('--'+name,required=True)
     p.add_argument('--assets',default=str(DEFAULT_ASSETS))
     p.add_argument('--motion-checkpoint',default='')
-    p.add_argument('--steps',type=int,default=100,help='TOTAL new phase steps, not parent steps')
+    p.add_argument('--steps',type=int,default=100,help='TOTAL phase steps; 0 keeps training until a stop request')
+    p.add_argument('--require-resume',action='store_true',help='Refuse to start without latest.pt')
     p.add_argument('--batch',type=int,default=2)
     p.add_argument('--threads',type=int,default=4)
     p.add_argument('--save-every',type=int,default=25)
@@ -213,6 +216,6 @@ if __name__ == '__main__':
     p.add_argument('--backup-dir',default='',help='Write verified immutable snapshots here after every save')
     p.add_argument('--stop-file',default='',help='Finish current update and save when this file exists')
     args = p.parse_args()
-    if min(args.steps,args.batch,args.threads,args.save_every) < 1 or not 0 < args.lr <= .001 or not .1 <= args.jc_weight <= 10:
-        p.error('Positive steps/batch/threads/save interval; lr <= .001; jc-weight .1..10')
+    if args.steps < 0 or min(args.batch,args.threads,args.save_every) < 1 or not 0 < args.lr <= .001 or not .1 <= args.jc_weight <= 10:
+        p.error('Nonnegative steps; positive batch/threads/save interval; lr <= .001; jc-weight .1..10')
     train(args)

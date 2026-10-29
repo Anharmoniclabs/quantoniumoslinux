@@ -3,7 +3,9 @@
 **Colab handoff:** [training notebook and journal](Quantonium_Video_Colab_Training_Journal.ipynb)
 continues the saved phase100 checkpoint on CUDA, verifies Drive snapshots every
 25 updates, restores after disconnects, and renders the original JC shot.
-Its default next target is phase1100. It does not train Wan. GPU execution must
+Its default target is 0: keep training until a clean stop or runtime termination.
+The Start cell streams live progress and waits for the trainer; it cannot silently
+advance to a stale preview while a background process is still starting. It does not train Wan. GPU execution must
 pass the notebook's on-device smoke test; authoring validation was CPU-only.
 
 V0.8 reuses the V0.7 `PoseInterpolator` architecture and strictly loads its
