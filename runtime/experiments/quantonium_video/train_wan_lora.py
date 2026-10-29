@@ -9,7 +9,35 @@ import time
 import torch
 
 from wan_training import (SOURCE, VERSION, TARGETS, add_adapter, flow_loss, read_cache,
-                          find_checkpoint, restore_checkpoint, save_checkpoint, prune_checkpoints)
+                          find_checkpoint, restore_checkpoint, save_checkpoint, prune_checkpoints,
+                          TRAIN_GROUPS)
+
+
+def parse_mix(value):
+    weights = {name: 0.0 for name in TRAIN_GROUPS}
+    for item in value.split(','):
+        name, raw = item.split('=', 1)
+        if name not in weights:
+            raise ValueError('Unknown training group: ' + name)
+        weights[name] = float(raw)
+    if any(v < 0 for v in weights.values()) or sum(weights.values()) <= 0:
+        raise ValueError('Training mix must contain nonnegative weights with a positive sum')
+    total = sum(weights.values())
+    return {k: v / total for k, v in weights.items()}
+
+
+def choose_group(groups, mix, rng):
+    available = [(name, mix[name]) for name in TRAIN_GROUPS if groups[name] and mix[name] > 0]
+    if not available:
+        raise ValueError('No cached samples match the requested training mix')
+    total = sum(weight for _, weight in available)
+    draw = float(torch.rand((), generator=rng)) * total
+    upto = 0.0
+    for name, weight in available:
+        upto += weight
+        if draw <= upto:
+            return groups[name]
+    return groups[available[-1][0]]
 
 
 @torch.no_grad()
@@ -39,9 +67,10 @@ def _train(args, root):
     torch.manual_seed(808)
     device, dtype = torch.device('cuda'), torch.bfloat16
     groups, fingerprint = read_cache(args.data)
+    mix = parse_mix(args.mix)
     config = dict(version=VERSION, source=SOURCE, data=fingerprint, rank=args.rank,
         lr=args.lr, accumulation=args.accumulation, shift=3., targets=TARGETS,
-        dtype='bfloat16', seed=808, appearance_probability=.5,
+        dtype='bfloat16', seed=808, training_mix=mix,
         diffusers=diffusers.__version__, transformers=transformers.__version__, peft=peft.__version__)
     saved = find_checkpoint(root, config)
     if args.require_resume and saved is None:
@@ -98,7 +127,7 @@ def _train(args, root):
             before = [p.detach().clone() for p in params]
         loss_sum = 0.
         for _ in range(args.accumulation):
-            group = groups['appearance'] if torch.rand((), generator=rng) < .5 else groups['motion']
+            group = choose_group(groups, mix, rng)
             sample = group[int(torch.randint(len(group), (1,), generator=rng))]
             loss = flow_loss(model, sample, rng, device, dtype)
             if not torch.isfinite(loss):
@@ -135,9 +164,15 @@ if __name__ == '__main__':
     p.add_argument('--lr', type=float, default=1e-4)
     p.add_argument('--accumulation', type=int, default=4)
     p.add_argument('--save-every', type=int, default=25)
+    p.add_argument('--mix', default='general=.70,cinematic=.20,identity=.10',
+                   help='Sampling weights; missing/empty groups are safely renormalized')
     p.add_argument('--stop-file', default='')
     p.add_argument('--require-resume', action='store_true')
     args = p.parse_args()
+    try:
+        parse_mix(args.mix)
+    except (ValueError, TypeError) as exc:
+        p.error(str(exc))
     if args.steps < 0 or min(args.rank, args.accumulation, args.save_every) < 1 or not 0 < args.lr <= .001:
         p.error('Nonnegative steps; positive rank/accumulation/save interval; 0 < lr <= .001')
     train(args)
