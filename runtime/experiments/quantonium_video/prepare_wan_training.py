@@ -1,4 +1,4 @@
-"""Cache Wan latents and captions: original JC stills plus real contiguous clips.
+"""Cache captioned Wan latents for broad video generation plus optional identity examples.
 
 The eight cels remain SINGLE-FRAME appearance examples, never fake videos made
 by repeating a pose or using the interpolator's imperfect generated frames.
@@ -10,6 +10,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import zipfile
+import csv
 
 import numpy as np
 from PIL import Image, ImageOps
@@ -23,7 +24,8 @@ JC_PROMPT = ('cemi_jc, original 2D anime young man with brown skin, short dark h
              'huge white eyes with narrow dark pupils, gray jacket over black streetwear, '
              'headphones, gold necklace, white sneakers, full body action pose, fine clean outlines, '
              'flat cel shading, plain light gray background')
-FILM_PROMPT = 'A scene from a stylized 3D animated short film, characters and scenery in motion.'
+FILM_PROMPT = ('A cinematic animated scene with characters, objects, environment and camera in motion, '
+               'coherent anatomy, stable lighting and continuous temporal movement.')
 
 
 def extract_clip(path, stamp, size, frames=17, fps=8):
@@ -65,6 +67,47 @@ def movie_files(root):
         yield name, spec, video
 
 
+def licensed_examples(root, size, frames):
+    """Read user-owned/licensed clips from index.csv: file,caption,group,split.
+
+    group is general/cinematic/identity and split is train/validation. Validation
+    sources must not also occur in training; read_cache enforces that boundary.
+    """
+    if not root:
+        return []
+    root = Path(root)
+    index = root / 'index.csv'
+    if not index.exists():
+        raise FileNotFoundError('Licensed dataset requires index.csv: ' + str(index))
+    output = []
+    with index.open(newline='', encoding='utf-8') as stream:
+        rows = list(csv.DictReader(stream))
+    required = {'file', 'caption', 'group', 'split'}
+    if not rows or not required.issubset(rows[0]):
+        raise ValueError('index.csv needs file,caption,group,split columns')
+    for i, row in enumerate(rows):
+        group = row['group'].strip()
+        split = row['split'].strip()
+        if group not in ('general', 'cinematic', 'identity') or split not in ('train', 'validation'):
+            raise ValueError('Invalid group/split in licensed index row ' + str(i + 2))
+        relative = Path(row['file'])
+        path = (root / relative).resolve()
+        if root.resolve() not in path.parents or not path.is_file():
+            raise ValueError('Unsafe or missing licensed clip: ' + row['file'])
+        caption = ' '.join(row['caption'].split())
+        if len(caption) < 12:
+            raise ValueError('Caption is too short in licensed index row ' + str(i + 2))
+        source = 'licensed_' + digest(path)[:16]
+        clip = extract_clip(path, 0, size, frames)
+        if reject_triplet(clip):
+            raise ValueError('Licensed clip failed blank/cut check: ' + row['file'])
+        output.append(dict(id=f'licensed_{i:05d}', frames=clip, caption=caption,
+            source=source, source_sha256=digest(path), start_seconds=0., fps=8,
+            group='validation' if split == 'validation' else group,
+            provenance={'file': row['file'], 'rights': 'user-supplied licensed/owned input'}))
+    return output
+
+
 def build_examples(args):
     assets = Path(args.assets)
     hashes = dict((line.split()[1].lstrip('*'), line.split()[0])
@@ -76,7 +119,7 @@ def build_examples(args):
             raise ValueError('Original JC pose changed: ' + str(path))
         examples.append(dict(id=f'jc_{i:02d}', frames=original_still(path, args.size),
             caption=JC_PROMPT, source='original_jc_cels', source_sha256=digest(path),
-            group='appearance', provenance='Original user-approved cel; appearance only; one frame'))
+            group='identity', provenance='Original user-approved cel; appearance only; one frame'))
     for name, spec, video in movie_files(Path(args.movies)):
         count = args.clips if spec['split'] == 'train' else 32
         end = spec['end_seconds'] - args.frames / 8
@@ -87,10 +130,11 @@ def build_examples(args):
                 continue
             examples.append(dict(id=f'{name}_{i:03d}', frames=frames, caption=FILM_PROMPT,
                 source=name, source_sha256=digest(video), start_seconds=float(stamp), fps=8,
-                group='motion' if spec['split'] == 'train' else 'validation',
+                group='general' if spec['split'] == 'train' else 'validation',
                 provenance=spec))
-    if not all(any(x['group'] == group for x in examples) for group in ('appearance', 'motion', 'validation')):
-        raise ValueError('Filtering left an empty group')
+    examples.extend(licensed_examples(args.licensed_data, args.size, args.frames))
+    if not all(any(x['group'] == group for x in examples) for group in ('general', 'validation')):
+        raise ValueError('Filtering left no general training or held-out validation data')
     return examples
 
 
@@ -99,7 +143,9 @@ def prepare(args):
     if (root / 'manifest.json').exists():
         groups, fingerprint = read_cache(root)
         manifest = json.loads((root / 'manifest.json').read_text())
-        if manifest['settings'] != dict(size=args.size, frames=args.frames, clips=args.clips):
+        expected = dict(size=args.size, frames=args.frames, clips=args.clips,
+                        licensed_data=bool(args.licensed_data))
+        if manifest['settings'] != expected:
             raise ValueError('Cache settings changed; use a new cache and run folder')
         print('WAN CACHE VERIFIED', {k: len(v) for k, v in groups.items()}, fingerprint, flush=True)
         return
@@ -159,8 +205,9 @@ def prepare(args):
                            dict(file=file, sha256=digest(root / file)))
             print('WAN LATENT CACHED', row['id'], list(latent.shape), flush=True)
     write_json(root / 'manifest.json', dict(version=VERSION, source=SOURCE,
-        settings=dict(size=args.size, frames=args.frames, clips=args.clips), records=records,
-        limitations='Generic film captions; cut filter is heuristic; JC stills teach appearance only.'))
+        settings=dict(size=args.size, frames=args.frames, clips=args.clips,
+                      licensed_data=bool(args.licensed_data)), records=records,
+        limitations='Built-in film captions are broad; user clips require accurate captions and rights.'))
     read_cache(root)
     print('WAN CACHE VERIFIED', len(records), flush=True)
 
@@ -173,6 +220,8 @@ if __name__ == '__main__':
     p.add_argument('--size', type=int, default=256)
     p.add_argument('--frames', type=int, default=17)
     p.add_argument('--clips', type=int, default=64)
+    p.add_argument('--licensed-data', default='',
+                   help='Optional folder containing owned/licensed clips and index.csv')
     args = p.parse_args()
     if args.size not in (128, 192, 256, 320) or args.frames not in (5, 9, 17) or not 8 <= args.clips <= 128:
         p.error('size 128/192/256/320; frames 5/9/17; clips 8..128')
