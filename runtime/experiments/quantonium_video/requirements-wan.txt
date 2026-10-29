@@ -1,0 +1,8 @@
+# Optional separate CUDA environment. GPU inference was not executed in this CPU session.
+diffusers>=0.33,<0.36
+transformers>=4.49,<5
+accelerate>=1.2,<2
+safetensors>=0.5,<1
+sentencepiece>=0.2,<1
+ftfy>=6,<7
+imageio[ffmpeg]>=2.35,<3

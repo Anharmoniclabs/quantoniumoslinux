@@ -1,6 +1,9 @@
 # Quantonium Anime Video (CPU experiments)
 
 **Current JC pipeline: [V0.7 Blender-first training](V07_BLENDER_TRAINING.md).**
+Experimental [open-weight and movie-data integration](OPEN_VIDEO_TRAINING.md)
+adds frozen RAFT motion guidance, licensed Blender-film samples, a separate
+V0.8 fine-tuning path, and an optional Wan GPU generation backend.
 Image-to-rig fitting and a verified Blender shot now precede guided RGBA
 in-between training. The eight original cels and V0.4 checkpoint are preserved.
 See that guide for the Codespaces launcher, exact registration limits, outputs

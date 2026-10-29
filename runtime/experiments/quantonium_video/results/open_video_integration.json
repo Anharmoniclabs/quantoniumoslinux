@@ -1,0 +1,68 @@
+{
+  "status": "experimental integration validated; not promoted",
+  "parent_step": 1750,
+  "phase_steps": 100,
+  "resume_test": "50 -> 100, restored optimizer and RNG",
+  "tests_passed": 22,
+  "train_triplets": 57,
+  "validation_triplets": 49,
+  "initial": {
+    "external": {
+      "model_l1": 0.03416098612455689,
+      "crossfade_l1": 0.027656834315964763,
+      "raft_warp_l1": 0.03242537341251665,
+      "samples": 49,
+      "scope": "held-out Sintel trailer; not unseen-animation proof"
+    },
+    "jc": {
+      "model_l1": 0.012097,
+      "crossfade_l1": 0.029438,
+      "rig_warp_l1": 0.015481,
+      "mask_l1": 0.021529,
+      "contact_loss": 0.012973,
+      "samples": 12,
+      "scope": "same eight poses; held-out augmentation seed, not held-out motion"
+    }
+  },
+  "latest": {
+    "phase_step": 100,
+    "parent_step": 1750,
+    "external": {
+      "model_l1": 0.03319627827755651,
+      "crossfade_l1": 0.027656834315964763,
+      "raft_warp_l1": 0.03242537341251665,
+      "samples": 49,
+      "scope": "held-out Sintel trailer; not unseen-animation proof"
+    },
+    "jc": {
+      "model_l1": 0.011709,
+      "crossfade_l1": 0.029438,
+      "rig_warp_l1": 0.015481,
+      "mask_l1": 0.021165,
+      "contact_loss": 0.010283,
+      "samples": 12,
+      "scope": "same eight poses; held-out augmentation seed, not held-out motion"
+    }
+  },
+  "best_phase_step": 75,
+  "best_external_model_l1": 0.03294761871386852,
+  "original_checkpoint_unchanged": true,
+  "parent_sha256": "e211a2ea5ecae42931a152d38aca59758bbc49b1db2640c942dd8ff612fb3c24",
+  "latest_sha256": "11306b9d18eb45b5b8cdd2edb8ae3ef75af034487b0ffc592e023ed5727ab6ae",
+  "best_sha256": "c3f1a52c29c11ddfd79e8f26ede2e23a1c260b0f29426ad0eade91ffb5af0b7c",
+  "data_manifest_sha256": "0dffa12c33abc15d99691435385aff5fc401a628cc5d2d2533126d6a04add01a",
+  "raft_weights_loaded": true,
+  "wan_gpu_generation_executed": false,
+  "caveats": [
+    "Small RGB movie pilot, not anime generalization",
+    "Model remains worse than crossfade on held-out movie",
+    "Flow is an approximate constant-velocity guide",
+    "Original hourly V0.7 task unchanged"
+  ],
+  "runtime": {
+    "torch": "2.6.0+cpu",
+    "torchvision": "0.21.0+cpu",
+    "device": "cpu"
+  },
+  "inference_cli": "12 decoded frames, 128x128, exact PNG endpoints"
+}
