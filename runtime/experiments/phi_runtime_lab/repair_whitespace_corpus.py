@@ -103,7 +103,7 @@ Boundary modes affect proof only; they never alter the original token files.
     return first
 
 
-def boundary_modes(tokenizer, dtype):
+def boundary_modes(tokenizer, dtype, domain=None):
     modes, seen = [], set()
     bos, eos, pad = tokenizer.bos_id(), tokenizer.eos_id(), tokenizer.pad_id()
     options = [("none", [], [])]
@@ -115,6 +115,14 @@ def boundary_modes(tokenizer, dtype):
         options.append(("BOS+EOS", [bos], [eos]))
     if pad >= 0:
         options.append(("PAD separator", [], [pad]))
+    if domain is not None:
+        tag = f"<|{domain}|>"
+        tag_id = tokenizer.piece_to_id(tag)
+        if tag_id != tokenizer.unk_id() and tokenizer.id_to_piece(tag_id) == tag:
+            header = tokenizer.encode(tag)
+            options.append(("domain-tag/none", header, []))
+            if eos >= 0:
+                options.append(("domain-tag/EOS", header, [eos]))
     for text in ("\n", "\n\n"):
         options.append((f"encoded separator {text!r}", [], tokenizer.encode(text)))
     for name, before, after in options:
@@ -187,7 +195,6 @@ def run(base, repair, output):
         log(f"ALREADY COMPLETE: {output}\nFingerprint: {fingerprint}")
         return
 
-    modes = boundary_modes(old, dtype)
     membership = {"proof": "Exact original token streams, document counts and normalized text bytes",
                   "original_data_fingerprint": original["data_fingerprint"], "domains": {}}
     new_bins = {}
@@ -196,6 +203,7 @@ def run(base, repair, output):
     with tempfile.TemporaryDirectory(prefix="phistate_whitespace_") as temp:
         stage = Path(temp)
         for domain in DOMAINS:
+            modes = boundary_modes(old, dtype, domain)
             records = []
             log(f"Encoding recovered {domain} with ORIGINAL tokenizer (CPU only)...")
             with (raw / f"{domain}.jsonl").open(encoding="utf-8") as stream:
@@ -220,17 +228,22 @@ def run(base, repair, output):
                 records, streams, original["documents"][domain], modes, dtype.itemsize)
             del streams
             log(f"PASS {domain}: all three original streams accounted for; boundaries={name}")
-            domain_proof = {"boundaries": name, "splits": {}}
+            # The old normalizer erased the separator after domain markers.
+            # Use an explicit newline in the corrected representation. Encode
+            # header + body together to avoid injecting a second dummy prefix.
+            header = f"<|{domain}|>\n" if name.startswith("domain-tag/") else ""
+            domain_proof = {"boundaries": name, "repaired_header": header, "splits": {}}
             for split in SPLITS:
                 key = f"{split}_{domain}"
                 token_count, document_hashes = 0, []
                 with (stage / f"{key}.bin").open("wb") as stream:
                     for n, number in enumerate(assignment[split], 1):
                         text = records[number]["text"]
-                        ids = fixed.encode(text)
-                        require(fixed.decode(ids) == text,
+                        training_text = header + text
+                        ids = fixed.encode(training_text)
+                        require(fixed.decode(ids) == training_text,
                                 f"Corrected tokenizer does not round-trip {key} document {n}; not publishing")
-                        encoded = prefix + pack(ids, dtype) + suffix
+                        encoded = (b"" if header else prefix) + pack(ids, dtype) + suffix
                         stream.write(encoded)
                         token_count += len(encoded) // dtype.itemsize
                         document_hashes.append(hashlib.sha256(text.encode()).hexdigest())

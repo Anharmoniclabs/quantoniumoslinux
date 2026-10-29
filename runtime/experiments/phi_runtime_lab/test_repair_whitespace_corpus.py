@@ -68,6 +68,14 @@ class MembershipTests(unittest.TestCase):
 
 class EndToEndTests(unittest.TestCase):
     def test_rebuild_idempotency_and_corruption(self):
+        self.check_rebuild(tagged=False)
+
+    def test_domain_tagged_rebuild_idempotency_and_corruption(self):
+        # Regression: the real corpus begins with [whitespace, <|code|>],
+        # even though bos_id == -1. EOS-only boundary matching failed at 0.
+        self.check_rebuild(tagged=True)
+
+    def check_rebuild(self, tagged):
         import sentencepiece as spm
         from sentencepiece import sentencepiece_model_pb2 as pb
 
@@ -90,6 +98,8 @@ class EndToEndTests(unittest.TestCase):
                 input=str(source), model_prefix=str(base / "tokenizer"),
                 model_type="bpe", vocab_size=340, byte_fallback=True,
                 hard_vocab_limit=False, minloglevel=2,
+                bos_id=-1, eos_id=2,
+                user_defined_symbols=["<|code|>", "<|general|>"] if tagged else [],
             )
             old = spm.SentencePieceProcessor(model_file=str(base / "tokenizer.model"))
             proto = pb.ModelProto()
@@ -110,7 +120,8 @@ class EndToEndTests(unittest.TestCase):
                 stats = {}
                 for split, indices in order.items():
                     normalized = [texts[domain][i].replace("\r\n", "\n").replace("\r", "\n") for i in indices]
-                    data = b"".join(pack(old.encode(t) + [old.eos_id()], "uint16") for t in normalized)
+                    header = f"<|{domain}|>\n" if tagged else ""
+                    data = b"".join(pack(old.encode(header + t) + [old.eos_id()], "uint16") for t in normalized)
                     key = f"{split}_{domain}"
                     (base / f"{key}.bin").write_bytes(data)
                     manifest["bins"][key] = {"file": f"{key}.bin", "tokens": len(data)//2,
@@ -133,6 +144,8 @@ class EndToEndTests(unittest.TestCase):
                 for split, indices in order.items():
                     ids = np.fromfile(output / f"{split}_{domain}.bin", dtype="uint16").tolist()
                     expected = texts[domain][indices[0]].replace("\r\n", "\n")
+                    if tagged:
+                        expected = f"<|{domain}|>\n" + expected
                     self.assertEqual(fixed.decode(ids[:-1]), expected)
             before = sha(output / "train_code.bin")
             with (output / "train_code.bin").open("ab") as stream:
