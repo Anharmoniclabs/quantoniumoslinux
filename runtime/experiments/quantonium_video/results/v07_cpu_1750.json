@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "step": 1750,
+  "best_step": 1750,
+  "best_model_l1": 0.012097,
+  "parameters": 87817,
+  "optimizer_step": 1750,
+  "checkpoint_sha256": "e211a2ea5ecae42931a152d38aca59758bbc49b1db2640c942dd8ff612fb3c24",
+  "best_checkpoint_sha256": "e211a2ea5ecae42931a152d38aca59758bbc49b1db2640c942dd8ff612fb3c24",
+  "video_sha256": "3f9024d02ae89df7eb98e74506acf5b12f513873c2a4338629f10b6317da73e8",
+  "data_fingerprint": "5bbb7546410060b99a70c556cf17dc4dd36d4bbb439d6eee2e1c1e3d4555b8ed",
+  "blender_shot_sha256": "be3c19b6d272988957fa366b0033cda03b40d572a6c4fc0f80b7dc3c43920ccc",
+  "model_evaluation": {
+    "model_l1": 0.012097,
+    "crossfade_l1": 0.029438,
+    "rig_warp_l1": 0.015481,
+    "mask_l1": 0.021529,
+    "contact_loss": 0.012973,
+    "samples": 12,
+    "scope": "same eight poses; held-out augmentation seed, not held-out motion"
+  },
+  "video": {
+    "codec_name": "h264",
+    "width": 960,
+    "height": 540,
+    "r_frame_rate": "24/1",
+    "duration": "3.000000",
+    "nb_read_frames": "72"
+  },
+  "registered_source_keys": 8,
+  "max_registered_keyframe_error": 0.0,
+  "scope": "Same eight poses and held-out augmentation seed; not held-out motion or character evaluation",
+  "limitation": "Passing these checks does not establish clean in-between anatomy or animation quality",
+  "training_source_commit": "9163835de8021541027b4383e52c7c4233a8f169",
+  "initialization": "Fresh V0.7 weights; no V0.4 motion checkpoint; fixed root travel",
+  "additional_steps": 1000,
+  "resumed_from_step": 750,
+  "regression_tests_passed": 13,
+  "wrong_expected_step_rejected": true,
+  "runtime": {
+    "python": "3.12",
+    "torch": "2.6.0+cpu",
+    "numpy": "2.3.5",
+    "pillow": "12.3.0",
+    "threads": 4
+  },
+  "visual_inspection": {
+    "frames_inspected_as_contact_sheet": 72,
+    "animation_quality_accepted": false,
+    "findings": "Some landing frames have fewer double outlines than step 750. Ghosting and shape changes remain during pose transitions."
+  }
+}
