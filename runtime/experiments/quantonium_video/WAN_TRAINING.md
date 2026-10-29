@@ -1,10 +1,11 @@
-# Wan generation training
+# Wan general-generation training V2
 
 [Open the Wan Colab notebook](https://colab.research.google.com/github/Anharmoniclabs/quantoniumoslinux/blob/feat/quantonium-anime-video-v01/runtime/experiments/quantonium_video/Quantonium_Wan_LoRA_Colab.ipynb).
 Run sections 1–3 on L4; leave section 3 active. Stop once, wait for the
 verified save, then use section 5 to generate with the trained adapter.
 
 This adds actual LoRA optimization to the Wan 2.1 T2V 1.3B generation backend.
+V2 targets broad prompt-to-video behavior rather than a JC-only pose model.
 It is separate from V0.8 interpolation. The V0.8 checkpoint and 19,369 reported
 phase steps are not convertible into Wan weights. A new Wan run starts at zero
 on the pinned pretrained base, then resumes its own adapter, optimizer and RNG.
@@ -13,7 +14,21 @@ on the pinned pretrained base, then resumes its own adapter, optimizer and RNG.
 
 `prepare_wan_training.py` verifies the eight original JC cels and downloads the
 checksummed Blender film releases recorded in `open_sources.json`. JC cels are
-single-frame appearance examples, composited on gray with preserved aspect ratio.
+single-frame identity examples and receive only 10% of the default sampling mix.
+The remaining curriculum is 70% general video and 20% cinematic/anime video.
+
+Additional owned or licensed clips can be placed in a folder with `index.csv`:
+
+```csv
+file,caption,group,split
+clips/walk.mp4,"A person walks through a station, wide tracking shot",general,train
+clips/fight.mp4,"Two animated fighters exchange kicks, orbiting camera",cinematic,train
+clips/heldout.mp4,"A dog runs through grass, low tracking camera",general,validation
+```
+
+Allowed training groups are `general`, `cinematic`, and `identity`. Captions should
+name the subject, action, environment, shot scale, and camera motion. Never add
+unlicensed web scrapes or V0.8-generated frames as ground truth.
 Big Buck Bunny supplies actual contiguous 17-frame clips at 8 fps; Sintel is
 held out entirely. The existing three-frame RAFT cache and generated JC previews
 are not repurposed as Wan training videos. Movie captions are generic; cut and
@@ -33,7 +48,7 @@ not exact reference-image/Blender conditioning, and there are no Seedance weight
 
 ## Saves and recovery
 
-`MyDrive/Quantonium/Video/Wan21_LoRA/run_v1` holds the new run. Saves happen at
+`MyDrive/Quantonium/Video/Wan21_LoRA/run_general_v2` holds the new run. Saves happen at
 step zero, after the first genuine GPU update, every 25 updates, and on clean
 stop. Each complete snapshot contains Diffusers-compatible adapter safetensors,
 optimizer state, random state, configuration and checksums. A receipt is written
