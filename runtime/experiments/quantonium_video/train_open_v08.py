@@ -62,9 +62,10 @@ class OpenData:
 @torch.no_grad()
 def external_eval(model, data):
     model.eval()
+    device = next(model.parameters()).device
     totals = dict(model_l1=0.,crossfade_l1=0.,raft_warp_l1=0.)
     for value in data.items['validation']:
-        a,y,b,g = data.tensors([value])
+        a,y,b,g = (x.to(device) for x in data.tensors([value]))
         pred,*_ = model(a,b,.5,0.,g)
         warp = .5*(model.warp(a,g[:,9:11])+model.warp(b,g[:,11:13]))
         for key,output in [('model_l1',pred),('crossfade_l1',(a+b)/2),('raft_warp_l1',warp)]:
@@ -72,6 +73,15 @@ def external_eval(model, data):
     model.train()
     return {**{k:v/len(data.items['validation']) for k,v in totals.items()},
             'samples':len(data.items['validation']),'scope':'held-out Sintel trailer; not unseen-animation proof'}
+
+
+def evaluate_jc(model, data):
+    # The source-preserving Blender evaluator/renderer uses CPU image geometry.
+    # Evaluate a small CPU copy; do not move the live optimizer's parameters.
+    if next(model.parameters()).device.type == 'cpu':
+        return evaluate(model,data)
+    import copy
+    return evaluate(copy.deepcopy(model).cpu(),data)
 
 
 def train(args):
@@ -82,6 +92,12 @@ def train(args):
     out = Path(args.out).expanduser().resolve()
     if out == parent.parent:
         raise ValueError('Use a separate output directory; original checkpoint is read-only')
+    requested = getattr(args,'device','cpu')
+    if requested == 'auto':
+        requested = 'cuda' if torch.cuda.is_available() else 'cpu'
+    if requested == 'cuda' and not torch.cuda.is_available():
+        raise ValueError('CUDA requested but unavailable; select a GPU runtime')
+    device = torch.device(requested)
     out.mkdir(parents=True,exist_ok=True)
     with (out/'training.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -94,7 +110,7 @@ def train(args):
         if state['config']['data'] != jc.fingerprint or state['config']['shot'] != jc.shot_hash:
             raise ValueError('JC rehearsal must match the parent checkpoint data and shot')
         data = OpenData(args.data,size)
-        model = PoseInterpolator(size,width)
+        model = PoseInterpolator(size,width).to(device)
         model.load_state_dict(state['model'],strict=True)
         optim = torch.optim.AdamW(model.parameters(),lr=args.lr)
         config = dict(version=VERSION,size=size,width=width,parent_sha256=sha256(parent),
@@ -110,12 +126,16 @@ def train(args):
             optim.load_state_dict(saved['optimizer'])
             rng.setstate(saved['rng'])
             torch.set_rng_state(saved['torch_rng'])
+            if device.type == 'cuda' and saved.get('cuda_rng'):
+                if len(saved['cuda_rng']) != torch.cuda.device_count():
+                    raise ValueError('CUDA device count changed; cannot restore all RNG states')
+                torch.cuda.set_rng_state_all(saved['cuda_rng'])
             step,best = saved['step'],saved['best']
             print('RESUMED V08',step,flush=True)
         else:
-            atomic_json(out/'metrics_initial.json',dict(external=external_eval(model,data),jc=evaluate(model,jc)))
+            atomic_json(out/'metrics_initial.json',dict(external=external_eval(model,data),jc=evaluate_jc(model,jc)))
             print('WARM START',config['parent_step'],'new optimizer; phase step 0',flush=True)
-        atomic_json(out/'run_manifest.json',dict(config=config,
+        atomic_json(out/'run_manifest.json',dict(config=config,device=str(device),torch_version=str(torch.__version__),
             training='one external minibatch plus one JC rehearsal minibatch per update',
             teacher='frozen RAFT C_T_V2 endpoint-only; no target-frame leakage',
             sources=data.manifest['sources'],auto_promote=False))
@@ -129,28 +149,37 @@ def train(args):
         def save():
             nonlocal best
             metrics = dict(phase_step=step,parent_step=config['parent_step'],
-                external=external_eval(model,data),jc=evaluate(model,jc))
+                external=external_eval(model,data),jc=evaluate_jc(model,jc))
             improved = metrics['external']['model_l1'] < best
             best = min(best,metrics['external']['model_l1'])
             tmp = out/'latest.tmp.pt'
             torch.save(dict(config=config,step=step,best=best,model=model.state_dict(),
-                optimizer=optim.state_dict(),rng=rng.getstate(),torch_rng=torch.get_rng_state()),tmp)
+                optimizer=optim.state_dict(),rng=rng.getstate(),torch_rng=torch.get_rng_state(),
+                cuda_rng=torch.cuda.get_rng_state_all() if device.type == 'cuda' else [],
+                saved_device=str(device)),tmp)
             os.replace(tmp,latest)
             if improved:
                 import shutil
                 shutil.copyfile(latest,out/'best.tmp.pt')
                 os.replace(out/'best.tmp.pt',out/'best.pt')
             atomic_json(out/'metrics_latest.json',metrics)
+            if getattr(args,'backup_dir',''):
+                from colab_video_runtime import save_snapshot
+                saved_path = save_snapshot(out,Path(args.backup_dir).expanduser())
+                print('DRIVE SNAPSHOT VERIFIED',step,saved_path,flush=True)
             print(json.dumps(metrics),flush=True)
 
         while step < args.steps and not stopping:
+            if getattr(args,'stop_file','') and Path(args.stop_file).exists():
+                stopping = True
+                break
             examples = [rng.choice(data.items['train']) for _ in range(args.batch)]
-            a,y,b,g = data.tensors(examples)
+            a,y,b,g = (x.to(device) for x in data.tensors(examples))
             p,*_ = model(a,b,.5,0.,g)
             # Opaque movies carry no silhouette/contact annotations. RGB + alpha
             # coverage only; never invent JC floor labels for arbitrary films.
             external = F.l1_loss(p[:,:3],y[:,:3])+.1*F.l1_loss(p[:,3:],y[:,3:])
-            ja,jy,jb,t,c,bg,jg = batch(jc,rng,args.batch)
+            ja,jy,jb,t,c,bg,jg = (x.to(device) for x in batch(jc,rng,args.batch))
             jp,*_ = model(ja,jb,t,c,jg)
             rehearsal,_ = supervised_loss(jp,jy,bg,c)
             loss = external+args.jc_weight*rehearsal
@@ -180,6 +209,9 @@ if __name__ == '__main__':
     p.add_argument('--save-every',type=int,default=25)
     p.add_argument('--lr',type=float,default=.00003)
     p.add_argument('--jc-weight',type=float,default=1.)
+    p.add_argument('--device',choices=['cpu','cuda','auto'],default='cpu')
+    p.add_argument('--backup-dir',default='',help='Write verified immutable snapshots here after every save')
+    p.add_argument('--stop-file',default='',help='Finish current update and save when this file exists')
     args = p.parse_args()
     if min(args.steps,args.batch,args.threads,args.save_every) < 1 or not 0 < args.lr <= .001 or not .1 <= args.jc_weight <= 10:
         p.error('Positive steps/batch/threads/save interval; lr <= .001; jc-weight .1..10')
