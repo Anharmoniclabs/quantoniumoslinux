@@ -11,6 +11,7 @@ from peft import get_peft_model_state_dict
 from wan_training import (add_adapter, flow_inputs, flow_loss, save_checkpoint,
     restore_checkpoint, find_checkpoint, verify_checkpoint, prune_checkpoints,
     read_cache, digest, SOURCE, VERSION, write_json)
+from train_wan_lora import parse_mix, choose_group
 
 
 def tiny_model(adapters=True):
@@ -50,6 +51,15 @@ class WanTrainingTests(unittest.TestCase):
             noisy, target = flow_inputs(clean, noise, torch.tensor([t]))
             self.assertTrue(torch.equal(noisy, torch.full_like(clean, t)))
             self.assertTrue(torch.equal(target, noise))
+
+    def test_general_curriculum_and_empty_optional_group_renormalization(self):
+        mix = parse_mix('general=.70,cinematic=.20,identity=.10')
+        self.assertEqual(mix, {'general': .7, 'cinematic': .2, 'identity': .1})
+        groups = {'general': ['g'], 'cinematic': [], 'identity': [], 'validation': ['v']}
+        rng = torch.Generator().manual_seed(4)
+        self.assertTrue(all(choose_group(groups, mix, rng) == ['g'] for _ in range(20)))
+        with self.assertRaises(ValueError):
+            parse_mix('general=0,cinematic=0,identity=0')
 
     def test_actual_wan_gradient_changes_only_adapters(self):
         model = tiny_model()
@@ -150,20 +160,20 @@ class WanTrainingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             rows = []
-            for group in ('appearance', 'motion', 'validation'):
+            for group in ('general', 'cinematic', 'identity', 'validation'):
                 file = group + '.pt'
                 torch.save(sample(), root / file)
                 rows.append(dict(file=file, group=group, source=group, sha256=digest(root / file)))
             manifest = dict(source=SOURCE, version=VERSION, records=rows)
             write_json(root / 'manifest.json', manifest)
-            self.assertEqual(len(read_cache(root)[0]['motion']), 1)
-            rows[2]['source'] = 'motion'
+            self.assertEqual(len(read_cache(root)[0]['general']), 1)
+            rows[3]['source'] = 'identity'
             write_json(root / 'manifest.json', manifest)
             with self.assertRaisesRegex(ValueError, 'leaks'):
                 read_cache(root)
-            rows[2]['source'] = 'validation'
+            rows[3]['source'] = 'validation'
             write_json(root / 'manifest.json', manifest)
-            (root / 'appearance.pt').write_bytes(b'changed')
+            (root / 'general.pt').write_bytes(b'changed')
             with self.assertRaisesRegex(ValueError, 'Corrupt'):
                 read_cache(root)
 
