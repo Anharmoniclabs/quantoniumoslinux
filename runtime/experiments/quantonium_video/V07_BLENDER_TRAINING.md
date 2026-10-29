@@ -1,5 +1,7 @@
 # V0.7: image-to-rig, Blender shot, guided in-between training
 
+Latest measured experiment: [1,750-step CPU validation and restore instructions](V07_CPU_1750_RESULTS.md).
+
 V0.6 selected eight fixed JC cels. V0.7 first fits image joints, builds and checks
 a Blender motion shot, then trains a new RGBA interpolator using that shot's
 projected controls. The existing V0.4 motion checkpoint is loaded read-only.
