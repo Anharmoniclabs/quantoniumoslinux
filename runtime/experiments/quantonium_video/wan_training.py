@@ -9,7 +9,8 @@ import torch
 
 SOURCE = json.loads(Path(__file__).with_name('open_sources.json').read_text())['weights']['wan']
 TARGETS = ['to_q', 'to_k', 'to_v', 'to_out.0']
-VERSION = 'qvideo-wan21-lora-v1'
+VERSION = 'qvideo-wan21-general-lora-v2'
+TRAIN_GROUPS = ('general', 'cinematic', 'identity')
 
 
 def digest(path):
@@ -171,7 +172,7 @@ def read_cache(root):
     manifest = json.loads((root / 'manifest.json').read_text())
     if manifest['source'] != SOURCE or manifest['version'] != VERSION:
         raise ValueError('Wrong Wan source/cache version')
-    groups = {'appearance': [], 'motion': [], 'validation': []}
+    groups = {name: [] for name in (*TRAIN_GROUPS, 'validation')}
     source_splits = {}
     for row in manifest['records']:
         path = root / row['file']
@@ -185,6 +186,6 @@ def read_cache(root):
                 or not all(torch.isfinite(v).all() for v in sample.values())):
             raise ValueError('Invalid cached Wan tensors')
         groups[row['group']].append(sample)
-    if not all(groups.values()):
-        raise ValueError('Need original appearance, motion, and held-out samples')
+    if not groups['general'] or not groups['validation']:
+        raise ValueError('Need general-video training and held-out validation samples')
     return groups, digest(root / 'manifest.json')
