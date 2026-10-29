@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "checked": "2026-10-29",
+  "weights": {
+    "raft_small": {
+      "role": "frozen endpoint optical-flow guide; no weight merging",
+      "release": "torchvision Raft_Small_Weights.C_T_V2",
+      "url": "https://download.pytorch.org/models/raft_small_C_T_V2-01064c6d.pth",
+      "sha256": "01064c6dba73b0fc9fc8edf772248560a00a3acfd62ac6677e9eeebad9680e27",
+      "documentation": "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.optical_flow.raft_small.html",
+      "code_license": "BSD-3-Clause",
+      "license_source": "https://github.com/princeton-vl/RAFT/blob/master/LICENSE",
+      "training_provenance": "FlyingChairs + FlyingThings3D; upstream data terms are separate from code license"
+    },
+    "wan": {
+      "role": "optional GPU text-to-video backend; separate architecture",
+      "repo": "Wan-AI/Wan2.1-T2V-1.3B-Diffusers",
+      "revision": "0fad780a534b6463e45facd96134c9f345acfa5b",
+      "license": "Apache-2.0",
+      "source": "https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B-Diffusers"
+    }
+  },
+  "videos": {
+    "bunny": {
+      "title": "Big Buck Bunny",
+      "split": "train",
+      "url": "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4.zip",
+      "archive_member": "BigBuckBunny_320x180.mp4",
+      "download_sha256": "109e3ede8790bd633f374ca311d9cc61dce8d7f98f5b0797ca98199c9fbceedf",
+      "license": "CC-BY-3.0",
+      "license_source": "https://peach.blender.org/about/",
+      "attribution": "(c) copyright 2008, Blender Foundation / www.bigbuckbunny.org",
+      "start_seconds": 35,
+      "end_seconds": 480
+    },
+    "sintel": {
+      "title": "Sintel trailer",
+      "split": "validation",
+      "url": "https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4",
+      "download_sha256": "b670602fa00934ca27c4351bb0efe7ea7a07fae57284e44226025eeed7c51254",
+      "license": "CC-BY-3.0",
+      "license_source": "https://durian.blender.org/sharing/",
+      "attribution": "(c) copyright Blender Foundation | www.sintel.org",
+      "start_seconds": 15,
+      "end_seconds": 38
+    }
+  },
+  "excluded": {
+    "AnimeRun": "Useful research candidate, but not automatically imported: need an explicit dataset license, not just a paper/code license.",
+    "web_video_scrapes": "Not imported without per-source provenance and training rights."
+  }
+}
