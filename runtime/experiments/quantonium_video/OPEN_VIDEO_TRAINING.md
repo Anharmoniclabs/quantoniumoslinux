@@ -5,7 +5,9 @@ continues the saved phase100 checkpoint on CUDA, verifies Drive snapshots every
 25 updates, restores after disconnects, and renders the original JC shot.
 Its default target is 0: keep training until a clean stop or runtime termination.
 The Start cell streams live progress and waits for the trainer; it cannot silently
-advance to a stale preview while a background process is still starting. It does not train Wan. GPU execution must
+advance to a stale preview while a background process is still starting. For actual Wan generator
+fine-tuning, use the separate [Wan LoRA notebook](Quantonium_Wan_LoRA_Colab.ipynb)
+and [training notes](WAN_TRAINING.md). GPU execution must
 pass the notebook's on-device smoke test; authoring validation was CPU-only.
 
 V0.8 reuses the V0.7 `PoseInterpolator` architecture and strictly loads its
@@ -90,6 +92,10 @@ Original JC rendering remains in `v07_preview.py`; its source-pose guarantees
 and original checkpoint are preserved.
 
 ## Optional GPU generation
+
+Wan now also has a continuous LoRA trainer with verified Drive saves. See
+[WAN_TRAINING.md](WAN_TRAINING.md). The command below remains base-model inference;
+add `--lora-run /path/to/wan-run --checkpoint latest` to load trained adapters.
 
 In a **separate CUDA PyTorch environment**, install `requirements-wan.txt`, then:
 

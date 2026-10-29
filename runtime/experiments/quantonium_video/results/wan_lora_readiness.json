@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-29",
+  "scope": "Wan LoRA implementation verification on CPU; not full pretrained training",
+  "wan_tests": {
+    "passed": 8,
+    "failed": 0,
+    "command": "python -m unittest test_wan_training -v"
+  },
+  "existing_video_tests": {
+    "passed": 29,
+    "skipped_cuda": 1,
+    "failed": 0
+  },
+  "actual_modules_tested": [
+    "WanTransformer3DModel",
+    "WanPipeline LoRA load and two-step latent generation",
+    "AutoencoderKLWan one-frame and 17-frame encode/decode"
+  ],
+  "verified": [
+    "only adapters change",
+    "BF16 base with FP32 adapters backward",
+    "exact next optimizer update after resume",
+    "checkpoint hash rejection and recovery",
+    "bounded snapshot retention",
+    "cache source split isolation",
+    "Python and notebook cell compilation"
+  ],
+  "data_preparation": {
+    "accepted_samples": {
+      "appearance": 8,
+      "motion": 26,
+      "validation": 8
+    },
+    "motion_frames": 17,
+    "motion_fps": 8,
+    "size": [
+      256,
+      256
+    ],
+    "visual_review": "Middle-frame contact sheet inspected; continuous clips still require motion review; cut filter heuristic"
+  },
+  "not_executed": [
+    "full pretrained weight loading",
+    "full-size L4 forward/backward",
+    "full-size Wan video generation",
+    "quality improvement benchmark"
+  ],
+  "base_repo": "Wan-AI/Wan2.1-T2V-1.3B-Diffusers",
+  "base_revision": "0fad780a534b6463e45facd96134c9f345acfa5b",
+  "pinned_packages": {
+    "diffusers": "0.35.2",
+    "transformers": "4.57.6",
+    "peft": "0.17.1",
+    "accelerate": "1.12.0"
+  },
+  "checkpoint_storage": "Drive: latest three, best and step zero; interpolation checkpoints unaffected"
+}

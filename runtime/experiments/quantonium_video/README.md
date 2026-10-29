@@ -33,7 +33,16 @@ Stop with Ctrl+C. Repeating the command resumes from `latest.pt`. For persistent
 ## Your own licensed frame sequences (Blender or OpenToonz)
 Set `--frames-dir /path/to/frames`. Each direct subdirectory should be an ordered set of at least three `.png` or `.jpg` frames of the **same contiguous shot**. Use filenames `0001.png`, `0002.png`, etc. They are resized to 64x64; adjacent triplets supply start/middle/end. When no valid sequences are found, training falls back to procedural data. Start with a few sequences you own or have permission to use. Build data split/evaluation and true motion metrics before making comparative claims.
 
-## Known limitations
+## Wan generator adaptation (separate from interpolation)
+
+For actual pretrained video-generator fine-tuning, use the
+[Wan LoRA Colab notebook](Quantonium_Wan_LoRA_Colab.ipynb) and
+[Wan training documentation](WAN_TRAINING.md). It trains Wan attention adapters,
+saves optimizer/RNG state in Drive, resumes continuously, and loads those adapters
+for video generation. Full-size GPU training remains subject to the notebook's
+on-device verification; local checks use actual tiny Wan modules on CPU.
+
+## Known limitations of the original minimal interpolator
 * Minimal ~tens-of-thousands parameter convolutional residual interpolator; no temporal attention, diffusion, learned video tokenizer, text conditioning, pose-conditioning, or audio.
 * Training uses generated midpoint supervision, not full-frame video generation.
 * No video-to-video or text-to-video ability yet. The goal is to prove motion learning and checkpoint recovery on low-power hardware.
