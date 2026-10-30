@@ -14,6 +14,18 @@ interaction bound, the limits of transferring Davenport's estimate, and
 the proof that the proposed coefficient hypothesis would also imply
 uniform additive cancellation and Dirichlet GRH.
 
+See [ARITHMETIC_ROUTES.md](ARITHMETIC_ROUTES.md) for the structural audit:
+exact prime pairing; signed multiplicative controls that match any finite
+Mobius prefix yet eventually have linear sums; a concentration bound for
+independent random signs; and an RH-equivalent spatial approximation criterion
+with explicit infinite-tail certificates. It also gives an exact example of
+zero finite-grid error with positive full error. Run the small algebra checks
+without extending the growth scan:
+
+```bash
+python3 runtime/experiments/rft_mobius/check_arithmetic_routes.py
+```
+
 ## Test the coefficient and interaction hypothesis
 
 Run the separate raw-coefficient probe in Codespaces:
