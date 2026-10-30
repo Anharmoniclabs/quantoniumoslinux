@@ -14,6 +14,49 @@ interaction bound, the limits of transferring Davenport's estimate, and
 the proof that the proposed coefficient hypothesis would also imply
 uniform additive cancellation and Dirichlet GRH.
 
+## Test the coefficient and interaction hypothesis
+
+Run the separate raw-coefficient probe in Codespaces:
+
+```bash
+bash runtime/experiments/rft_mobius/run_weighted_probe.sh --limit 2584
+```
+
+[EMPIRICAL] It measures every entry of `c_q=Phi_q^(-1)mu_q` at every
+Fibonacci dimension at or below the limit. `max |c|` is the largest
+coefficient; `max R` is the largest signed off-diagonal interaction from
+WEIGHTED_INTERACTIONS.md. `RMS` describes average coefficient size.
+`random max` uses random signs on the same squarefree support with a fixed
+seed. A pure-wave control checks the expected single coefficient `sqrt(q)`.
+These are raw coefficients, not the original polar-prefix bound B.
+
+Results default to `runtime/experiments/rft_mobius/results/weighted_probe/`:
+`frames.csv`, `summary.json`, `weighted_probe.png`, and one JSON/NPZ pair
+per completed frame. The NPZ contains all coefficients, diagonal terms,
+interactions, and random-control coefficients. Completed frames resume
+automatically; an interrupted current frame is recomputed. Extend a run with:
+
+```bash
+bash runtime/experiments/rft_mobius/run_weighted_probe.sh --limit 4181
+```
+
+Changing the probe code or random seed requires a different `--output`
+directory; existing checkpoints are not silently mixed. `--eps 0.01 0.05 0.1`
+sets the finite records to report. The output checks reconstruction, selected
+inverse rows, and direct cross-term expansions at extrema. It is floating-point
+evidence, not rigorous interval arithmetic. A flat record is not an infinite
+bound; exceeding a previously observed record does not disprove RH.
+Dense inversion costs O(q^3) time and O(q^2) memory. Non-Fibonacci dimensions
+are not tested by this probe.
+
+[EMPIRICAL] The probe was run through q=2584 with seed 20261030. The largest
+coefficient over those frames was 3.3493226 at q=610; at q=2584 it was
+3.2643228. Finite coefficient constants for epsilon 0.01, 0.05, and 0.1 were
+3.14125850, 2.44895533, and 1.86290504. Numerical checks passed. Resume
+preserved completed checkpoints, and extending 13 to 34 matched a fresh run.
+
+## Original prefix-bound experiment
+
 From the repository root in Codespaces:
 
 ```bash
