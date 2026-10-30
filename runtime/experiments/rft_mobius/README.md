@@ -9,6 +9,10 @@ derivations: a conservative uniform conditioning bound at Fibonacci sizes,
 a raw prefix coefficient estimate, and the explicitly unproved arithmetic
 hypothesis that would be sufficient for RH. These do not establish an
 infinite-range bound for the plotted records at every positive epsilon.
+See [WEIGHTED_INTERACTIONS.md](WEIGHTED_INTERACTIONS.md) for the exact
+interaction bound, the limits of transferring Davenport's estimate, and
+the proof that the proposed coefficient hypothesis would also imply
+uniform additive cancellation and Dirichlet GRH.
 
 From the repository root in Codespaces:
 

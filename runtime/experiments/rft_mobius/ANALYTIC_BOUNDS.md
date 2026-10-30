@@ -150,7 +150,11 @@ apply (H) with eta=epsilon/2 and use
 Equation (A) yields |M(m)| <= C_epsilon m^(1/2+epsilon) for all m, with a
 constant independent of m. The standard Mertens-growth characterization
 would then imply RH. Hypothesis (H) is NOT proved here, and is asserted only
-as sufficient, not as equivalent to RH.
+as sufficient, not as equivalent to RH. The further derivation in
+[WEIGHTED_INTERACTIONS.md](WEIGHTED_INTERACTIONS.md) shows that (H) would
+also imply uniform additive Mobius cancellation and GRH for Dirichlet
+L-functions. It is a broader hypothesis than the untwisted bound needed
+in the RH characterization; no converse implication is claimed.
 
 What the proved conditioning bound actually supplies is only
 
