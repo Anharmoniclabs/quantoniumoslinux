@@ -4,6 +4,12 @@
 prove or disprove the Riemann hypothesis, provide interval certificates, or
 establish constants valid over an infinite range.
 
+See [ANALYTIC_BOUNDS.md](ANALYTIC_BOUNDS.md) for the separate mathematical
+derivations: a conservative uniform conditioning bound at Fibonacci sizes,
+a raw prefix coefficient estimate, and the explicitly unproved arithmetic
+hypothesis that would be sufficient for RH. These do not establish an
+infinite-range bound for the plotted records at every positive epsilon.
+
 From the repository root in Codespaces:
 
 ```bash
