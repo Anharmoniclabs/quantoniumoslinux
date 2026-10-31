@@ -1,7 +1,6 @@
 """Colab journal audit and isolated continuation helpers. Never promote checkpoints."""
 from collections import defaultdict
 import gc
-import importlib
 import json
 from pathlib import Path
 import shutil
@@ -36,7 +35,7 @@ def inventory(root):
                 token_exposures=state.get('trained_tokens'),phase_token_exposures=state.get('phase_tokens'),
                 supervised_answer_exposures=state.get('answer_tokens'),
                 optimizer_saved='optimizer_state' in state,vocab=cfg.get('vocab'),
-                parameters=sum(v.numel() for v in state['state_dict'].values()),path=str(path)))
+                state_tensor_elements=sum(v.numel() for v in state['state_dict'].values()),path=str(path)))
             del state
         gc.collect()
     return entries
