@@ -8,6 +8,7 @@ This is an inference trial, not a C++ training implementation.
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -93,13 +94,37 @@ def export_model(model, path):
                 write(matrix.T)
 
 
-def native_run(binary, weights, ids, vocab, directory, new_tokens=0, eos=-1):
+def decode_arguments(decode_config=None):
+    """Validate optional native decoding controls; None preserves the old CLI."""
+    if decode_config is None:
+        return []
+    config = dict(temperature=0.0, top_p=1.0, top_k=0, repetition_penalty=1.0, seed=0)
+    if set(decode_config) - set(config):
+        raise ValueError('Unknown native decoding option')
+    config.update(decode_config)
+    for key in ('temperature', 'top_p', 'repetition_penalty'):
+        config[key] = float(config[key])
+        if not math.isfinite(config[key]):
+            raise ValueError('Nonfinite ' + key)
+    if config['temperature'] < 0 or not 0 < config['top_p'] <= 1 or config['repetition_penalty'] < 1:
+        raise ValueError('Invalid native decoding configuration')
+    if (not isinstance(config['top_k'], int) or isinstance(config['top_k'], bool)
+            or not 0 <= config['top_k'] <= 2**31-1):
+        raise ValueError('top_k must be a nonnegative integer')
+    if (not isinstance(config['seed'], int) or isinstance(config['seed'], bool)
+            or not 0 <= config['seed'] <= 2**64-1):
+        raise ValueError('seed must be an unsigned 64-bit integer')
+    return [str(config[k]) for k in ('temperature', 'top_p', 'top_k', 'repetition_penalty', 'seed')]
+
+
+def native_run(binary, weights, ids, vocab, directory, new_tokens=0, eos=-1, decode_config=None):
     directory = Path(directory)
     token_file, logit_file = directory / "tokens.u32", directory / "logits.f32"
     np.asarray(ids, dtype="<u4").tofile(token_file)
     started = time.perf_counter()
     result = subprocess.run([str(binary), str(weights), str(token_file), str(logit_file),
-                             str(new_tokens), str(eos)], check=True, capture_output=True, text=True)
+                             str(new_tokens), str(eos)] + decode_arguments(decode_config),
+                            check=True, capture_output=True, text=True)
     stats = json.loads(result.stdout)
     stats["process_seconds_including_model_load"] = time.perf_counter() - started
     logits = np.fromfile(logit_file, dtype="<f4").reshape(len(ids), vocab)

@@ -4,6 +4,8 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
+#include <limits>
+#include <random>
 #include <stdexcept>
 #include <string>
 
@@ -164,30 +166,114 @@ struct Model {
         return logits;
     }
 };
+struct DecodeConfig {
+    double temperature=0.0, top_p=1.0, repetition_penalty=1.0;
+    int top_k=0;
+    uint64_t seed=0;
+    void validate() const {
+        require(std::isfinite(temperature) && temperature>=0, "Invalid temperature");
+        require(std::isfinite(top_p) && top_p>0 && top_p<=1, "Invalid top_p");
+        require(top_k>=0, "Invalid top_k");
+        require(std::isfinite(repetition_penalty) && repetition_penalty>=1,
+                "Invalid repetition_penalty");
+    }
+};
+static double parse_real(const char* text) {
+    size_t pos=0; double value=std::stod(text,&pos);
+    require(pos==std::strlen(text), "Invalid numeric argument"); return value;
+}
+static int parse_int(const char* text) {
+    size_t pos=0; long long value=std::stoll(text,&pos);
+    require(pos==std::strlen(text) && value>=std::numeric_limits<int>::min() &&
+            value<=std::numeric_limits<int>::max(), "Invalid integer argument");
+    return int(value);
+}
+static uint64_t parse_seed(const char* text) {
+    require(text[0]!='-', "Invalid seed");
+    size_t pos=0; auto value=std::stoull(text,&pos);
+    require(pos==std::strlen(text), "Invalid seed"); return value;
+}
+static int choose_token(const Vec& logits, const std::vector<bool>& seen, int eos,
+                        const DecodeConfig& cfg, std::mt19937_64& rng) {
+    require(!logits.empty() && seen.size()==logits.size(), "Invalid sampling input");
+    std::vector<double> scores(logits.begin(),logits.end());
+    for(size_t i=0;i<scores.size();++i) {
+        require(std::isfinite(scores[i]), "Nonfinite sampling logits");
+        // Apply the penalty once per generated ID, not to the prompt or EOS.
+        if(seen[i] && int(i)!=eos)
+            scores[i] = scores[i]>=0 ? scores[i]/cfg.repetition_penalty
+                                    : scores[i]*cfg.repetition_penalty;
+        require(std::isfinite(scores[i]), "Nonfinite penalized sampling logits");
+    }
+    if(cfg.temperature==0)
+        return int(std::max_element(scores.begin(),scores.end())-scores.begin());
+    std::vector<int> order(scores.size()); std::iota(order.begin(),order.end(),0);
+    std::stable_sort(order.begin(),order.end(),[&](int a,int b){return scores[a]>scores[b];});
+    if(cfg.top_k>0 && size_t(cfg.top_k)<order.size()) order.resize(cfg.top_k);
+    const double largest=scores[order.front()];
+    std::vector<double> weights;
+    double total=0;
+    for(int token:order) {
+        double weight=std::exp((scores[token]-largest)/cfg.temperature);
+        weights.push_back(weight); total+=weight;
+    }
+    require(total>0 && std::isfinite(total), "Invalid sampling distribution");
+    // Include the token that crosses the nucleus threshold; always keep one.
+    if(cfg.top_p<1) {
+        double cumulative=0; size_t keep=0;
+        do { cumulative+=weights[keep++]; } while(keep<weights.size() && cumulative<cfg.top_p*total);
+        order.resize(keep); weights.resize(keep); total=cumulative;
+    }
+    // Explicit 53-bit uniform conversion makes seeded draws independent of the
+    // standard library's discrete_distribution implementation.
+    const double draw=double(rng()>>11)*0x1.0p-53*total;
+    double cumulative=0;
+    for(size_t i=0;i<weights.size();++i) {
+        cumulative+=weights[i]; if(draw<cumulative) return order[i];
+    }
+    return order.back();
+}
 int main(int argc,char** argv) {
     try {
-        require(argc==6,"Usage: phistate_moe_cli MODEL TOKENS_U32 LOGITS_F32 NEW_TOKENS EOS_ID");
+        require(argc==6 || argc==11,"Usage: phistate_moe_cli MODEL TOKENS_U32 LOGITS_F32 NEW_TOKENS EOS_ID [TEMPERATURE TOP_P TOP_K REPETITION_PENALTY SEED]");
+        DecodeConfig decode;
+        if(argc==11) {
+            decode.temperature=parse_real(argv[6]); decode.top_p=parse_real(argv[7]);
+            decode.top_k=parse_int(argv[8]); decode.repetition_penalty=parse_real(argv[9]);
+            decode.seed=parse_seed(argv[10]);
+        }
+        decode.validate();
         Model model(argv[1]); Reader tokens(argv[2]);
         require(tokens.remaining>0 && tokens.remaining%4==0 && tokens.remaining<=4000000,"Invalid token file");
         std::vector<int32_t> ids(tokens.remaining/4); tokens.read(ids.data(),ids.size()*4);
-        const int count=std::stoi(argv[4]),eos=std::stoi(argv[5]);
+        const int count=parse_int(argv[4]),eos=parse_int(argv[5]);
         require(count>=0 && count<=4096,"Invalid generation length");
+        require(eos>=-1 && eos<model.c.vocab,"Invalid EOS token");
         std::ofstream logits_file(argv[3],std::ios::binary); require(bool(logits_file),"Cannot create logits output");
         Vec logits;
         const auto start=std::chrono::steady_clock::now();
         for(int token:ids) { logits=model.step(token); logits_file.write(reinterpret_cast<char*>(logits.data()),logits.size()*4); }
         require(bool(logits_file),"Logits write failed");
         std::vector<int> generated;
+        std::vector<bool> seen(model.c.vocab,false);
+        std::mt19937_64 rng(decode.seed);
+        bool ended=false;
         for(int i=0;i<count;++i) {
-            int token=int(std::max_element(logits.begin(),logits.end())-logits.begin());
-            if(token==eos) break;
+            int token=choose_token(logits,seen,eos,decode,rng);
+            if(token==eos) { ended=true; break; }
             generated.push_back(token);
+            seen[token]=true;
             if(i+1<count) logits=model.step(token);
         }
         const double seconds=std::chrono::duration<double>(std::chrono::steady_clock::now()-start).count();
         std::cout << "{\"backend\":\"RFTMW C++ FP32 CPU\",\"seconds\":" << seconds
                   << ",\"prompt_tokens\":" << ids.size() << ",\"generated_ids\":[";
         for(size_t i=0;i<generated.size();++i) {if(i) std::cout<<',';std::cout<<generated[i];}
-        std::cout << "]}\n";
+        std::cout << "],\"eos\":" << (ended ? "true" : "false")
+                  << ",\"decoding_api\":1,\"temperature\":" << decode.temperature
+                  << ",\"top_p\":" << decode.top_p << ",\"top_k\":" << decode.top_k
+                  << ",\"repetition_penalty\":" << decode.repetition_penalty
+                  << ",\"seed\":" << decode.seed << "}\n";
+        return 0;
     } catch(const std::exception& e) {std::cerr<<"ERROR: "<<e.what()<<'\n';return 1;}
 }
