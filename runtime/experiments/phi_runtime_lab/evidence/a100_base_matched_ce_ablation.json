@@ -1,0 +1,119 @@
+{
+  "protocol": "matched-ordinary-next-token-ce-v1",
+  "qualified": true,
+  "source_sha256": "a34509fe02e7a88a041f96bda0806812f528d6adc70076da6b21b0eac70ba0b0",
+  "dense_module_sha256": "4e06ce9379cf53691619bd58b8839c507d6735fe70c1d653df16a0868be38c6b",
+  "tokenizer_sha256": "9f704ff69de6cb60fd7466a26b70cbd0472bb1a192f1825a7c52cfc30179ea04",
+  "split_seed": 99131,
+  "splits": {
+    "train": {
+      "windows": 3584,
+      "sha256": "67cb3a3d9f3604ae32e63f75e7a2354efdbce18b19c81ee367f672c4c09414d4"
+    },
+    "verify": {
+      "windows": 512,
+      "sha256": "6494cdc7e2e97cbec0db3932b1f2dcf9213f624d0637debc390e2a96a64e4f9c"
+    }
+  },
+  "budget": {
+    "seeds": [
+      20261113,
+      20261114
+    ],
+    "updates": 768,
+    "extra_ce": 0.0,
+    "emphasis_updates": 640,
+    "batch": 32,
+    "optimizer": "AdamW",
+    "lr": 0.0015,
+    "weight_decay": 0.01,
+    "clip": 1.0
+  },
+  "thresholds": {
+    "verify_value_accuracy": 0.9,
+    "maximum_wrong_prefix_accuracy": 0.2,
+    "train_value_accuracy": 0.9,
+    "all_token_bpt_must_drop": true
+  },
+  "scope": "Post hoc ablation, identical code/weights at initialization, model, examples, ordering, seeds, budget, optimizer and verification groups. Only the coefficient of the extra value-position cross entropy differs. This cannot establish generalization beyond this synthetic task or causal conclusions about the warm PhiState model.",
+  "runs": [
+    {
+      "seed": 20261113,
+      "steps": 768,
+      "emphasis_updates": 640,
+      "parameters": 439536,
+      "before": {
+        "windows": 512,
+        "bpt": 13.00145520549976,
+        "correct_generated_value": 0,
+        "value_accuracy": 0.0,
+        "accuracy_after_changing_only_earlier_value": 0.0
+      },
+      "after": {
+        "windows": 512,
+        "bpt": 1.7346745325145265,
+        "correct_generated_value": 512,
+        "value_accuracy": 1.0,
+        "accuracy_after_changing_only_earlier_value": 0.0
+      },
+      "training": {
+        "windows": 3584,
+        "bpt": 1.7370878702881338,
+        "correct_generated_value": 3584,
+        "value_accuracy": 1.0,
+        "accuracy_after_changing_only_earlier_value": 0.0
+      },
+      "passed": true,
+      "all_token_targets": 172032,
+      "extra_weighted_positions": 0,
+      "bonus_eligible_positions": 20480
+    },
+    {
+      "seed": 20261114,
+      "steps": 768,
+      "emphasis_updates": 640,
+      "parameters": 439536,
+      "before": {
+        "windows": 512,
+        "bpt": 13.039755053916304,
+        "correct_generated_value": 0,
+        "value_accuracy": 0.0,
+        "accuracy_after_changing_only_earlier_value": 0.0
+      },
+      "after": {
+        "windows": 512,
+        "bpt": 1.731889801716231,
+        "correct_generated_value": 512,
+        "value_accuracy": 1.0,
+        "accuracy_after_changing_only_earlier_value": 0.0
+      },
+      "training": {
+        "windows": 3584,
+        "bpt": 1.7283582116876135,
+        "correct_generated_value": 3584,
+        "value_accuracy": 1.0,
+        "accuracy_after_changing_only_earlier_value": 0.0
+      },
+      "passed": true,
+      "all_token_targets": 172032,
+      "extra_weighted_positions": 0,
+      "bonus_eligible_positions": 20480
+    }
+  ],
+  "ablation_source_sha256": "f4bc877a9c27b3b4fe4c8a06334ea16558650fa62370063d68d588303bd715c5",
+  "treatment_run_sha256": "9e24cc81cc9e808b7edd9b6cad34c5feee9060f65c84fdc6fb4bc9295d024c77",
+  "changes": [
+    {
+      "seed": 20261113,
+      "control_accuracy": 1.0,
+      "treatment_accuracy": 1.0,
+      "difference": 0.0
+    },
+    {
+      "seed": 20261114,
+      "control_accuracy": 1.0,
+      "treatment_accuracy": 1.0,
+      "difference": 0.0
+    }
+  ]
+}

@@ -100,7 +100,15 @@ def run_preflight(checkpoint, tokenizer_path, output_path, device='cuda'):
             state = torch.load(checkpoint, map_location='cpu', weights_only=True)
             if state.get('format') != 'PhiStateMoE-v1':
                 raise ValueError('Unsupported checkpoint format')
-            if state.get('tokenizer_sha256') != identity['tokenizer_sha256']:
+            token_hash = state.get('tokenizer_sha256')
+            if token_hash is None:
+                migration = state.get('corpus_migration', {})
+                if (migration.get('format') != 'PhiStateWhitespaceMigration-v1'
+                        or not state.get('data_fingerprint')
+                        or migration.get('repaired_data_fingerprint') != state['data_fingerprint']):
+                    raise ValueError('Missing verified whitespace-repair tokenizer lineage')
+                token_hash = migration.get('tokenizer_sha256')
+            if token_hash != identity['tokenizer_sha256']:
                 raise ValueError('Checkpoint tokenizer hash mismatch')
             cfg = MoEConfig(**state['config']); cfg.validate()
             tokenizer = spm.SentencePieceProcessor(model_file=str(tokenizer_path))
