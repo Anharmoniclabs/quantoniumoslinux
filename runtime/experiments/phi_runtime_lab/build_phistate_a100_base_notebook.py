@@ -65,6 +65,71 @@ def require_a100():
             raise RuntimeError("CUDA arithmetic check failed on the selected A100.")
     print(f"{gpu.name} | {gpu.total_memory / (1024**3):.1f} GiB | PyTorch {torch.__version__} | CUDA {torch.version.cuda} | CUDA operation passed", flush=True)
 
+def drive_mounts():
+    # Reading mount metadata avoids touching a broken FUSE mount.
+    mounts = []
+    for line in Path("/proc/self/mountinfo").read_text().splitlines():
+        left, right = line.split(" - ", 1)
+        kind, source, *_ = right.split()
+        if kind.startswith("fuse") and ("drive" in kind.lower() or "drive" in source.lower()):
+            raw = left.split()[4]
+            mounts.append(Path(re.sub(r"\\\\([0-7]{3})", lambda m: chr(int(m[1], 8)), raw)))
+    return mounts
+
+def ensure_drive():
+    global MOUNT, ROOT, REPORT
+    from google.colab import drive
+    relative = Path("Quantonium/PhiState-L4/whitespace_repair_v1")
+
+    def reuse():
+        global MOUNT, ROOT, REPORT
+        mounted = drive_mounts()
+        for location in mounted:
+            for home_name in ("MyDrive", "My Drive"):
+                root = location / home_name / relative
+                try:
+                    with (root / "corpus_repaired_v1/manifest.json").open("rb") as stream:
+                        if not stream.read(1):
+                            continue
+                except OSError:
+                    continue
+                MOUNT, ROOT = location, root
+                REPORT = ROOT / "phistate_a100_base_v1/report.json"
+                print("Drive project readable |", ROOT, flush=True)
+                return True
+        if mounted:
+            raise RuntimeError(
+                "Drive is mounted, but the PhiState corpus manifest is not readable. "
+                "Check that the connected Google account owns MyDrive/Quantonium/PhiState-L4. "
+                "The existing mount was left in place; training has not started.")
+        return False
+
+    if reuse():
+        return
+    # Colab's mount can stop other DriveFS processes. Never remount a live Drive.
+    if MOUNT.is_symlink() or (MOUNT.exists() and
+            (not MOUNT.is_dir() or next(MOUNT.iterdir(), None) is not None)):
+        raise RuntimeError(f"Drive mount path contains local files: {MOUNT}. Nothing was removed; training has not started.")
+    for attempt in (1, 2):
+        print(f"Connecting Google Drive ({attempt}/2). Approve the Colab access prompt.", flush=True)
+        try:
+            drive.mount(str(MOUNT), force_remount=False, timeout_ms=120000)
+        except (ValueError, OSError) as exc:
+            if reuse():
+                return
+            if attempt == 2:
+                raise RuntimeError(
+                    "Google Drive connection failed twice; training has not started. "
+                    "The A100 check passed. Open Colab's Files sidebar and use Mount Drive "
+                    "with the account holding the project, then rerun this cell. "
+                    "If mounting still fails, use Help > Send feedback with this error. "
+                    f"Last Drive error: {exc}") from exc
+            print("Drive startup failed. Retrying once in this A100 runtime.", flush=True)
+            continue
+        if reuse():
+            return
+        raise RuntimeError("Drive returned without a mounted project; training has not started.")
+
 def verify_corpus():
     directory = ROOT / "corpus_repaired_v1"
     manifest = directory / "manifest.json"
@@ -152,9 +217,7 @@ def launch():
     if not PREREQUISITE_QUALIFIED:
         raise RuntimeError("Reference qualification is incomplete for this snapshot. Leave the A100 disconnected; no Drive mount, CUDA probe, or training has been requested.")
     require_a100()
-    if not (MOUNT / "MyDrive").is_dir():
-        from google.colab import drive
-        drive.mount(str(MOUNT))
+    ensure_drive()
     verify_corpus()
     missing = [m for m in ("numpy", "sentencepiece") if importlib.util.find_spec(m) is None]
     if missing:
