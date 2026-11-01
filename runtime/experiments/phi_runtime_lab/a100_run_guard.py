@@ -5,7 +5,8 @@ numbered generations. Generations are never removed or reused, so a concurrent
 recovery cannot unlink a fresh claim. This requires shared, coherent directory
 semantics: keep one live Colab runtime per job. On a disconnected remote host,
 recover=True is the operator's confirmation that the previous worker has ended,
-not a failure detector. It still requires an expired heartbeat. Call owner.check()
+not a failure detector. It still requires an expired heartbeat unless the old
+process is proved absent on this same host and boot. Call owner.check()
 immediately before publishing checkpoint/data files when wrapping other writers.
 """
 
@@ -73,12 +74,17 @@ def _same_live_process(info):
 
 
 def _latest(root):
-    if root.is_symlink() or not root.is_dir():
-        raise RuntimeError(f'Invalid shared guard directory: {root}')
-    entries = list(root.iterdir())
-    if any(not p.name.isascii() or not p.name.isdecimal() or len(p.name) != 10
-           or p.is_symlink() or not p.is_dir() for p in entries):
-        raise RuntimeError(f'Unexpected contents in shared owner directory: {root}')
+    try:
+        if not stat.S_ISDIR(root.lstat().st_mode):
+            raise RuntimeError(f'Shared guard path is not a real directory: {root}')
+        entries = list(root.iterdir())
+        if any(not p.name.isascii() or not p.name.isdecimal() or len(p.name) != 10
+               or not stat.S_ISDIR(p.lstat().st_mode) for p in entries):
+            raise RuntimeError(f'Unexpected contents in shared owner directory: {root}')
+    except OSError as exc:
+        raise RuntimeError(
+            f'Shared guard directory is missing or unreadable: {root} '
+            f'({type(exc).__name__}: {exc})') from exc
     return max(entries, default=None)
 
 
@@ -115,9 +121,15 @@ def _allow_next(previous, recover):
         if not info or json.loads(release.read_text()).get('token') != info['token']:
             raise RuntimeError(f'Unverified release for {previous}')
         return
+    same_host = bool(info and (info['host'], info['boot_id']) == _host())
+    live = _same_live_process(info)
+    if recover and same_host and not live:
+        # /proc proved exit, zombie state, or PID reuse on this exact boot.
+        # A remote hostname mismatch alone never permits immediate recovery.
+        return
     changed = max(previous.stat().st_mtime, (previous/'owner.json').stat().st_mtime if info else 0)
     age = time.time() - changed
-    if age <= STALE_SECONDS or _same_live_process(info):
+    if age <= STALE_SECONDS or live:
         raise RuntimeError(f'Active or initializing A100 owner at {previous}; do not start another runtime')
     if not recover:
         raise RuntimeError(f'Stale A100 owner at {previous}. Confirm the old runtime has stopped before explicit recovery.')
@@ -173,14 +185,24 @@ def guarded_run(out, recover=False):
         active = _CURRENT.set(owner)
         worker = threading.Thread(target=owner.heartbeat, name='a100-owner-heartbeat', daemon=True)
         worker.start()
+        primary_error = None
         try:
             yield owner
+        except BaseException as exc:
+            primary_error = exc
+            raise
         finally:
             try:
                 owner.stop.set()
                 worker.join()
                 owner.check()
                 _write_once(generation/'released.json', {'token': token})
+            except BaseException as cleanup_error:
+                if primary_error is None:
+                    raise
+                primary_error.add_note(
+                    'A100 owner cleanup also failed; the original failure is preserved. '
+                    f'{type(cleanup_error).__name__}: {cleanup_error}')
             finally:
                 _CURRENT.reset(active)
 
