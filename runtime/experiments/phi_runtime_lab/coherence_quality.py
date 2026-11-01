@@ -339,6 +339,21 @@ def grade_answer(item, text):
                 repetition_failure=repeated)
 
 
+def generation_prompt_text(prompt):
+    """Serialize a single user string or a real conversation ending in a user turn."""
+    if isinstance(prompt, str):
+        return prompt_text([dict(role='user', content=prompt)])
+    if not isinstance(prompt, list) or not prompt:
+        raise ValueError('Expected a prompt string or a nonempty messages list')
+    for i, message in enumerate(prompt):
+        role = 'user' if i % 2 == 0 else 'assistant'
+        if not isinstance(message, dict) or message.get('role') != role or not isinstance(message.get('content'), str):
+            raise ValueError(f'Messages must alternate user/assistant with string content; invalid turn {i}')
+    if prompt[-1]['role'] != 'user':
+        raise ValueError('Generation history must end in a user turn')
+    return prompt_text(prompt)
+
+
 def generate_answer(model, tokenizer, prompt, max_tokens=128, decode_config=None, seed=20261031):
     import torch
     config = dict(temperature=0., top_p=.9, top_k=0, repetition_penalty=1.)
@@ -360,7 +375,7 @@ def generate_answer(model, tokenizer, prompt, max_tokens=128, decode_config=None
     model.eval()
     try:
         with torch.inference_mode():
-            ids = tokenizer.encode(prompt_text([dict(role='user', content=prompt)]))
+            ids = tokenizer.encode(generation_prompt_text(prompt))
             if not ids: raise ValueError('Empty encoded prompt')
             if len(ids) + max_tokens > 512:
                 raise ValueError('Prompt and generation exceed the 512-token evaluation limit')

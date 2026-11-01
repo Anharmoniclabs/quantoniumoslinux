@@ -91,7 +91,7 @@ def _check_weights(model):
 
 
 def run_arm(*, parent, tokenizer, pool, output, policy_name, device, steps, tokens_per_step,
-            seed, evaluate_callback, identity, stop_path=None):
+            seed, evaluate_callback, identity, stop_path=None, check_owner=None):
     """Pool order defines the data schedule. A partially consumed row resumes exactly.
 
     Each optimizer update sums cross-entropy over exactly tokens_per_step selected
@@ -117,11 +117,11 @@ def run_arm(*, parent, tokenizer, pool, output, policy_name, device, steps, toke
     with run_lock(output), evaluation_rng(device), _interrupt_flag() as interrupted:
         return _train(parent, processor, token_hash, output, pool, str(policy_name), device,
                       steps, tokens_per_step, int(seed), evaluate_callback, identity,
-                      Path(stop_path) if stop_path is not None else None, interrupted)
+                      Path(stop_path) if stop_path is not None else None, interrupted, check_owner)
 
 
 def _train(parent, tokenizer, token_hash, output, pool, policy_name, device, steps, budget,
-           seed, evaluate, identity, stop_path, interrupted):
+           seed, evaluate, identity, stop_path, interrupted, check_owner):
     parent_hash = sha(parent)
     source = torch.load(parent, map_location='cpu', weights_only=True)
     if sha(parent) != parent_hash:
@@ -218,6 +218,8 @@ def _train(parent, tokenizer, token_hash, output, pool, policy_name, device, ste
             trained_tokens=parent_tokens+consumed, update_metrics=updates, torch_rng_state=torch.get_rng_state(), **info)
         if device.type == 'cuda':
             checkpoint['cuda_rng_state_all'] = torch.cuda.get_rng_state_all()
+        if check_owner is not None:
+            check_owner()
         moe_train.atomic_checkpoint(latest, checkpoint)
         atomic_json(output/'progress.json', info)
         return info
@@ -225,6 +227,8 @@ def _train(parent, tokenizer, token_hash, output, pool, policy_name, device, ste
         if not curve or curve[-1]['step'] != steps:
             raise RuntimeError('Completed checkpoint missing final development evaluation')
         info = record('complete')
+        if check_owner is not None:
+            check_owner()
         atomic_json(output/'progress.json', info)
         return info
     if stopping():
